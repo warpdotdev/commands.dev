@@ -1,9 +1,10 @@
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
+import { GetStaticProps } from "next";
 
 import styles from "../styles/Home.module.css";
-import { GetStaticProps } from "next";
 import { getSortedTasksData } from "../lib/tasks";
 
 export default function Home({
@@ -13,11 +14,14 @@ export default function Home({
     id: string;
     title: string;
     description: string;
-    keywords: string[];
+    tags: string[];
   }[];
 }) {
   // Note that we are only extracting select fields from the spec data since
   // users are most likely going to search for metadata rather than the command contents.
+
+  const [query, setQuery] = useState("");
+
   return (
     <div className={styles.container}>
       <Head>
@@ -30,25 +34,37 @@ export default function Home({
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
-
         <p className={styles.description}>
           Get started by editing{" "}
           <code className={styles.code}>pages/index.tsx</code>
         </p>
-
+        <input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          type="text"
+        />
         <ul>
-          {allTasksData.map(({ id, title, description, keywords }) => (
-            <li key={id}>
-              <h2>
-                <Link href={`/tasks/${id}`}>
-                  <a>{title}</a>
-                </Link>
-              </h2>
-              <p>{description}</p>
-              <br />
-              <p>{keywords}</p>
-            </li>
-          ))}
+          {allTasksData
+            .filter(
+              ({ title, description, tags }) =>
+                title.toLowerCase().includes(query.toLowerCase()) ||
+                description.toLowerCase().includes(query.toLowerCase()) ||
+                tags.find((tag) =>
+                  tag.toLowerCase().includes(query.toLowerCase())
+                )
+            )
+            .map(({ id, title, description, tags }) => (
+              <li key={id}>
+                <h2>
+                  <Link href={`/tasks/${id}`}>
+                    <a>{title}</a>
+                  </Link>
+                </h2>
+                <p>{description}</p>
+                <br />
+                {tags.join(", ")}
+              </li>
+            ))}
         </ul>
       </main>
 

@@ -1,7 +1,7 @@
 {
   "title": "Switch between Xcode versions",
   "description": "Switch between XCode versions with xcversion",
-  "tags": ["find", "sed", "wc"],
+  "tags": ["xcversion"],
   "arguments": [{ "name": "Xcode version", "placeholder": "12" }],
   "command": "xcversion select $1"
 }
