@@ -27,3 +27,27 @@ export function getSortedTasksData() {
 
   return allTasksData;
 }
+
+export function getAllTaskIds() {
+  const fileNames = fs.readdirSync(tasksDirectory);
+  return fileNames.map((fileName) => {
+    return {
+      params: {
+        id: fileName.replace(/\.json$/, ""),
+      },
+    };
+  });
+}
+
+// Gets the relevant task based on id
+export function getTaskData(id: string) {
+  const fullPath = path.join(tasksDirectory, `${id}.json`);
+  const jsonString = fs.readFileSync(fullPath, "utf8");
+  const taskObject = JSON.parse(jsonString);
+
+  // Combine the data with the id
+  return {
+    id,
+    ...taskObject,
+  };
+}
