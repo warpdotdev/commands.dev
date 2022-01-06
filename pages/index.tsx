@@ -1,9 +1,27 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import Head from "next/head";
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
+import { GetStaticProps } from "next";
 
-const Home: NextPage = () => {
+import styles from "../styles/Home.module.css";
+import { getSortedTasksData } from "../lib/tasks";
+
+export default function Home({
+  allTasksData,
+}: {
+  allTasksData: {
+    id: string;
+    title: string;
+    description: string;
+    tags: string[];
+  }[];
+}) {
+  // Note that we are only extracting select fields from the spec data since
+  // users are most likely going to search for metadata rather than the command contents.
+
+  const [query, setQuery] = useState("");
+
   return (
     <div className={styles.container}>
       <Head>
@@ -16,41 +34,38 @@ const Home: NextPage = () => {
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
-
         <p className={styles.description}>
-          Get started by editing{' '}
+          Get started by editing{" "}
           <code className={styles.code}>pages/index.tsx</code>
         </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
+        <input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          type="text"
+        />
+        <ul>
+          {allTasksData
+            .filter(
+              ({ title, description, tags }) =>
+                title.toLowerCase().includes(query.toLowerCase()) ||
+                description.toLowerCase().includes(query.toLowerCase()) ||
+                tags.find((tag) =>
+                  tag.toLowerCase().includes(query.toLowerCase())
+                )
+            )
+            .map(({ id, title, description, tags }) => (
+              <li key={id}>
+                <h2>
+                  <Link href={`/tasks/${id}`}>
+                    <a>{title}</a>
+                  </Link>
+                </h2>
+                <p>{description}</p>
+                <br />
+                {tags.join(", ")}
+              </li>
+            ))}
+        </ul>
       </main>
 
       <footer className={styles.footer}>
@@ -59,14 +74,21 @@ const Home: NextPage = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
+          Powered by{" "}
           <span className={styles.logo}>
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>
         </a>
       </footer>
     </div>
-  )
+  );
 }
 
-export default Home
+export const getStaticProps: GetStaticProps = async () => {
+  const allTasksData = getSortedTasksData();
+  return {
+    props: {
+      allTasksData,
+    },
+  };
+};
