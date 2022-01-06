@@ -10,7 +10,7 @@ export function getSortedTasksData() {
 
   // TODO: Sort tasks by date or by Featured.
   const allTasksData = fileNames.map((fileName) => {
-    // Remove ".js" from file name to get id, which will be used for the link to each task page
+    // Remove ".json" from file name to get id, which will be used for the link to each task page
     const id = fileName.replace(/\.json$/, "");
 
     // Read task spec object from file
