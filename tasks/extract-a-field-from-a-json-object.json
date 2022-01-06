@@ -3,8 +3,12 @@
   "description": "Extract a field from a JSON object using `jq`",
   "tags": ["json", "jq", "file manipulation"],
   "arguments": [
-    { "name": "File name", "placeholder": "channel_versions" },
-    { "name": "Field", "placeholder": "dev.version" }
+    {
+      "name": "File name",
+      "placeholder": "channel_versions",
+      "id": "FILE_NAME"
+    },
+    { "name": "Field", "placeholder": "dev.version", "id": "FIELD" }
   ],
-  "command": "cat $1.json | jq '.$2'"
+  "command": "cat $FILE_NAME.json | jq '.$FIELD'"
 }

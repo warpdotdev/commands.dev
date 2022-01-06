@@ -2,6 +2,8 @@
   "title": "Count all the lines of code recursively under a directory tree",
   "description": "Count all lines of code under a directory and its subdirectories",
   "tags": ["find", "sed", "wc"],
-  "arguments": [{ "name": "File extension", "placeholder": "php" }],
-  "command": "find . -name '*.$1' | xargs  wc -l"
+  "arguments": [
+    { "name": "File extension", "placeholder": "php", "id": "FILE_EXTENSION" }
+  ],
+  "command": "find . -name '*.$FILE_EXTENSION' | xargs  wc -l"
 }

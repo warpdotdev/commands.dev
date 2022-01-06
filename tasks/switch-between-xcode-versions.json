@@ -2,6 +2,8 @@
   "title": "Switch between Xcode versions",
   "description": "Switch between XCode versions with xcversion",
   "tags": ["xcversion"],
-  "arguments": [{ "name": "Xcode version", "placeholder": "12" }],
-  "command": "xcversion select $1"
+  "arguments": [
+    { "name": "Xcode version", "placeholder": "12", "id": "XCODE_VERSION" }
+  ],
+  "command": "xcversion select $XCODE_VERSION"
 }
