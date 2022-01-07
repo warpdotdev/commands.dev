@@ -4,6 +4,10 @@ import { useState } from "react";
 
 import { getAllTaskIds, getTaskData } from "../../lib/tasks";
 
+interface ObjectType {
+  [name: string]: string;
+}
+
 export default function Task({
   taskData,
 }: {
@@ -16,9 +20,11 @@ export default function Task({
   };
 }) {
   // Initializes a key-value map of <Argument Id>: Empty String
-  const [values, setValues] = useState(
-    taskData.arguments.reduce((a, v) => ({ ...a, [v.id]: "" }), {})
+  const initialValues: ObjectType = taskData.arguments.reduce(
+    (a, v) => ({ ...a, [v.id]: "" }),
+    {}
   );
+  const [values, setValues] = useState(initialValues);
 
   // Updates the value in the map corresponding to the Argument Id key
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,10 +42,11 @@ export default function Task({
   // be overwritten by the value for $FIELD. We shall leave this bug here until design is finalized for the task page.
   const populateCommand = (command: string) => {
     taskData.arguments.forEach((argument) => {
+      let regex = new RegExp(`\\$${argument.id}`, "g");
       if (!values[argument.id] || values[argument.id] == "") {
-        command = command.replaceAll(`$${argument.id}`, argument.placeholder);
+        command = command.replace(regex, argument.placeholder);
       } else {
-        command = command.replaceAll(`$${argument.id}`, values[argument.id]);
+        command = command.replace(regex, values[argument.id]);
       }
     });
     return command;
@@ -58,7 +65,7 @@ export default function Task({
           <div key={argument.id}>
             <p>{argument.name}</p>
             <input
-              value={values[argument.id] ? values[argument.id] : ""}
+              value={values[argument.id] ?? ""}
               onChange={handleInputChange}
               type="text"
               placeholder={argument.placeholder}
@@ -82,7 +89,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const taskData = await getTaskData(params.id as string);
+  const taskData = await getTaskData(params?.id as string);
   return {
     props: {
       taskData,
