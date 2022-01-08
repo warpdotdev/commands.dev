@@ -3,6 +3,7 @@ import { GetStaticProps, GetStaticPaths } from "next";
 import { useState } from "react";
 
 import { getAllTaskIds, getTaskData } from "../../lib/tasks";
+import Layout from "../../components/layout";
 
 interface ObjectType {
   [name: string]: string;
@@ -53,7 +54,7 @@ export default function Task({
   };
 
   return (
-    <div>
+    <Layout>
       <Head>
         <title>{taskData.title}</title>
       </Head>
@@ -76,7 +77,7 @@ export default function Task({
         <br />
         <code>{populateCommand(taskData.command)}</code>
       </article>
-    </div>
+    </Layout>
   );
 }
 
