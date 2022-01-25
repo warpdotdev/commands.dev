@@ -1,12 +1,13 @@
 import Head from "next/head";
 import Link from "next/link";
+import Image from "next/image";
 
 export const siteTitle = "Commands.dev";
 
 const SearchBar = () => (
   <span className="w-screen md:w-2/3 h-9 cursor-pointer border border-white/30 text-sm rounded-full flex justify-content">
     <div className="flex items-center pl-2">
-      <img src="/search.svg" alt="Search Icon" className="w-4 h-4" />
+      <Image src="/search.svg" alt="Search Icon" width={18} height={18} />
     </div>
     <input
       type="search"
@@ -45,7 +46,12 @@ export default function Layout({
       <nav className="sticky top-0 bg-sky-900 flex items-center justify-between shadow-xs p-4">
         <div className="flex items-center text-white hidden md:flex">
           <a className="px-2" href="https://www.warp.dev">
-            <img src="/favicon.ico" alt="Warp landing page" />
+            <Image
+              src="/favicon.ico"
+              width={15}
+              height={15}
+              alt="Warp landing page"
+            />
           </a>
           <Link href="/">
             <a className="font-semibold text-xl tracking-tighter">
@@ -56,7 +62,12 @@ export default function Layout({
         <SearchBar />
         <div className="hidden md:flex opacity-80 hover:opacity-100">
           <a href="https://github.com/warpdotdev/commands.dev">
-            <img src="/github.png" alt="Commands.dev Github Repo" />
+            <Image
+              src="/github.png"
+              width={28}
+              height={28}
+              alt="Commands.dev Github Repo"
+            />
           </a>
         </div>
       </nav>
@@ -76,7 +87,13 @@ export default function Layout({
           rel="noopener noreferrer"
         >
           Powered by{" "}
-          <img src="/vercel.svg" alt="Vercel Logo" className="h-4 ml-2" />
+          <Image
+            src="/vercel.svg"
+            width={50}
+            height={50}
+            alt="Vercel Logo"
+            className="h-4 ml-2"
+          />
         </a>
       </footer>
     </div>
