@@ -1,14 +1,20 @@
 import Head from "next/head";
 import Link from "next/link";
 
-export const siteTitle = "Workflows";
+export const siteTitle = "Commands.dev";
 
 const SearchBar = () => (
-  <input
-    className="bg-transparent px-3 py-2 appearance-none w-full transition duration-150 ease-in-out pr-10"
-    value="Hello"
-    type="text"
-  />
+  <span className="w-screen md:w-2/3 h-9 cursor-pointer border border-white/30 text-sm rounded-full flex justify-content">
+    <div className="flex items-center pl-2">
+      <img src="/search.svg" alt="Search Icon" className="w-4 h-4" />
+    </div>
+    <input
+      type="search"
+      name="search"
+      placeholder="Click or press '⌘K' to search"
+      className="flex-grow px-3 text-slate-100 bg-sky-900 rounded-l-full rounded-r-full text-sm focus:outline-none"
+    />
+  </span>
 );
 
 export default function Layout({
@@ -19,12 +25,12 @@ export default function Layout({
   home?: boolean;
 }) {
   return (
-    <div>
+    <div className="bg-sky-800">
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta
           name="description"
-          content="Workflows: a beautiful, searchable index of popular terminal commands for developers"
+          content="Commands.dev: a beautiful, searchable index of popular terminal commands for developers"
         />
         {/* TODO: Ask Shikhiu for Workflows image preview */}
         <meta
@@ -36,6 +42,24 @@ export default function Layout({
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
+      <nav className="sticky top-0 bg-sky-900 flex items-center justify-between shadow-xs p-4">
+        <div className="flex items-center text-white hidden md:flex">
+          <a className="px-2" href="https://www.warp.dev">
+            <img src="/favicon.ico" alt="Warp landing page" />
+          </a>
+          <Link href="/">
+            <a className="font-semibold text-xl tracking-tighter">
+              Commands.dev
+            </a>
+          </Link>
+        </div>
+        <SearchBar />
+        <div className="hidden md:flex opacity-80 hover:opacity-100">
+          <a href="https://github.com/warpdotdev/commands.dev">
+            <img src="/github.png" alt="Commands.dev Github Repo" />
+          </a>
+        </div>
+      </nav>
       <main>{children}</main>
       {!home && (
         <div>
