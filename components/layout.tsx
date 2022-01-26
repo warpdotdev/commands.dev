@@ -62,7 +62,7 @@ export default function Layout({
         <SearchBar />
         <a
           href="https://github.com/warpdotdev/commands.dev"
-          className="text-gray-300 hover:text-white"
+          className="text-gray-300 hover:text-white hidden md:flex"
         >
           <span className="sr-only">GitHub</span>
           <svg
