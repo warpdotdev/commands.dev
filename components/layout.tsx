@@ -5,15 +5,15 @@ import Image from "next/image";
 export const siteTitle = "Commands.dev";
 
 const SearchBar = () => (
-  <span className="w-screen md:w-2/3 h-9 cursor-pointer border border-white/30 text-sm rounded-full flex justify-content">
-    <div className="flex items-center pl-2">
+  <span className="w-screen md:w-2/3 bg-sky-700 h-9 cursor-pointer border border-white/30 text-sm rounded-lg flex justify-content">
+    <div className="flex items-center px-2">
       <Image src="/search.svg" alt="Search Icon" width={18} height={18} />
     </div>
     <input
       type="search"
       name="search"
-      placeholder="Click or press '⌘K' to search"
-      className="flex-grow px-3 text-slate-100 bg-sky-900 rounded-l-full rounded-r-full text-sm focus:outline-none"
+      placeholder="Click or press 'Ctrl + K' to search"
+      className="flex-grow px-3 rounded-r-lg text-sm focus:outline-none"
     />
   </span>
 );
