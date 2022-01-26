@@ -26,7 +26,7 @@ export default function Layout({
   home?: boolean;
 }) {
   return (
-    <div className="bg-sky-800">
+    <div className="bg-sky-800 min-h-screen flex flex-col">
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta
@@ -79,7 +79,7 @@ export default function Layout({
           </svg>
         </a>
       </nav>
-      <main>{children}</main>
+      <main className="grow">{children}</main>
       {!home && (
         <div>
           <Link href="/">
