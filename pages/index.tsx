@@ -4,13 +4,13 @@ import Link from "next/link";
 import { useState } from "react";
 import { GetStaticProps } from "next";
 
-import { getSortedTasksData } from "../lib/tasks";
+import { getSortedWorkflowsData } from "../lib/workflows";
 import Layout, { siteTitle } from "../components/layout";
 
 export default function Home({
-  allTasksData,
+  allWorkflowsData,
 }: {
-  allTasksData: {
+  allWorkflowsData: {
     id: string;
     title: string;
     description: string;
@@ -46,7 +46,7 @@ export default function Home({
         </div>
       </div>
       <div className="flex flex-wrap justify-around py-5">
-        {allTasksData
+        {allWorkflowsData
           .filter(
             ({ title, description, tags }) =>
               title.toLowerCase().includes(query.toLowerCase()) ||
@@ -56,7 +56,7 @@ export default function Home({
               )
           )
           .map(({ id, title, description, tags }) => (
-            <Link href={`/tasks/${id}`} key={id}>
+            <Link href={`/workflows/${id}`} key={id}>
               <a className="p-6 m-6 border border-white/30 w-96 rounded-md bg-white bg-opacity-10 hover:bg-opacity-30">
                 <h3 className="h-15 text-xl text-white font-bold line-clamp-2">
                   {title}
@@ -83,10 +83,10 @@ export default function Home({
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const allTasksData = getSortedTasksData();
+  const allWorkflowsData = getSortedWorkflowsData();
   return {
     props: {
-      allTasksData,
+      allWorkflowsData,
     },
   };
 };
