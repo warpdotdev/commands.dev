@@ -1,15 +1,13 @@
 import Head from "next/head";
-import Image from "next/image";
-import Link from "next/link";
-import { useState } from "react";
 import { GetStaticProps } from "next";
 
 import { getSortedWorkflowsData } from "../lib/workflows";
-import Layout, {
-  siteTitle,
-  Workflow,
+import Layout, { siteTitle } from "../components/layout";
+import {
   WorkflowCard,
-} from "../components/layout";
+  Workflow,
+  WorkflowWrapper,
+} from "../components/WorkflowCard";
 
 export default function Home({
   allWorkflowsData,
@@ -32,9 +30,9 @@ export default function Home({
           </div>
         </div>
       </div>
-      <div className="flex flex-wrap justify-around py-5">
-        {allWorkflowsData.map((workflow) => WorkflowCard(workflow))}
-      </div>
+      <WorkflowWrapper>
+        {allWorkflowsData.map((workflow: Workflow) => WorkflowCard(workflow))}
+      </WorkflowWrapper>
     </Layout>
   );
 }
