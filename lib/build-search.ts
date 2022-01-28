@@ -27,8 +27,8 @@ import { getSortedWorkflowsData } from "./workflows";
 
     // Initialize the client with environment variables
     const client = algoliasearch(
-      process.env.NEXT_PUBLIC_ALGOLIA_APP_ID,
-      process.env.ALGOLIA_SEARCH_ADMIN_KEY
+      process.env.NEXT_PUBLIC_ALGOLIA_APP_ID!,
+      process.env.ALGOLIA_SEARCH_ADMIN_KEY!
     );
 
     // Initialize the index with the algolia index name we set up

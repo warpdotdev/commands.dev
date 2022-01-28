@@ -1,4 +1,5 @@
 import { connectSearchBox } from "react-instantsearch-dom";
+import { Dispatch, SetStateAction } from "react";
 
 function SearchBox({ refine }: { refine: Dispatch<SetStateAction<string>> }) {
   return (
