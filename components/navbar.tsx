@@ -24,7 +24,7 @@ export default function NavBar({ children }: { children: React.ReactNode }) {
       >
         <span className="sr-only">GitHub</span>
         <svg
-          className="w-8 h-8"
+          width="32"
           aria-hidden="true"
           fill="currentColor"
           viewBox="0 0 24 24"

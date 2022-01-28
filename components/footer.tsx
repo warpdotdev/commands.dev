@@ -9,7 +9,7 @@ const Footer = () => (
       >
         <span className="sr-only">Twitter</span>
         <svg
-          className="w-6 h-6"
+          width="24"
           aria-hidden="true"
           fill="currentColor"
           viewBox="0 0 24 24"
@@ -23,7 +23,7 @@ const Footer = () => (
       >
         <span className="sr-only">GitHub</span>
         <svg
-          className="w-6 h-6"
+          width="24"
           aria-hidden="true"
           fill="currentColor"
           viewBox="0 0 24 24"
