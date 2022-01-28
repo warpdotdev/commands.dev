@@ -1,14 +1,14 @@
 import Link from "next/link";
 
 export interface Workflow {
-  id: string;
+  slug: string;
   title: string;
   description: string;
   tags: string[];
 }
 
-export const WorkflowCard = ({ id, title, description, tags }: Workflow) => (
-  <Link href={`/workflows/${id}`} key={id}>
+export const WorkflowCard = ({ slug, title, description, tags }: Workflow) => (
+  <Link href={`/workflows/${slug}`} key={slug}>
     <a className="p-6 m-6 border border-white/30 w-96 rounded-md bg-white bg-opacity-10 hover:bg-opacity-30 active:bg-opacity-50">
       <h3 className="min-h-15 text-xl text-white font-bold h-16 line-clamp-2">
         {title}

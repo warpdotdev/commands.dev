@@ -16,9 +16,9 @@ function Hits({
   } else if (searchResults?.hits.length > 0) {
     return (
       <WorkflowWrapper>
-        {searchResults?.hits.map(({ objectID: id, title, description, tags }) =>
+        {searchResults?.hits.map(({ slug, title, description, tags }) =>
           WorkflowCard({
-            id,
+            slug,
             title,
             description,
             tags: Array.isArray(tags) ? tags : [tags],

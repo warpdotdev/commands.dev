@@ -11,7 +11,7 @@ export function getSortedWorkflowsData() {
   // TODO: Sort workflows by date or by Featured.
   const allWorkflowsData = fileNames.map((fileName) => {
     // Remove ".json" from file name to get id, which will be used for the link to each workflow page
-    const id = fileName.replace(/\.json$/, "");
+    const slug = fileName.replace(/\.json$/, "");
 
     // Read workflow spec object from file
     const fullPath = path.join(workflowsDirectory, fileName);
@@ -20,7 +20,7 @@ export function getSortedWorkflowsData() {
 
     // Combine the data with the id
     return {
-      id,
+      slug,
       ...workflowObject,
     };
   });
