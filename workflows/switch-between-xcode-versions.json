@@ -1,4 +1,5 @@
 {
+  "key": 3,
   "title": "Switch between Xcode versions",
   "description": "Switch between XCode versions with xcversion",
   "tags": ["xcversion"],

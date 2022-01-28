@@ -1,4 +1,5 @@
 {
+  "key": 1,
   "title": "Count all the lines of code recursively under a directory tree",
   "description": "Count all lines of code under a directory and its subdirectories",
   "tags": ["find", "sed", "wc"],
