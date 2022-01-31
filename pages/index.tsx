@@ -27,51 +27,57 @@ export default function Home({
       <Head>
         <title>{siteTitle}</title>
       </Head>
-
-      <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
-        <h1 className="text-6xl font-bold">
-          Welcome to{" "}
-          <a className="text-blue-600" href="https://nextjs.org">
-            Next.js!
-          </a>
-        </h1>
-
-        <p className="mt-3 text-2xl">
-          Get started by editing{" "}
-          <code className="p-3 font-mono text-lg bg-gray-100 rounded-md">
-            pages/index.tsx
-          </code>
-        </p>
-
-        <input
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          type="text"
-        />
-
-        <div className="flex flex-wrap items-center justify-around max-w-4xl mt-6 sm:w-full">
-          {allTasksData
-            .filter(
-              ({ title, description, tags }) =>
-                title.toLowerCase().includes(query.toLowerCase()) ||
-                description.toLowerCase().includes(query.toLowerCase()) ||
-                tags.find((tag) =>
-                  tag.toLowerCase().includes(query.toLowerCase())
-                )
-            )
-            .map(({ id, title, description, tags }) => (
-              <a
-                href={`/tasks/${id}`}
-                key={id}
-                className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-              >
-                <h3 className="text-2xl font-bold">{title} &rarr;</h3>
-                <p className="mt-4 text-xl">{description}</p>
-                <p className="mt-4 text-sm">{tags.join(", ")}</p>
-              </a>
-            ))}
+      <div className="bg-[url('../img/header-background.png')] bg-cover">
+        <div className="p-10 max-w-2xl">
+          <div className="md:text-3xl text-3xl font-bold text-white">
+            Find commands at the speed of thought
+          </div>
+          <div className="text-xl font-normal mt-4 text-white">
+            Commands.dev is a beautiful, searchable index of popular terminal
+            commands for developers.
+          </div>
+          <div className="mt-4 h-12 relative">
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              type="text"
+            />
+          </div>
         </div>
-      </main>
+      </div>
+      <div className="flex flex-wrap justify-around py-5">
+        {allTasksData
+          .filter(
+            ({ title, description, tags }) =>
+              title.toLowerCase().includes(query.toLowerCase()) ||
+              description.toLowerCase().includes(query.toLowerCase()) ||
+              tags.find((tag) =>
+                tag.toLowerCase().includes(query.toLowerCase())
+              )
+          )
+          .map(({ id, title, description, tags }) => (
+            <Link href={`/tasks/${id}`} key={id}>
+              <a className="p-6 m-6 border border-white/30 w-96 rounded-md bg-white bg-opacity-10 hover:bg-opacity-30">
+                <h3 className="h-15 text-xl text-white font-bold line-clamp-2">
+                  {title}
+                </h3>
+                <p className="mt-1 text-gray-300 text-l line-clamp-4 h-24">
+                  {description}
+                </p>
+                <div className="flex mt-1 flex-wrap">
+                  {tags.map((tag, id) => (
+                    <div
+                      key={id}
+                      className="rounded-full text-white bg-white bg-opacity-20 px-5 mr-2 text-sm flex flex-col justify-center text-center"
+                    >
+                      {tag}
+                    </div>
+                  ))}
+                </div>
+              </a>
+            </Link>
+          ))}
+      </div>
     </Layout>
   );
 }
