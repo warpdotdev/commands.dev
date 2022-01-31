@@ -7,7 +7,7 @@ export interface Workflow {
   tags: string[];
 }
 
-export const WorkflowCard = ({ slug, title, description, tags }: Workflow) => (
+const WorkflowCard = ({ slug, title, description, tags }: Workflow) => (
   <Link href={`/workflows/${slug}`} key={slug}>
     <a className="p-6 m-6 border border-white/30 w-96 rounded-md bg-white bg-opacity-10 hover:bg-opacity-30 active:bg-opacity-50">
       <h3 className="h-15 text-xl text-white font-bold line-clamp-2">
@@ -30,6 +30,10 @@ export const WorkflowCard = ({ slug, title, description, tags }: Workflow) => (
   </Link>
 );
 
-export function WorkflowWrapper({ children }: { children: React.ReactNode }) {
-  return <div className="flex flex-wrap justify-around py-5">{children}</div>;
+export function WorkflowCards(workflows: Workflow[]) {
+  return (
+    <div className="flex flex-wrap justify-around py-5">
+      {workflows.map((workflow) => WorkflowCard(workflow))}
+    </div>
+  );
 }

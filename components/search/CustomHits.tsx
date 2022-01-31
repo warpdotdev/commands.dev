@@ -1,6 +1,6 @@
 import { connectStateResults } from "react-instantsearch-dom";
 import { SearchState, SearchResults } from "react-instantsearch-core";
-import { WorkflowCard, WorkflowWrapper } from "../WorkflowCard";
+import { Workflow, WorkflowCards } from "../WorkflowCard";
 
 function Hits({
   searchState,
@@ -14,18 +14,16 @@ function Hits({
   if (!searchState.query || searchState.query.length == 0) {
     return <>{children}</>;
   } else if (searchResults?.hits.length > 0) {
-    return (
-      <WorkflowWrapper>
-        {searchResults?.hits.map(({ slug, title, description, tags }) =>
-          WorkflowCard({
-            slug,
-            title,
-            description,
-            tags: Array.isArray(tags) ? tags : [tags],
-          })
-        )}
-      </WorkflowWrapper>
+    const workflows: Workflow[] = searchResults!.hits.map(
+      ({ slug, title, description, tags }) =>
+        ({
+          slug,
+          title,
+          description,
+          tags: Array.isArray(tags) ? tags : [tags],
+        } as Workflow)
     );
+    return WorkflowCards(workflows);
   } else {
     return <p>No search results were found.</p>;
   }

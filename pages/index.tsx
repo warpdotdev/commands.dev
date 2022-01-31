@@ -3,11 +3,7 @@ import { GetStaticProps } from "next";
 
 import { getSortedWorkflowsData } from "../lib/workflows";
 import Layout, { siteTitle } from "../components/layout";
-import {
-  WorkflowCard,
-  Workflow,
-  WorkflowWrapper,
-} from "../components/WorkflowCard";
+import { Workflow, WorkflowCards } from "../components/WorkflowCard";
 
 export default function Home({
   allWorkflowsData,
@@ -30,9 +26,7 @@ export default function Home({
           </div>
         </div>
       </div>
-      <WorkflowWrapper>
-        {allWorkflowsData.map((workflow: Workflow) => WorkflowCard(workflow))}
-      </WorkflowWrapper>
+      {WorkflowCards(allWorkflowsData)}
     </Layout>
   );
 }
