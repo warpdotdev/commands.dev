@@ -1,5 +1,4 @@
 {
-  "key": 2,
   "title": "Extract a field from a JSON object",
   "description": "Extract a field from a JSON object using `jq`",
   "tags": ["json", "jq", "file manipulation"],

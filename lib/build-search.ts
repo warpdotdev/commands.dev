@@ -16,7 +16,7 @@ import { getSortedWorkflowsData } from "./workflows";
     const transformed = workflows.map(
       ({ key, slug, title, description, tags, command }) => {
         return {
-          objectID: key,
+          objectID: slug,
           slug,
           title,
           description,
