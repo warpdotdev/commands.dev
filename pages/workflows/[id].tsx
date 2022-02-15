@@ -2,17 +2,17 @@ import Head from "next/head";
 import { GetStaticProps, GetStaticPaths } from "next";
 import { useState } from "react";
 
-import { getAllTaskIds, getTaskData } from "../../lib/tasks";
+import { getAllWorkflowIds, getWorkflowData } from "../../lib/workflows";
 import Layout from "../../components/layout";
 
 interface ObjectType {
   [name: string]: string;
 }
 
-export default function Task({
-  taskData,
+export default function Workflow({
+  workflowData,
 }: {
-  taskData: {
+  workflowData: {
     title: string;
     description: string;
     tags: string[];
@@ -21,7 +21,7 @@ export default function Task({
   };
 }) {
   // Initializes a key-value map of <Argument Id>: Empty String
-  const initialValues: ObjectType = taskData.arguments.reduce(
+  const initialValues: ObjectType = workflowData.arguments.reduce(
     (a, v) => ({ ...a, [v.id]: "" }),
     {}
   );
@@ -40,9 +40,9 @@ export default function Task({
   // otherwise. Example: The command "cat $FILE_NAME.json | jq '.$FIELD'" will become "cat simple.json | jq '.name'"
   // if the values the user supplied are: {FILE_NAME: "simple", FIELD: "name"}
   // TODO: Fix bug where user input is overwritten. If the user inputs "$FIELD" for $FILE_NAME, then that input will
-  // be overwritten by the value for $FIELD. We shall leave this bug here until design is finalized for the task page.
+  // be overwritten by the value for $FIELD. We shall leave this bug here until design is finalized for the workflow page.
   const populateCommand = (command: string) => {
-    taskData.arguments.forEach((argument) => {
+    workflowData.arguments.forEach((argument) => {
       let regex = new RegExp(`\\$${argument.id}`, "g");
       if (!values[argument.id] || values[argument.id] == "") {
         command = command.replace(regex, argument.placeholder);
@@ -56,13 +56,13 @@ export default function Task({
   return (
     <Layout>
       <Head>
-        <title>{taskData.title}</title>
+        <title>{workflowData.title}</title>
       </Head>
       <article>
-        <h1>{taskData.title}</h1>
-        <p>{taskData.description}</p>
-        {taskData.tags.join(", ")}
-        {taskData.arguments.map((argument) => (
+        <h1>{workflowData.title}</h1>
+        <p>{workflowData.description}</p>
+        {workflowData.tags.join(", ")}
+        {workflowData.arguments.map((argument) => (
           <div key={argument.id}>
             <p>{argument.name}</p>
             <input
@@ -75,14 +75,14 @@ export default function Task({
           </div>
         ))}
         <br />
-        <code>{populateCommand(taskData.command)}</code>
+        <code>{populateCommand(workflowData.command)}</code>
       </article>
     </Layout>
   );
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = getAllTaskIds();
+  const paths = getAllWorkflowIds();
   return {
     paths,
     fallback: false,
@@ -90,10 +90,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const taskData = await getTaskData(params?.id as string);
+  const workflowData = await getWorkflowData(params?.id as string);
   return {
     props: {
-      taskData,
+      workflowData,
     },
   };
 };

@@ -1,27 +1,15 @@
 import Head from "next/head";
-import Image from "next/image";
-import Link from "next/link";
-import { useState } from "react";
 import { GetStaticProps } from "next";
 
-import { getSortedTasksData } from "../lib/tasks";
+import { getSortedWorkflowsData } from "../lib/workflows";
 import Layout, { siteTitle } from "../components/layout";
+import { Workflow, WorkflowCards } from "../components/WorkflowCard";
 
 export default function Home({
-  allTasksData,
+  allWorkflowsData,
 }: {
-  allTasksData: {
-    id: string;
-    title: string;
-    description: string;
-    tags: string[];
-  }[];
+  allWorkflowsData: Workflow[];
 }) {
-  // Note that we are only extracting select fields from the spec data since
-  // users are most likely going to search for metadata rather than the command contents.
-
-  const [query, setQuery] = useState("");
-
   return (
     <Layout home>
       <Head>
@@ -36,57 +24,18 @@ export default function Home({
             Commands.dev is a beautiful, searchable index of popular terminal
             commands for developers.
           </div>
-          <div className="mt-4 h-12 relative">
-            <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              type="text"
-            />
-          </div>
         </div>
       </div>
-      <div className="flex flex-wrap justify-around py-5">
-        {allTasksData
-          .filter(
-            ({ title, description, tags }) =>
-              title.toLowerCase().includes(query.toLowerCase()) ||
-              description.toLowerCase().includes(query.toLowerCase()) ||
-              tags.find((tag) =>
-                tag.toLowerCase().includes(query.toLowerCase())
-              )
-          )
-          .map(({ id, title, description, tags }) => (
-            <Link href={`/tasks/${id}`} key={id}>
-              <a className="p-6 m-6 border border-white/30 w-96 rounded-md bg-white bg-opacity-10 hover:bg-opacity-30">
-                <h3 className="h-15 text-xl text-white font-bold line-clamp-2">
-                  {title}
-                </h3>
-                <p className="mt-1 text-gray-300 text-l line-clamp-4 h-24">
-                  {description}
-                </p>
-                <div className="flex mt-1 flex-wrap">
-                  {tags.map((tag, id) => (
-                    <div
-                      key={id}
-                      className="rounded-full text-white bg-white bg-opacity-20 px-5 mr-2 text-sm flex flex-col justify-center text-center"
-                    >
-                      {tag}
-                    </div>
-                  ))}
-                </div>
-              </a>
-            </Link>
-          ))}
-      </div>
+      {WorkflowCards(allWorkflowsData)}
     </Layout>
   );
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const allTasksData = getSortedTasksData();
+  const allWorkflowsData = getSortedWorkflowsData();
   return {
     props: {
-      allTasksData,
+      allWorkflowsData,
     },
   };
 };
