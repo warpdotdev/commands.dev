@@ -5,8 +5,14 @@ import { useState } from "react";
 import { getAllWorkflowIds, getWorkflowData } from "../../lib/workflows";
 import Layout from "../../components/layout";
 
-interface ObjectType {
+interface ArgumentValues {
   [name: string]: string;
+}
+
+interface Argument {
+  name: string;
+  placeholder: string;
+  id: string;
 }
 
 export default function Workflow({
@@ -16,16 +22,19 @@ export default function Workflow({
     title: string;
     description: string;
     tags: string[];
-    arguments: { name: string; placeholder: string; id: string }[];
+    arguments: Argument[];
     command: string;
   };
 }) {
   // Initializes a key-value map of <Argument Id>: Empty String
-  const initialValues: ObjectType = workflowData.arguments.reduce(
+  const initialValues: ArgumentValues = workflowData.arguments.reduce(
     (a, v) => ({ ...a, [v.id]: "" }),
     {}
   );
   const [values, setValues] = useState(initialValues);
+  const [focusedArg, setFocusedArg] = useState(
+    workflowData.arguments.length > 0 ? workflowData.arguments[0].id : ""
+  );
 
   // Updates the value in the map corresponding to the Argument Id key
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,21 +45,53 @@ export default function Workflow({
     }));
   };
 
-  // `populateCommand` replaces variables in the `command` with the values if they exist, or with the placeholder
+  const getArgHighlight = (id: string) => {
+    return (
+      (focusedArg === id ? "bg-sky-500/50" : "bg-gray-400") + " px-1 font-mono"
+    );
+  };
+
+  // `renderCommandWithHighlights` replaces variables in the `command` with the values if they exist, or with the placeholder
   // otherwise. Example: The command "cat $FILE_NAME.json | jq '.$FIELD'" will become "cat simple.json | jq '.name'"
   // if the values the user supplied are: {FILE_NAME: "simple", FIELD: "name"}
-  // TODO: Fix bug where user input is overwritten. If the user inputs "$FIELD" for $FILE_NAME, then that input will
-  // be overwritten by the value for $FIELD. We shall leave this bug here until design is finalized for the workflow page.
-  const populateCommand = (command: string) => {
-    workflowData.arguments.forEach((argument) => {
-      let regex = new RegExp(`\\$${argument.id}`, "g");
-      if (!values[argument.id] || values[argument.id] == "") {
-        command = command.replace(regex, argument.placeholder);
-      } else {
-        command = command.replace(regex, values[argument.id]);
+  const renderCommandWithHighlights = (command: string) => {
+    if (workflowData.arguments.length === 0) {
+      return [<>{command}</>];
+    }
+    if (command.length === 0) {
+      return [];
+    }
+    let commandWithHighlights: JSX.Element[] = [];
+    for (let argument of workflowData.arguments) {
+      // This regex ensures that the split happens only on the first occurence of the word
+      let regex = new RegExp(`\\$${argument.id}(.*)`, "g");
+      const [beforeArg, afterArg] = command.split(regex);
+      // If this arg is not a match - continue
+      if (beforeArg === command) {
+        continue;
       }
-    });
-    return command;
+
+      let renderedArgText = argument.placeholder;
+      if (values[argument.id] && values[argument.id] != "") {
+        renderedArgText = values[argument.id];
+      }
+      // If there was a match, recurse on the substrings and return what's built
+      commandWithHighlights.push(
+        <>
+          {renderCommandWithHighlights(beforeArg)}
+          {
+            <span className={getArgHighlight(argument.id)}>
+              {renderedArgText}
+            </span>
+          }
+          {renderCommandWithHighlights(afterArg)}
+        </>
+      );
+      return commandWithHighlights;
+    }
+    // If there were no matches, just add the current command and return
+    commandWithHighlights.push(<>{command}</>);
+    return commandWithHighlights;
   };
 
   return (
@@ -64,18 +105,22 @@ export default function Workflow({
         {workflowData.tags.join(", ")}
         {workflowData.arguments.map((argument) => (
           <div key={argument.id}>
-            <p>{argument.name}</p>
+            <span className={getArgHighlight(argument.id)}>
+              {argument.name}
+            </span>
+            <div />
             <input
               value={values[argument.id] ?? ""}
               onChange={handleInputChange}
               type="text"
               placeholder={argument.placeholder}
               name={argument.id}
+              onFocus={() => setFocusedArg(argument.id)}
             />
           </div>
         ))}
         <br />
-        <code>{populateCommand(workflowData.command)}</code>
+        <code>{renderCommandWithHighlights(workflowData.command)}</code>
       </article>
     </Layout>
   );
