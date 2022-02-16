@@ -68,9 +68,8 @@ export default function Workflow({
   };
 
   // `getCommandWithHighlights` creates an array of HighlightedText objects which represents a string of text
-  // and its associated highlight color based on the
-  // Example: The command "cat $FILE_NAME.json | jq '.$FIELD'" will become "cat simple.json | jq '.name'"
-  // if the values the user supplied are: {FILE_NAME: "simple", FIELD: "name"}
+  // and its associated Highlight status based on whether not the current argument is focused.
+  // TODO: add a test for this function
   const getCommandWithHighlights = (command: string) => {
     if (command.length === 0) {
       return [];
