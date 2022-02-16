@@ -79,7 +79,7 @@ export default function Workflow({
       // This regex ensures that the split happens only on the first occurence of the word
       let regex = new RegExp(`\\$${argument.id}(.*)`, "g");
       const [beforeArg, afterArg] = command.split(regex);
-      // If this arg is not a match - continue
+      // If this arg is not a match - continue to the next arg
       if (beforeArg === command) {
         continue;
       }
