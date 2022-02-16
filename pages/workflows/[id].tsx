@@ -144,8 +144,11 @@ export default function Workflow({
         <br />
         <code>
           {getCommandWithHighlights(workflowData.command).map(
-            (highlightedText) => (
-              <span className={getArgHighlight(highlightedText.highlight)}>
+            (highlightedText, idx) => (
+              <span
+                key={idx}
+                className={getArgHighlight(highlightedText.highlight)}
+              >
                 {highlightedText.text}
               </span>
             )
