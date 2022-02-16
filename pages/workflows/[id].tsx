@@ -55,9 +55,6 @@ export default function Workflow({
   // otherwise. Example: The command "cat $FILE_NAME.json | jq '.$FIELD'" will become "cat simple.json | jq '.name'"
   // if the values the user supplied are: {FILE_NAME: "simple", FIELD: "name"}
   const renderCommandWithHighlights = (command: string) => {
-    if (workflowData.arguments.length === 0) {
-      return [<>{command}</>];
-    }
     if (command.length === 0) {
       return [];
     }
