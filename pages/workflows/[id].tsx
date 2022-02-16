@@ -15,6 +15,17 @@ interface Argument {
   id: string;
 }
 
+interface HighlightedText {
+  text: string;
+  highlight: Highlight;
+}
+
+enum Highlight {
+  FOCUSED,
+  UNFOCUSED,
+  NONE,
+}
+
 export default function Workflow({
   workflowData,
 }: {
@@ -33,7 +44,7 @@ export default function Workflow({
   );
   const [values, setValues] = useState(initialValues);
   const [focusedArg, setFocusedArg] = useState(
-    workflowData.arguments.length > 0 ? workflowData.arguments[0].id : ""
+    workflowData.arguments.length > 0 ? workflowData.arguments[0].id : null
   );
 
   // Updates the value in the map corresponding to the Argument Id key
@@ -45,20 +56,26 @@ export default function Workflow({
     }));
   };
 
-  const getArgHighlight = (id: string) => {
-    return (
-      (focusedArg === id ? "bg-sky-500/50" : "bg-gray-400") + " px-1 font-mono"
-    );
+  const getArgHighlight = (highlight: Highlight) => {
+    switch (highlight) {
+      case Highlight.FOCUSED:
+        return "bg-sky-500/50 px-1 font-mono";
+      case Highlight.UNFOCUSED:
+        return "bg-gray-400 px-1 font-mono";
+      case Highlight.NONE:
+        return "";
+    }
   };
 
-  // `renderCommandWithHighlights` replaces variables in the `command` with the values if they exist, or with the placeholder
-  // otherwise. Example: The command "cat $FILE_NAME.json | jq '.$FIELD'" will become "cat simple.json | jq '.name'"
+  // `getCommandWithHighlights` creates an array of HighlightedText objects which represents a string of text
+  // and its associated highlight color based on the
+  // Example: The command "cat $FILE_NAME.json | jq '.$FIELD'" will become "cat simple.json | jq '.name'"
   // if the values the user supplied are: {FILE_NAME: "simple", FIELD: "name"}
-  const renderCommandWithHighlights = (command: string) => {
+  const getCommandWithHighlights = (command: string) => {
     if (command.length === 0) {
       return [];
     }
-    let commandWithHighlights: JSX.Element[] = [];
+    let commandWithHighlights: HighlightedText[] = [];
     for (let argument of workflowData.arguments) {
       // This regex ensures that the split happens only on the first occurence of the word
       let regex = new RegExp(`\\$${argument.id}(.*)`, "g");
@@ -72,22 +89,25 @@ export default function Workflow({
       if (values[argument.id] && values[argument.id] != "") {
         renderedArgText = values[argument.id];
       }
+
       // If there was a match, recurse on the substrings and return what's built
-      commandWithHighlights.push(
-        <>
-          {renderCommandWithHighlights(beforeArg)}
-          {
-            <span className={getArgHighlight(argument.id)}>
-              {renderedArgText}
-            </span>
-          }
-          {renderCommandWithHighlights(afterArg)}
-        </>
+      commandWithHighlights = commandWithHighlights.concat(
+        getCommandWithHighlights(beforeArg)
       );
+      commandWithHighlights.push({
+        text: renderedArgText,
+        highlight:
+          focusedArg === argument.id ? Highlight.FOCUSED : Highlight.UNFOCUSED,
+      });
+      commandWithHighlights = commandWithHighlights.concat(
+        getCommandWithHighlights(afterArg)
+      );
+
       return commandWithHighlights;
     }
+
     // If there were no matches, just add the current command and return
-    commandWithHighlights.push(<>{command}</>);
+    commandWithHighlights.push({ text: command, highlight: Highlight.NONE });
     return commandWithHighlights;
   };
 
@@ -102,7 +122,13 @@ export default function Workflow({
         {workflowData.tags.join(", ")}
         {workflowData.arguments.map((argument) => (
           <div key={argument.id}>
-            <span className={getArgHighlight(argument.id)}>
+            <span
+              className={getArgHighlight(
+                focusedArg === argument.id
+                  ? Highlight.FOCUSED
+                  : Highlight.UNFOCUSED
+              )}
+            >
               {argument.name}
             </span>
             <div />
@@ -117,7 +143,15 @@ export default function Workflow({
           </div>
         ))}
         <br />
-        <code>{renderCommandWithHighlights(workflowData.command)}</code>
+        <code>
+          {getCommandWithHighlights(workflowData.command).map(
+            (highlightedText) => (
+              <span className={getArgHighlight(highlightedText.highlight)}>
+                {highlightedText.text}
+              </span>
+            )
+          )}
+        </code>
       </article>
     </Layout>
   );
