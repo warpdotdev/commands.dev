@@ -15,13 +15,21 @@ interface Argument {
   id: string;
 }
 
+enum TokenType {
+  ArgumentToken,
+  TextToken,
+}
 interface ArgumentToken {
+  type: TokenType.ArgumentToken;
   id: string;
 }
 
 interface TextToken {
-  text: String;
+  type: TokenType.TextToken;
+  text: string;
 }
+
+type Token = ArgumentToken | TextToken;
 
 export default function Workflow({
   workflowData,
@@ -77,7 +85,7 @@ export default function Workflow({
     if (command.length === 0) {
       return [];
     }
-    let commandTokens: (ArgumentToken | TextToken)[] = [];
+    let commandTokens: Token[] = [];
     for (let argument of workflowData.arguments) {
       // This regex ensures that the split happens only on the first occurence of the word
       let regex = new RegExp(`\\$${argument.id}(.*)`, "g");
@@ -90,6 +98,7 @@ export default function Workflow({
       // If there was a match, recurse on the substrings, add the ArgToken, and return what's built
       commandTokens = commandTokens.concat(getTokenizedCommand(beforeArg));
       commandTokens.push({
+        type: TokenType.ArgumentToken,
         id: argument.id,
       });
       commandTokens = commandTokens.concat(getTokenizedCommand(afterArg));
@@ -98,7 +107,7 @@ export default function Workflow({
     }
 
     // If there were no matches, just add the current command as a TextToken and return
-    commandTokens.push({ text: command });
+    commandTokens.push({ type: TokenType.TextToken, text: command });
     return commandTokens;
   };
 
@@ -131,15 +140,18 @@ export default function Workflow({
         <code>
           {/* If the token is a text token (has "text" in the object) then render it normally, else
           retrieve its value from the input or placeholder and render it with highlight */}
-          {getTokenizedCommand(workflowData.command).map((token, idx) =>
-            "text" in token ? (
-              <span key={idx}>{token.text}</span>
-            ) : (
-              <span key={idx} className={getArgHighlight(token.id)}>
-                {getArgText(token.id)}
-              </span>
-            )
-          )}
+          {getTokenizedCommand(workflowData.command).map((token, idx) => {
+            switch (token.type) {
+              case TokenType.ArgumentToken:
+                return (
+                  <span key={idx} className={getArgHighlight(token.id)}>
+                    {getArgText(token.id)}
+                  </span>
+                );
+              case TokenType.TextToken:
+                return <span key={idx}>{token.text}</span>;
+            }
+          })}
         </code>
       </article>
     </Layout>
