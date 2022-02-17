@@ -15,9 +15,12 @@ interface Argument {
   id: string;
 }
 
-interface CommandToken {
+interface ArgumentToken {
+  id: string;
+}
+
+interface TextToken {
   text: String;
-  argId: String | null;
 }
 
 export default function Workflow({
@@ -50,16 +53,22 @@ export default function Workflow({
     }));
   };
 
-  const getArgHighlight = (id: String | null) => {
-    switch (id) {
-      case focusedArg:
-        return "bg-sky-500/50 px-1 font-mono";
-      case null:
-        return "";
-      default:
-        return "bg-gray-400 px-1 font-mono";
+  const getArgText = (id: string) => {
+    // If there's something typed in the input box - return that
+    if (values[id] && values[id] != "") {
+      return values[id];
+    }
+
+    // If there's not something typed - retrieve the placeholder
+    for (let argument of workflowData.arguments) {
+      if (argument.id === id) {
+        return argument.placeholder;
+      }
     }
   };
+
+  const getArgHighlight = (id: string) =>
+    (focusedArg === id ? "bg-sky-500/50" : "bg-gray-400") + " px-1 font-mono";
 
   // `getTokenizedCommand` creates an array of CommandTokens which represent a string of text
   // and its associated argument argId if that token represents an argument.
@@ -68,7 +77,7 @@ export default function Workflow({
     if (command.length === 0) {
       return [];
     }
-    let commandTokens: CommandToken[] = [];
+    let commandTokens: (ArgumentToken | TextToken)[] = [];
     for (let argument of workflowData.arguments) {
       // This regex ensures that the split happens only on the first occurence of the word
       let regex = new RegExp(`\\$${argument.id}(.*)`, "g");
@@ -78,24 +87,18 @@ export default function Workflow({
         continue;
       }
 
-      let renderedArgText = argument.placeholder;
-      if (values[argument.id] && values[argument.id] != "") {
-        renderedArgText = values[argument.id];
-      }
-
-      // If there was a match, recurse on the substrings and return what's built
+      // If there was a match, recurse on the substrings, add the ArgToken, and return what's built
       commandTokens = commandTokens.concat(getTokenizedCommand(beforeArg));
       commandTokens.push({
-        text: renderedArgText,
-        argId: argument.id,
+        id: argument.id,
       });
       commandTokens = commandTokens.concat(getTokenizedCommand(afterArg));
 
       return commandTokens;
     }
 
-    // If there were no matches, just add the current command and return
-    commandTokens.push({ text: command, argId: null });
+    // If there were no matches, just add the current command as a TextToken and return
+    commandTokens.push({ text: command });
     return commandTokens;
   };
 
@@ -126,11 +129,17 @@ export default function Workflow({
         ))}
         <br />
         <code>
-          {getTokenizedCommand(workflowData.command).map((token, idx) => (
-            <span key={idx} className={getArgHighlight(token.argId)}>
-              {token.text}
-            </span>
-          ))}
+          {/* If the token is a text token (has "text" in the object) then render it normally, else
+          retrieve its value from the input or placeholder and render it with highlight */}
+          {getTokenizedCommand(workflowData.command).map((token, idx) =>
+            "text" in token ? (
+              <span key={idx}>{token.text}</span>
+            ) : (
+              <span key={idx} className={getArgHighlight(token.id)}>
+                {getArgText(token.id)}
+              </span>
+            )
+          )}
         </code>
       </article>
     </Layout>
