@@ -15,15 +15,9 @@ interface Argument {
   id: string;
 }
 
-interface HighlightedText {
-  text: string;
-  highlight: Highlight;
-}
-
-enum Highlight {
-  FOCUSED,
-  UNFOCUSED,
-  NONE,
+interface CommandToken {
+  text: String;
+  argId: String | null;
 }
 
 export default function Workflow({
@@ -56,25 +50,25 @@ export default function Workflow({
     }));
   };
 
-  const getArgHighlight = (highlight: Highlight) => {
-    switch (highlight) {
-      case Highlight.FOCUSED:
+  const getArgHighlight = (id: String | null) => {
+    switch (id) {
+      case focusedArg:
         return "bg-sky-500/50 px-1 font-mono";
-      case Highlight.UNFOCUSED:
-        return "bg-gray-400 px-1 font-mono";
-      case Highlight.NONE:
+      case null:
         return "";
+      default:
+        return "bg-gray-400 px-1 font-mono";
     }
   };
 
-  // `getCommandWithHighlights` creates an array of HighlightedText objects which represents a string of text
-  // and its associated Highlight status based on whether not the current argument is focused.
+  // `getTokenizedCommand` creates an array of CommandTokens which represent a string of text
+  // and its associated argument argId if that token represents an argument.
   // TODO: add a test for this function
-  const getCommandWithHighlights = (command: string) => {
+  const getTokenizedCommand = (command: string) => {
     if (command.length === 0) {
       return [];
     }
-    let commandWithHighlights: HighlightedText[] = [];
+    let commandTokens: CommandToken[] = [];
     for (let argument of workflowData.arguments) {
       // This regex ensures that the split happens only on the first occurence of the word
       let regex = new RegExp(`\\$${argument.id}(.*)`, "g");
@@ -90,24 +84,19 @@ export default function Workflow({
       }
 
       // If there was a match, recurse on the substrings and return what's built
-      commandWithHighlights = commandWithHighlights.concat(
-        getCommandWithHighlights(beforeArg)
-      );
-      commandWithHighlights.push({
+      commandTokens = commandTokens.concat(getTokenizedCommand(beforeArg));
+      commandTokens.push({
         text: renderedArgText,
-        highlight:
-          focusedArg === argument.id ? Highlight.FOCUSED : Highlight.UNFOCUSED,
+        argId: argument.id,
       });
-      commandWithHighlights = commandWithHighlights.concat(
-        getCommandWithHighlights(afterArg)
-      );
+      commandTokens = commandTokens.concat(getTokenizedCommand(afterArg));
 
-      return commandWithHighlights;
+      return commandTokens;
     }
 
     // If there were no matches, just add the current command and return
-    commandWithHighlights.push({ text: command, highlight: Highlight.NONE });
-    return commandWithHighlights;
+    commandTokens.push({ text: command, argId: null });
+    return commandTokens;
   };
 
   return (
@@ -121,13 +110,7 @@ export default function Workflow({
         {workflowData.tags.join(", ")}
         {workflowData.arguments.map((argument) => (
           <div key={argument.id}>
-            <span
-              className={getArgHighlight(
-                focusedArg === argument.id
-                  ? Highlight.FOCUSED
-                  : Highlight.UNFOCUSED
-              )}
-            >
+            <span className={getArgHighlight(argument.id)}>
               {argument.name}
             </span>
             <div />
@@ -143,16 +126,11 @@ export default function Workflow({
         ))}
         <br />
         <code>
-          {getCommandWithHighlights(workflowData.command).map(
-            (highlightedText, idx) => (
-              <span
-                key={idx}
-                className={getArgHighlight(highlightedText.highlight)}
-              >
-                {highlightedText.text}
-              </span>
-            )
-          )}
+          {getTokenizedCommand(workflowData.command).map((token, idx) => (
+            <span key={idx} className={getArgHighlight(token.argId)}>
+              {token.text}
+            </span>
+          ))}
         </code>
       </article>
     </Layout>
