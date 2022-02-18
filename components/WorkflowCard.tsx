@@ -9,7 +9,7 @@ export interface Workflow {
 
 const WorkflowCard = ({ slug, title, description, tags }: Workflow) => (
   <Link href={`/workflows/${slug}`} key={slug}>
-    <a className="p-6 m-6 border border-card-border-light dark:card-border-dark w-96 rounded-md bg-card-light dark:bg-card-dark bg-opacity-10 hover:bg-opacity-30 active:bg-opacity-50">
+    <a className="hover:bg-opacity-30 active:bg-opacity-50 p-6 m-6 border border-card-border-light dark:border-card-border-dark w-96 rounded-md bg-card-light dark:bg-card-dark">
       <h3 className="h-15 text-xl text-black dark:text-white font-bold line-clamp-2">
         {title}
       </h3>
@@ -20,7 +20,7 @@ const WorkflowCard = ({ slug, title, description, tags }: Workflow) => (
         {tags.map((tag, id) => (
           <div
             key={id}
-            className="rounded-full text-black dark:text-white bg-pill-light dark: bg-pill-dark bg-opacity-20 px-5 mr-2 text-sm flex flex-col justify-center text-center"
+            className="rounded-full text-black dark:text-white bg-pill-light dark:bg-pill-dark px-5 mr-2 text-sm flex flex-col justify-center text-center"
           >
             {tag}
           </div>

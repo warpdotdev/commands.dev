@@ -14,6 +14,8 @@ module.exports = {
         "pill-light": "rgba(0, 0, 0, 0.1)",
         "pill-dark": "rgba(255, 255, 255, 0.1)",
         "arg-highlight": "rgb(17, 109, 114)",
+        "icon-light": "rgba(0, 0, 0, 1)",
+        "icon-dark": "rgba(255, 255, 255, 1)",
       },
     },
   },
