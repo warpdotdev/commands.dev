@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function NavBar({ children }: { children: React.ReactNode }) {
   return (
-    <nav className="sticky top-0 bg-sky-900 flex items-center justify-between shadow-xs p-4">
+    <nav className="sticky top-0 dark:bg-card-dark bg-card-light flex items-center justify-between shadow-xs p-4">
       <div className="flex items-center text-white hidden md:flex">
         <a className="px-2" href="https://www.warp.dev">
           <Image
@@ -14,7 +14,9 @@ export default function NavBar({ children }: { children: React.ReactNode }) {
           />
         </a>
         <Link href="/">
-          <a className="font-semibold text-xl tracking-tighter">Commands.dev</a>
+          <a className="font-semibold text-xl text-black dark:text-white tracking-tighter">
+            Commands.dev
+          </a>
         </Link>
       </div>
       {children}
