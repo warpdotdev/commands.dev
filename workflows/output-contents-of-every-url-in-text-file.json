@@ -1,0 +1,18 @@
+{
+  "title": "Output the contents of every URL in a text file",
+  "description": "Output the contents of every URL in a text file",
+  "tags": ["json", "jq", "file manipulation"],
+  "arguments": [
+    {
+      "name": "input_file_name",
+      "placeholder": "input_file_name",
+      "id": "INPUT_FILE_NAME"
+    },
+    {
+      "name": "output_file_name",
+      "placeholder": "output_file_name",
+      "id": "OUTPUT_FILE_NAME"
+    }
+  ],
+  "command": "for url in $(cat $INPUT_FILE_NAME); do\n\tcontent=$(curl -I -s `{$url}`)\n\techo `URL: $url` >> $OUTPUT_FILE_NAME\n\techo `$content` >> $OUTPUT_FILE_NAME\ndone"
+}

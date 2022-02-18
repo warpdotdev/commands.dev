@@ -16,6 +16,8 @@ module.exports = {
         "arg-highlight": "rgb(17, 109, 114)",
         "icon-light": "rgba(0, 0, 0, 1)",
         "icon-dark": "rgba(255, 255, 255, 1)",
+        "command-light": "rgba(0, 0, 0, 0.05)",
+        "command-dark": "rgba(255, 255, 255, 0.05)",
       },
     },
   },

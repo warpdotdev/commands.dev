@@ -1,4 +1,5 @@
 import Link from "next/link";
+import WorkflowTags from "./WorkflowTags";
 
 export interface Workflow {
   slug: string;
@@ -16,16 +17,7 @@ const WorkflowCard = ({ slug, title, description, tags }: Workflow) => (
       <p className="mt-1 text-black dark:text-white text-l line-clamp-4 h-24">
         {description}
       </p>
-      <div className="flex mt-1 flex-wrap">
-        {tags.map((tag, id) => (
-          <div
-            key={id}
-            className="rounded-full text-black dark:text-white bg-pill-light dark:bg-pill-dark px-5 mr-2 text-sm flex flex-col justify-center text-center"
-          >
-            {tag}
-          </div>
-        ))}
-      </div>
+      {WorkflowTags(tags)}
     </a>
   </Link>
 );
