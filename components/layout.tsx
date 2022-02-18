@@ -22,7 +22,7 @@ export default function Layout({
   home?: boolean;
 }) {
   return (
-    <div className="bg-sky-800 min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta
@@ -55,7 +55,6 @@ export default function Layout({
           </Link>
         </div>
       )}
-      <Footer />
     </div>
   );
 }

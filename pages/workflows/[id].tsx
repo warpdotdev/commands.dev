@@ -75,8 +75,11 @@ export default function Workflow({
     }
   };
 
-  const getArgHighlight = (id: string) =>
-    (focusedArg === id ? "bg-sky-500/50" : "bg-gray-400") + " px-1 font-mono";
+  const getArgHighlightStyle = (id: string) =>
+    (focusedArg === id
+      ? "text-white dark:text-white font-medium"
+      : "bg-opacity-30 text-black dark:text-white") +
+    " bg-arg-highlight px-1 font-mono";
 
   // `getTokenizedCommand` creates an array of CommandTokens which represent a string of text
   // and its associated argument argId if that token represents an argument.
@@ -117,12 +120,16 @@ export default function Workflow({
         <title>{workflowData.title}</title>
       </Head>
       <article>
-        <h1>{workflowData.title}</h1>
-        <p>{workflowData.description}</p>
-        {workflowData.tags.join(", ")}
+        <h1 className="text-xl text-black dark:text-white font-bold">
+          {workflowData.title}
+        </h1>
+        <p className="text-black dark:text-white">{workflowData.description}</p>
+        <span className="text-black dark:text-white">
+          {workflowData.tags.join(", ")}
+        </span>
         {workflowData.arguments.map((argument) => (
           <div key={argument.id}>
-            <span className={getArgHighlight(argument.id)}>
+            <span className={getArgHighlightStyle(argument.id)}>
               {argument.name}
             </span>
             <div />
@@ -144,12 +151,16 @@ export default function Workflow({
             switch (token.type) {
               case TokenType.ArgumentToken:
                 return (
-                  <span key={idx} className={getArgHighlight(token.id)}>
+                  <span key={idx} className={getArgHighlightStyle(token.id)}>
                     {getArgText(token.id)}
                   </span>
                 );
               case TokenType.TextToken:
-                return <span key={idx}>{token.text}</span>;
+                return (
+                  <span key={idx} className="text-black dark:text-white">
+                    {token.text}
+                  </span>
+                );
             }
           })}
         </code>
