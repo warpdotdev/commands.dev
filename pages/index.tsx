@@ -4,6 +4,7 @@ import { GetStaticProps } from "next";
 import { getSortedWorkflowsData } from "../lib/workflows";
 import Layout, { siteTitle } from "../components/layout";
 import { Workflow, WorkflowCards } from "../components/WorkflowCard";
+import Footer from "../components/footer";
 
 export default function Home({
   allWorkflowsData,
@@ -27,6 +28,7 @@ export default function Home({
         </div>
       </div>
       {WorkflowCards(allWorkflowsData)}
+      <Footer />
     </Layout>
   );
 }

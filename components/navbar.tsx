@@ -22,7 +22,7 @@ export default function NavBar({ children }: { children: React.ReactNode }) {
       {children}
       <a
         href="https://github.com/warpdotdev/commands.dev"
-        className="text-gray-300 hidden md:flex text-icon-light dark:text-icon-dark"
+        className="hidden md:flex text-icon-light dark:text-icon-dark hover:opacity-60"
       >
         <span className="sr-only">GitHub</span>
         <svg

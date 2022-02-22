@@ -1,11 +1,11 @@
 import Link from "next/link";
 
 const Footer = () => (
-  <footer className="w-screen px-4 py-12 space-y-4 bg-card-light ">
+  <footer className="w-screen px-4 py-12 space-y-4 bg-card-light darK:bg-card-dark">
     <div className="flex justify-center space-x-6">
       <a
         href="https://www.twitter.com/warpdotdev"
-        className="text-gray-300 hover:text-white"
+        className="text-icon-light dark:text-icon-dark hover:opacity-60"
       >
         <span className="sr-only">Twitter</span>
         <svg
@@ -19,7 +19,7 @@ const Footer = () => (
       </a>
       <a
         href="https://github.com/warpdotdev/commands.dev"
-        className="text-gray-300 hover:text-white "
+        className="text-icon-light dark:text-icon-dark hover:opacity-60"
       >
         <span className="sr-only">GitHub</span>
         <svg
@@ -36,10 +36,10 @@ const Footer = () => (
         </svg>
       </a>
     </div>
-    <p className="text-center text-gray-300">
+    <p className="text-center text-black dark:text-white">
       Made with ❤️ by{" "}
       <Link href="https://www.warp.dev">
-        <a className="hover:text-white underline">
+        <a className="underline hover:opacity-60">
           the Warp Team and community
         </a>
       </Link>
