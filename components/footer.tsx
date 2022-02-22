@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 const Footer = () => (
-  <footer className="w-screen px-4 py-12 space-y-4 bg-card-light darK:bg-card-dark">
+  <footer className="w-screen px-4 py-12 space-y-4 bg-card-light dark:bg-card-dark">
     <div className="flex justify-center space-x-6">
       <a
         href="https://www.twitter.com/warpdotdev"
