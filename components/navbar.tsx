@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function NavBar({ children }: { children: React.ReactNode }) {
   return (
     <nav className="sticky top-0 dark:bg-card-dark bg-card-light flex items-center justify-between shadow-xs p-4">
-      <div className="flex items-center text-white hidden md:flex">
+      <div className="flex items-center text-white hidden md:flex pl-3">
         <a className="px-2" href="https://www.warp.dev">
           <Image
             src="/favicon.ico"
@@ -15,14 +15,14 @@ export default function NavBar({ children }: { children: React.ReactNode }) {
         </a>
         <Link href="/">
           <a className="font-semibold text-xl text-black dark:text-white tracking-tighter">
-            Commands.dev
+            Commands
           </a>
         </Link>
       </div>
       {children}
       <a
         href="https://github.com/warpdotdev/commands.dev"
-        className="text-gray-300 hidden md:flex text-icon-light dark:text-icon-dark"
+        className="hidden md:flex text-icon-light dark:text-icon-dark hover:opacity-60"
       >
         <span className="sr-only">GitHub</span>
         <svg

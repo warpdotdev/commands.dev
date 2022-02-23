@@ -16,7 +16,6 @@ const searchClient = algoliasearch(
 
 export default function Layout({
   children,
-  home,
 }: {
   children: React.ReactNode;
   home?: boolean;
@@ -47,14 +46,8 @@ export default function Layout({
         <main className="grow">
           <CustomHits>{children}</CustomHits>
         </main>
+        <Footer />
       </InstantSearch>
-      {!home && (
-        <div>
-          <Link href="/">
-            <a>← Back to home</a>
-          </Link>
-        </div>
-      )}
     </div>
   );
 }
