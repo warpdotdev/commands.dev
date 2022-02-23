@@ -46,6 +46,7 @@ export default function Layout({
         <main className="grow">
           <CustomHits>{children}</CustomHits>
         </main>
+        <Footer />
       </InstantSearch>
     </div>
   );
