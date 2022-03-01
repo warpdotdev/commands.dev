@@ -196,9 +196,8 @@ export default function Workflow({
                 id="copyTip"
                 place="top"
                 effect="solid"
-              >
-                {commandCopied ? "Copied" : "Copy"}
-              </ReactTooltip>
+                getContent={() => (commandCopied ? "Copied" : "Copy")}
+              />
             </div>
             <div className="bg-command-light dark:bg-command-dark max-w-[32rem] whitespace-pre p-4 text-sm mb-5">
               <code>
