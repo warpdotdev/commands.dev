@@ -188,6 +188,7 @@ export default function Workflow({
                 data-for="copyTip"
                 onClick={onCopyPress}
               >
+                {/* TODO: Get the check mark icon from CQ when it's ready  */}
                 <CopyIcon />
               </button>
               <ReactTooltip
