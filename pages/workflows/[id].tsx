@@ -197,7 +197,7 @@ export default function Workflow({
                 place="top"
                 effect="solid"
               >
-                {commandCopied ? "Copied!" : "Copy"}
+                {commandCopied ? "Copied" : "Copy"}
               </ReactTooltip>
             </div>
             <div className="bg-command-light dark:bg-command-dark max-w-[32rem] whitespace-pre p-4 text-sm mb-5">
