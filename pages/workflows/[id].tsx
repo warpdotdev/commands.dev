@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { GetStaticProps, GetStaticPaths } from "next";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 import { getAllWorkflowIds, getWorkflowData } from "../../lib/workflows";
 import Layout from "../../components/layout";
@@ -118,22 +118,19 @@ export default function Workflow({
     return commandTokens;
   };
 
+  let commandRef: React.RefObject<HTMLDivElement> = React.createRef();
   const onCopyPress = () => {
-    let commandTokens = getTokenizedCommand(workflowData.command);
-    let commandString = "";
-    commandTokens.forEach((token) => {
-      commandString +=
-        token.type === TokenType.ArgumentToken
-          ? getArgText(token.id)
-          : token.text;
-    });
+    // This should only be undefined on the first frame
+    let commandString = commandRef.current?.innerText;
 
-    copyTextToClipboard(commandString).then(() => {
-      setCommandCopied(true);
-      setTimeout(() => {
-        setCommandCopied(false);
-      }, 1500);
-    });
+    if (commandString != undefined) {
+      copyTextToClipboard(commandString).then(() => {
+        setCommandCopied(true);
+        setTimeout(() => {
+          setCommandCopied(false);
+        }, 1500);
+      });
+    }
   };
 
   return (
@@ -200,7 +197,7 @@ export default function Workflow({
               />
             </div>
             <div className="bg-command-light dark:bg-command-dark max-w-[32rem] whitespace-pre p-4 text-sm mb-5">
-              <code>
+              <code ref={commandRef}>
                 {/* If the token is a text token (has "text" in the object) then render it normally, else
           retrieve its value from the input or placeholder and render it with highlight */}
                 {getTokenizedCommand(workflowData.command).map((token, idx) => {
