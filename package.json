@@ -2,8 +2,8 @@
   "name": "commands.dev",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "tsc lib/*.ts && next dev",
+    "build": "tsc lib/*.ts && next build",
     "start": "next start",
     "lint": "next lint",
     "postbuild": "tsc ./lib/build-search.ts && node ./lib/build-search.js"
