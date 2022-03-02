@@ -4,7 +4,6 @@ import { GetStaticProps } from "next";
 import { getSortedWorkflowsData } from "../lib/workflows";
 import Layout, { siteTitle } from "../components/layout";
 import { Workflow, WorkflowCards } from "../components/WorkflowCard";
-import Footer from "../components/footer";
 
 export default function Home({
   allWorkflowsData,
@@ -17,7 +16,7 @@ export default function Home({
         <title>{siteTitle}</title>
       </Head>
       <main className="grow">
-        <div className="bg-[url('../img/light-header.png')] dark:bg-[url('../img/dark-header.png')] bg-cover">
+        <div className="bg-cover">
           <div className="p-10 max-w-2xl">
             <div className="md:text-3xl text-3xl font-bold text-black dark:text-white">
               Find commands at the speed of thought
