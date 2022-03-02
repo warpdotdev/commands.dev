@@ -3,8 +3,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "build": "tsc lib/*.ts && next build",
+    "start": "tsc lib/*.ts && next start",
     "lint": "next lint",
     "postbuild": "tsc ./lib/build-search.ts && node ./lib/build-search.js"
   },
