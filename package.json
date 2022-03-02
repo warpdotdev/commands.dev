@@ -2,9 +2,9 @@
   "name": "commands.dev",
   "private": true,
   "scripts": {
-    "dev": "tsc lib/*.ts && next dev",
+    "dev": "next dev",
     "build": "tsc lib/*.ts && next build",
-    "start": "next start",
+    "start": "tsc lib/*.ts && next start",
     "lint": "next lint",
     "postbuild": "tsc ./lib/build-search.ts && node ./lib/build-search.js"
   },
@@ -15,14 +15,12 @@
     "next": "12.0.7",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-instantsearch-dom": "^6.21.1",
-    "warp-workflows": "https://gitpkg.now.sh/warpdotdev/workflows/build_ts?main"
+    "react-instantsearch-dom": "^6.21.1"
   },
   "devDependencies": {
     "@types/node": "17.0.8",
     "@types/react": "17.0.38",
     "@types/react-instantsearch-dom": "^6.12.2",
-    "@types/webpack-env": "^1.16.3",
     "autoprefixer": "^10.4.2",
     "eslint": "8.6.0",
     "eslint-config-next": "12.0.7",
