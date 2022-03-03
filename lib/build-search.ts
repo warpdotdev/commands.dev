@@ -14,11 +14,11 @@ import { getSortedWorkflowsData } from "./workflows";
     // Set ObjectID and pick out relevant fields user wants to search on.
     // (User is unlikely to want to search on the arguments.)
     const transformed = workflows.map(
-      ({ key, slug, title, description, tags, command }) => {
+      ({ slug, name, description, tags, command }) => {
         return {
           objectID: slug,
           slug,
-          title,
+          name,
           description,
           tags,
           command,

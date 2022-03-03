@@ -3,7 +3,8 @@ import { GetStaticProps } from "next";
 
 import { getSortedWorkflowsData } from "../lib/workflows";
 import Layout, { siteTitle } from "../components/layout";
-import { Workflow, WorkflowCards } from "../components/WorkflowCard";
+import { WorkflowCards } from "../components/WorkflowCard";
+import { Workflow } from "warp-workflows";
 
 export default function Home({
   allWorkflowsData,

@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { getAllWorkflowIds, getWorkflowData } from "../../lib/workflows";
 import Layout from "../../components/layout";
 import WorkflowTags from "../../components/WorkflowTags";
+import { Argument, Workflow } from "warp-workflows";
 import { CopyIcon } from "../../components/icons/copy";
 import ReactTooltip from "react-tooltip";
 
@@ -12,16 +13,11 @@ interface ArgumentValues {
   [name: string]: string;
 }
 
-interface Argument {
-  name: string;
-  placeholder: string;
-  id: string;
-}
-
 enum TokenType {
   ArgumentToken,
   TextToken,
 }
+
 interface ArgumentToken {
   type: TokenType.ArgumentToken;
   id: string;
@@ -34,25 +30,21 @@ interface TextToken {
 
 type Token = ArgumentToken | TextToken;
 
-export default function Workflow({
+export default function WorkflowPage({
   workflowData,
 }: {
-  workflowData: {
-    title: string;
-    description: string;
-    tags: string[];
-    arguments: Argument[];
-    command: string;
-  };
+  workflowData: Workflow;
 }) {
+  let workflowArguments = workflowData.arguments ?? ([] as Argument[]);
+
   // Initializes a key-value map of <Argument Id>: Empty String
-  const initialValues: ArgumentValues = workflowData.arguments.reduce(
-    (a, v) => ({ ...a, [v.id]: "" }),
+  const initialValues: ArgumentValues = workflowArguments.reduce(
+    (a, v) => ({ ...a, [v.name]: "" }),
     {}
   );
   const [values, setValues] = useState(initialValues);
   const [focusedArg, setFocusedArg] = useState(
-    workflowData.arguments.length > 0 ? workflowData.arguments[0].id : null
+    workflowArguments.length > 0 ? workflowArguments[0].name : null
   );
 
   const [commandCopied, setCommandCopied] = useState(false);
@@ -72,9 +64,9 @@ export default function Workflow({
     }
 
     // If there's not something typed - retrieve the placeholder
-    for (let argument of workflowData.arguments) {
-      if (argument.id === id) {
-        return argument.placeholder;
+    for (let argument of workflowArguments) {
+      if (argument.name === id) {
+        return argument.default_value ?? argument.name;
       }
     }
   };
@@ -93,9 +85,9 @@ export default function Workflow({
       return [];
     }
     let commandTokens: Token[] = [];
-    for (let argument of workflowData.arguments) {
+    for (let argument of workflowArguments) {
       // This regex ensures that the split happens only on the first occurence of the word
-      let regex = new RegExp(`\\$${argument.id}(.*)`, "s");
+      let regex = new RegExp(`\\{{${argument.name}}}(.*)`, "s");
       const [beforeArg, afterArg] = command.split(regex);
       // If this arg is not a match - continue to the next arg
       if (beforeArg === command) {
@@ -106,7 +98,7 @@ export default function Workflow({
       commandTokens = commandTokens.concat(getTokenizedCommand(beforeArg));
       commandTokens.push({
         type: TokenType.ArgumentToken,
-        id: argument.id,
+        id: argument.name,
       });
       commandTokens = commandTokens.concat(getTokenizedCommand(afterArg));
 
@@ -139,23 +131,23 @@ export default function Workflow({
   return (
     <Layout>
       <Head>
-        <title>{workflowData.title}</title>
+        <title>{workflowData.name}</title>
       </Head>
       <main className="grow pb-4">
         <div className="flex pt-10">
           <div className="w-1/6 hidden md:flex" />
           <div className="flex-col md:flex-col flex-grow pl-6 pr-6">
             <h1 className="text-2xl text-black dark:text-white font-bold pb-2">
-              {workflowData.title}
+              {workflowData.name}
             </h1>
             <p className="text-black dark:text-white pb-10">
               {workflowData.description}
             </p>
-            {workflowData.arguments.map((argument) => (
-              <div key={argument.id} className="flex-col pb-9">
+            {workflowArguments.map((argument) => (
+              <div key={argument.name} className="flex-col pb-9">
                 <span
                   className={
-                    getArgHighlightStyle(argument.id) + " py-1 text-sm"
+                    getArgHighlightStyle(argument.name) + " py-1 text-sm"
                   }
                 >
                   {argument.name}
@@ -165,12 +157,12 @@ export default function Workflow({
                   className="border-solid border mt-2 pl-2 py-1 
                 font-mono text-sm rounded-md border-card-border-light 
                 bg-command-light dark:bg-command-dark dark:text-white placeholder:opacity-40"
-                  value={values[argument.id] ?? ""}
+                  value={values[argument.name] ?? ""}
                   onChange={handleInputChange}
                   type="text"
-                  placeholder={argument.placeholder}
-                  name={argument.id}
-                  onFocus={() => setFocusedArg(argument.id)}
+                  placeholder={argument.default_value ?? argument.name}
+                  name={argument.name}
+                  onFocus={() => setFocusedArg(argument.name)}
                 />
                 <div className="text-sm opacity-50 pt-1 pl-1 dark:text-white">
                   {"enter a value for " + argument.name}
@@ -178,7 +170,7 @@ export default function Workflow({
               </div>
             ))}
             <br />
-            <div className="flex max-w-[32rem] justify-between">
+            <div className="flex max-w-[37rem] justify-between">
               <div className="text-sm text-black dark:text-white pb-2">
                 Command
               </div>
@@ -199,7 +191,7 @@ export default function Workflow({
                 getContent={() => (commandCopied ? "Copied" : "Copy")}
               />
             </div>
-            <div className="bg-command-light dark:bg-command-dark max-w-[32rem] whitespace-pre p-4 text-sm mb-5">
+            <div className="bg-command-light dark:bg-command-dark w-[37rem] whitespace-pre p-4 text-sm mb-5 overflow-x-auto">
               <code>
                 {/* If the token is a text token (has "text" in the object) then render it normally, else
           retrieve its value from the input or placeholder and render it with highlight */}
@@ -224,7 +216,7 @@ export default function Workflow({
                 })}
               </code>
             </div>
-            {WorkflowTags(workflowData.tags)}
+            {workflowData.tags !== undefined && WorkflowTags(workflowData.tags)}
           </div>
         </div>
       </main>
@@ -245,7 +237,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const workflowData = await getWorkflowData(params?.id as string);
+  const workflowData = getWorkflowData(params?.id as string);
   return {
     props: {
       workflowData,
