@@ -6,6 +6,8 @@ import { getAllWorkflowIds, getWorkflowData } from "../../lib/workflows";
 import Layout from "../../components/layout";
 import WorkflowTags from "../../components/WorkflowTags";
 import { Argument, Workflow } from "warp-workflows";
+import { CopyIcon } from "../../components/icons/copy";
+import ReactTooltip from "react-tooltip";
 
 interface ArgumentValues {
   [name: string]: string;
@@ -45,6 +47,7 @@ export default function WorkflowPage({
     workflowArguments.length > 0 ? workflowArguments[0].name : null
   );
 
+  const [commandCopied, setCommandCopied] = useState(false);
   // Updates the value in the map corresponding to the Argument Id key
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -107,6 +110,24 @@ export default function WorkflowPage({
     return commandTokens;
   };
 
+  const onCopyPress = () => {
+    let commandTokens = getTokenizedCommand(workflowData.command);
+    let commandString = "";
+    commandTokens.forEach((token) => {
+      commandString +=
+        token.type === TokenType.ArgumentToken
+          ? getArgText(token.id)
+          : token.text;
+    });
+
+    copyTextToClipboard(commandString).then(() => {
+      setCommandCopied(true);
+      setTimeout(() => {
+        setCommandCopied(false);
+      }, 1500);
+    });
+  };
+
   return (
     <Layout>
       <Head>
@@ -149,8 +170,26 @@ export default function WorkflowPage({
               </div>
             ))}
             <br />
-            <div className="text-sm text-black dark:text-white pb-2">
-              Command
+            <div className="flex max-w-[32rem] justify-between">
+              <div className="text-sm text-black dark:text-white pb-2">
+                Command
+              </div>
+              <button
+                className="text-icon-light dark:text-icon-dark hover:opacity-60"
+                data-tip
+                data-for="copyTip"
+                onClick={onCopyPress}
+              >
+                {/* TODO: Get the check mark icon from CQ when it's ready  */}
+                <CopyIcon />
+              </button>
+              <ReactTooltip
+                className="bg-card-light dark:bg-card-dark text-black dark:text-white"
+                id="copyTip"
+                place="top"
+                effect="solid"
+                getContent={() => (commandCopied ? "Copied" : "Copy")}
+              />
             </div>
             <div className="bg-command-light dark:bg-command-dark max-w-[32rem] whitespace-pre p-4 text-sm mb-5">
               <code>
@@ -184,6 +223,10 @@ export default function WorkflowPage({
     </Layout>
   );
 }
+
+const copyTextToClipboard = async (text: string) => {
+  return await navigator.clipboard.writeText(text);
+};
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const paths = getAllWorkflowIds();
