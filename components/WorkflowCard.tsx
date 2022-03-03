@@ -13,7 +13,7 @@ const WorkflowCard = ({ slug, name, description, tags }: Workflow) => (
         <h3 className="text-xl text-black dark:text-white font-bold line-clamp-2 pb-2">
           {name}
         </h3>
-        <p className="text-black dark:text-white text-sm line-clamp-4">
+        <p className="text-black dark:text-white text-sm line-clamp-3">
           {description}
         </p>
       </div>
