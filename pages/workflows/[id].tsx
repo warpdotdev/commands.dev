@@ -170,7 +170,7 @@ export default function WorkflowPage({
               </div>
             ))}
             <br />
-            <div className="flex max-w-[32rem] justify-between">
+            <div className="flex max-w-[37rem] justify-between">
               <div className="text-sm text-black dark:text-white pb-2">
                 Command
               </div>
@@ -191,7 +191,7 @@ export default function WorkflowPage({
                 getContent={() => (commandCopied ? "Copied" : "Copy")}
               />
             </div>
-            <div className="bg-command-light dark:bg-command-dark max-w-[32rem] whitespace-pre p-4 text-sm mb-5">
+            <div className="bg-command-light dark:bg-command-dark w-[37rem] whitespace-pre p-4 text-sm mb-5 overflow-x-auto">
               <code>
                 {/* If the token is a text token (has "text" in the object) then render it normally, else
           retrieve its value from the input or placeholder and render it with highlight */}
