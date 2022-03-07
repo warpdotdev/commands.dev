@@ -16,7 +16,6 @@
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-instantsearch-dom": "^6.21.1",
-    "react-toggle": "^4.1.2",
     "react-tooltip": "^4.2.21",
     "warp-workflows": "^1.0.2"
   },
@@ -24,7 +23,6 @@
     "@types/node": "17.0.8",
     "@types/react": "17.0.38",
     "@types/react-instantsearch-dom": "^6.12.2",
-    "@types/react-toggle": "^4.0.3",
     "@types/webpack-env": "^1.16.3",
     "autoprefixer": "^10.4.2",
     "eslint": "8.6.0",
