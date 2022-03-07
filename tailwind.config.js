@@ -1,4 +1,5 @@
 module.exports = {
+  darkMode: "class",
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
@@ -12,13 +13,14 @@ module.exports = {
     extend: {
       colors: {
         "app-dark": "rgba(22, 22, 22, 1)",
+        "app-light": "rgba(0, 0, 0, 0.05)",
         "card-active-light": "rgba(0, 0, 0, 0.05)",
         "card-active-dark": "rgba(255, 255, 255, 0.05)",
         "card-hover-light": "rgba(0, 0, 0, 0.12)",
         "card-hover-dark": "rgba(255, 255, 255, 0.12)",
         "card-light": "rgba(255, 255, 255, 1)",
         "card-dark": "rgba(255, 255, 255, 0.08)",
-        "card-border-light": "rgba(0, 0, 0, 0.3)",
+        "card-border-light": "rgba(0, 0, 0, 0.2)",
         "card-border-dark": "rgba(255, 255, 255, 0.08)",
         "pill-light": "rgba(0, 0, 0, 0.1)",
         "pill-dark": "rgba(255, 255, 255, 0.1)",
@@ -29,6 +31,9 @@ module.exports = {
         "command-dark": "rgba(255, 255, 255, 0.05)",
         "navbar-light": "rgba(255, 255, 255, 1)",
         "navbar-dark": "rgba(0, 0, 0, 1)",
+        "toggle-light": "rgba(206, 206, 206, 1)",
+        "toggle-dark": "rgba(51, 51, 51, 1)",
+        "search-bar-light": "rgba(0, 0, 0, 0.05)",
       },
     },
   },
