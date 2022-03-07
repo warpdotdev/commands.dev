@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .toggle-bg:after {
+    content: "";
+    @apply absolute top-0.5 left-0.5 bg-white border border-gray-300 rounded-full h-5 w-5 transition shadow-sm;
+  }
+  input:checked + .toggle-bg:after {
+    transform: translateX(100%);
+    @apply bg-white;
+  }
+}

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import DarkModeToggle from "./DarkModeToggle";
 import { GitHubIcon } from "./icons/github";
 import { LogoIcon } from "./icons/logo";
 
@@ -23,6 +24,7 @@ export default function NavBar({ children }: { children: React.ReactNode }) {
         <span className="sr-only">GitHub</span>
         <GitHubIcon />
       </a>
+      <DarkModeToggle />
     </nav>
   );
 }
