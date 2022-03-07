@@ -5,7 +5,8 @@ import Script from "next/script";
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      {/* According to documentation - this should be defined inline to avoid FOUC (flash of unstyled content) */}
+      {/* According to documentation - this should be defined inline to avoid FOUC (flash of unstyled content) 
+      ref: https://www.freecodecamp.org/news/how-to-build-a-dark-mode-switcher-with-tailwind-css-and-flowbite/*/}
       <Script id="dark-mode-load">
         {`if (
               localStorage.getItem('color-theme') === 'dark' ||
