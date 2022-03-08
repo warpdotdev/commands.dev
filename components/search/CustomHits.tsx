@@ -26,7 +26,16 @@ function Hits({
     );
     return WorkflowCards(workflows);
   } else {
-    return <p>No search results were found.</p>;
+    return (
+      <div className="grid place-items-center h-screen">
+        <div className="flex flex-col items-center">
+          <div className="w-72 h-32 bg-[url('../img/no-search-light.png')] dark:bg-[url('../img/no-search-dark.png')]"></div>
+          <div className="text-2xl text-null-search-text dark:text-white pt-4">
+            No results matching
+          </div>
+        </div>
+      </div>
+    );
   }
 }
 
