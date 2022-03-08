@@ -225,7 +225,11 @@ export default function WorkflowPage({
             {workflowData.tags !== undefined && WorkflowTags(workflowData.tags)}
             <div className="flex py-5 text-link-text-light dark:text-link-text-dark">
               <a
-                href="https://github.com/warpdotdev/workflows/tree/main/specs"
+                href={
+                  "https://github.com/warpdotdev/workflows" +
+                  workflowData.relative_git_path
+                }
+                rel="noreferrer"
                 target="_blank"
               >
                 <span className="pr-3">Edit in GitHub</span>
