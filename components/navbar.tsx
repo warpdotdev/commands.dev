@@ -17,6 +17,9 @@ export default function NavBar({ children }: { children: React.ReactNode }) {
         </Link>
       </div>
       {children}
+      <a className="pl-5" href="https://www.warp.dev/">
+        <div className="bg-[url('../img/logo.png')] w-8 h-6"></div>
+      </a>
       <a
         href="https://github.com/warpdotdev/commands.dev"
         className="hidden md:flex text-icon-light dark:text-icon-dark hover:opacity-60 px-5"

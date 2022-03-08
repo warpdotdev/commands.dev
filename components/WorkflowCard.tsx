@@ -24,7 +24,7 @@ const WorkflowCard = ({ slug, name, description, tags }: Workflow) => (
 
 export function WorkflowCards(workflows: Workflow[]) {
   return (
-    <div className="flex flex-wrap justify-around py-5">
+    <div className="flex flex-wrap justify-around pb-5">
       {workflows.map((workflow) => WorkflowCard(workflow))}
     </div>
   );

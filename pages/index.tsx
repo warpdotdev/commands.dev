@@ -17,15 +17,19 @@ export default function Home({
         <title>{siteTitle}</title>
       </Head>
       <main className="grow mx-[7rem]">
-        <div className="bg-cover">
+        <div className="bg-cover text-black dark:text-white">
           <div className="py-10 px-3 max-w-2xl">
-            <div className="md:text-3xl text-3xl font-bold text-black dark:text-white">
+            <div className="md:text-3xl text-3xl font-bold">
               Find commands at the speed of thought
             </div>
-            <div className="text-xl font-normal mt-4 text-back dark:text-white">
+            <div className="text-l font-normal mt-4 text-back dark:text-white max-w-[27rem]">
               Commands.dev is a beautiful, searchable index of popular terminal
               commands for developers.
             </div>
+            <div className="text-xs pt-2">Powered by</div>
+            <a className="pt-2" href="https://www.warp.dev/">
+              <div className="bg-[url('../img/text-logo-light.png')] dark:bg-[url('../img/text-logo-dark.png')] w-[5.45rem] h-5" />
+            </a>
           </div>
         </div>
         {WorkflowCards(allWorkflowsData)}
