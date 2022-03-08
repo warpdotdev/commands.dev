@@ -134,6 +134,7 @@ export default function WorkflowPage({
     copyTextToClipboard(url);
   };
 
+  console.log(workflowData.relative_git_url);
   return (
     <Layout>
       <Head>
@@ -193,6 +194,7 @@ export default function WorkflowPage({
                 className="bg-card-light dark:bg-card-dark text-black dark:text-white"
                 id="copyTip"
                 place="top"
+                delayShow={500}
                 effect="solid"
                 getContent={() => (commandCopied ? "Copied" : "Copy")}
               />
@@ -222,12 +224,13 @@ export default function WorkflowPage({
                 })}
               </code>
             </div>
+            <div className="text-sm text-black dark:text-white pb-2">Tags</div>
             {workflowData.tags !== undefined && WorkflowTags(workflowData.tags)}
-            <div className="flex py-5 text-link-text-light dark:text-link-text-dark">
+            <div className="flex py-6 text-link-text-light dark:text-link-text-dark">
               <a
                 href={
-                  "https://github.com/warpdotdev/workflows" +
-                  workflowData.relative_git_path
+                  "https://github.com/warpdotdev/workflows/blob/main" +
+                  workflowData.relative_git_url
                 }
                 rel="noreferrer"
                 target="_blank"
@@ -249,7 +252,7 @@ export default function WorkflowPage({
                 effect="solid"
                 event="click"
                 eventOff="mouseout"
-                delayHide={1000}
+                delayHide={500}
                 getContent={() => "Copied"}
               />
             </div>
