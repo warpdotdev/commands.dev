@@ -130,11 +130,9 @@ export default function WorkflowPage({
 
   const copyCurrentUrl = () => {
     let url = window.location.href;
-
     copyTextToClipboard(url);
   };
 
-  console.log(workflowData.relative_git_url);
   return (
     <Layout>
       <Head>
@@ -249,7 +247,7 @@ export default function WorkflowPage({
                 id="copyUrlTip"
                 place="top"
                 effect="solid"
-                event="click"
+                event="mouseup"
                 eventOff="mouseout"
                 delayHide={500}
                 getContent={() => "Copied"}
