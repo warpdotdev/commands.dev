@@ -194,7 +194,6 @@ export default function WorkflowPage({
                 className="bg-card-light dark:bg-card-dark text-black dark:text-white"
                 id="copyTip"
                 place="top"
-                delayShow={500}
                 effect="solid"
                 getContent={() => (commandCopied ? "Copied" : "Copy")}
               />
