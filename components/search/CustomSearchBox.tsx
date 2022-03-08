@@ -22,7 +22,7 @@ function SearchBox({ refine }: { refine: Dispatch<SetStateAction<string>> }) {
       <input
         id="algolia_search"
         type="search"
-        placeholder="Command + K"
+        placeholder="Ctrl + K"
         onChange={(e) => refine(e.currentTarget.value)}
         className="grow h-9 cursor-pointer rounded-sm text-sm focus:outline-none dark:bg-card-dark bg-search-bar-light placeholder:opacity-50 dark:text-white px-2"
       />
