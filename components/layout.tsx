@@ -42,7 +42,7 @@ export default function Layout({
           <CustomSearchBox />
         </NavBar>
         {/* Show children if query is empty */}
-        <main className="grow">
+        <main className="grow md:mx-[7rem] mx-[1rem]">
           <CustomHits>{children}</CustomHits>
         </main>
         <Footer />
