@@ -142,12 +142,25 @@ export default function WorkflowPage({
         <div className="flex pt-10">
           <div className="w-1/6 hidden md:flex" />
           <div className="flex-col md:flex-col flex-grow pl-6 pr-6">
-            <h1 className="text-2xl text-black dark:text-white font-bold pb-2">
-              {workflowData.name}
-            </h1>
-            <p className="text-black dark:text-white pb-10">
-              {workflowData.description}
-            </p>
+            <div className="pb-10">
+              <h1 className="text-2xl text-black dark:text-white font-bold pb-2">
+                {workflowData.name}
+              </h1>
+              {workflowData.description != undefined && (
+                <p className="text-black dark:text-white pb-2">
+                  {workflowData.description}
+                </p>
+              )}
+              {workflowData.author != undefined && (
+                <a
+                  href={workflowData.author_url}
+                  target="_blank"
+                  className="text-xs text-black dark:text-white "
+                >
+                  Created by: {workflowData.author}
+                </a>
+              )}
+            </div>
             {workflowArguments.map((argument) => (
               <div key={argument.name} className="flex-col pb-9">
                 <span
