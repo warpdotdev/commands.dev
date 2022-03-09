@@ -16,7 +16,7 @@ export default function Home({
       <Head>
         <title>{siteTitle}</title>
       </Head>
-      <main className="grow mx-[7rem]">
+      <main className="grow">
         <div className="bg-cover">
           <div className="py-10 px-3 max-w-2xl">
             <div className="md:text-3xl text-3xl font-bold text-black dark:text-white">
