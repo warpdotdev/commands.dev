@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Link from "next/link";
 import algoliasearch from "algoliasearch/lite";
 import { InstantSearch } from "react-instantsearch-dom";
 
