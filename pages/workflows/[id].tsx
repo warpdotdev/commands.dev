@@ -155,6 +155,7 @@ export default function WorkflowPage({
                 <a
                   href={workflowData.author_url}
                   target="_blank"
+                  rel="noreferrer"
                   className="text-xs text-black dark:text-white "
                 >
                   Created by: {workflowData.author}
