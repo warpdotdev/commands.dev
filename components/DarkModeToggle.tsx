@@ -3,7 +3,7 @@ import { MoonIcon } from "./icons/moon";
 import { SunIcon } from "./icons/sun";
 
 const DarkModeToggle = () => {
-  let [isDarkMode, setIsDarkMode] = useState(false);
+  let [isDarkMode, setIsDarkMode] = useState(true);
   useEffect(() => {
     setIsDarkMode(document.documentElement.classList.contains("dark"));
   }, []);
