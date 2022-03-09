@@ -128,6 +128,11 @@ export default function WorkflowPage({
     });
   };
 
+  const copyCurrentUrl = () => {
+    let url = window.location.href;
+    copyTextToClipboard(url);
+  };
+
   return (
     <Layout>
       <Head>
@@ -216,7 +221,38 @@ export default function WorkflowPage({
                 })}
               </code>
             </div>
+            <div className="text-sm text-black dark:text-white pb-2">Tags</div>
             {workflowData.tags !== undefined && WorkflowTags(workflowData.tags)}
+            <div className="flex py-6 text-link-text-light dark:text-link-text-dark">
+              <a
+                href={
+                  "https://github.com/warpdotdev/workflows/blob/main" +
+                  workflowData.relative_git_url
+                }
+                rel="noreferrer"
+                target="_blank"
+              >
+                <span className="pr-3">Edit in GitHub</span>
+              </a>
+              <button
+                className="text-link-text"
+                data-tip
+                data-for="copyUrlTip"
+                onClick={copyCurrentUrl}
+              >
+                Copy URL
+              </button>
+              <ReactTooltip
+                className="bg-card-light dark:bg-card-dark text-black dark:text-white"
+                id="copyUrlTip"
+                place="top"
+                effect="solid"
+                event="mouseup"
+                eventOff="mouseout"
+                delayHide={500}
+                getContent={() => "Copied"}
+              />
+            </div>
           </div>
         </div>
       </main>
