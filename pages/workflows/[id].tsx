@@ -138,7 +138,7 @@ export default function WorkflowPage({
       <Head>
         <title>{workflowData.name}</title>
       </Head>
-      <main className="grow pb-4">
+      <main className="grow h-screen">
         <div className="flex pt-10">
           <div className="w-1/6 hidden md:flex" />
           <div className="flex-col md:flex-col flex-grow pl-6 pr-6">

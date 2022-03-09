@@ -36,6 +36,7 @@ module.exports = {
         "search-bar-light": "rgba(0, 0, 0, 0.05)",
         "link-text-light": "rgba(1, 115, 220, 1)",
         "link-text-dark": "rgba(1, 164, 220, 1)",
+        "null-search-text": "rgba(90, 90, 90, 1)",
       },
     },
   },
