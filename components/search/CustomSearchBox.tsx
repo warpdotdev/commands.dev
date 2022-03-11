@@ -12,27 +12,25 @@ function SearchBox({
   onBlurCallback: () => void;
   isMobileSearch: boolean;
 }) {
-  if (isMobileSearch) {
-    useEffect(() => {
+  useEffect(() => {
+    let searchBar = document.querySelector(
+      "#algolia_search_mobile"
+    ) as HTMLInputElement;
+    if (searchBar != null) {
+      searchBar.focus();
+    }
+  }, []);
+
+  useHotkeys("ctrl+k", () => {
+    if (document != null) {
       let searchBar = document.querySelector(
-        "#algolia_search_mobile"
+        "#algolia_search"
       ) as HTMLInputElement;
       if (searchBar != null) {
         searchBar.focus();
       }
-    }, []);
-  } else {
-    useHotkeys("ctrl+k", () => {
-      if (document != null) {
-        let searchBar = document.querySelector(
-          "#algolia_search"
-        ) as HTMLInputElement;
-        if (searchBar != null) {
-          searchBar.focus();
-        }
-      }
-    });
-  }
+    }
+  });
 
   return (
     <div className="dark:bg-card-dark bg-card-light grow h-9 cursor-pointer rounded-sm items-center flex">
