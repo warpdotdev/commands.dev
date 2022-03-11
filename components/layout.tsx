@@ -6,6 +6,7 @@ import NavBar from "./navbar";
 import Footer from "./footer";
 import CustomSearchBox from "./search/CustomSearchBox";
 import CustomHits from "./search/CustomHits";
+import { useState } from "react";
 
 export const siteTitle = "Commands.dev";
 const searchClient = algoliasearch(
@@ -20,7 +21,7 @@ export default function Layout({
   home?: boolean;
 }) {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col m-w-screen">
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta
@@ -38,9 +39,7 @@ export default function Layout({
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <InstantSearch searchClient={searchClient} indexName="workflow_specs">
-        <NavBar>
-          <CustomSearchBox />
-        </NavBar>
+        <NavBar />
         {/* Show children if query is empty */}
         <main className="grow md:mx-[7rem] mx-[1rem]">
           <CustomHits>{children}</CustomHits>

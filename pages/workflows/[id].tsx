@@ -141,7 +141,7 @@ export default function WorkflowPage({
       <main className="grow h-screen">
         <div className="flex pt-10">
           <div className="w-1/6 hidden md:flex" />
-          <div className="flex-col md:flex-col flex-grow pl-6 pr-6">
+          <div className="flex-col md:flex-col flex-grow md:px-6 px-3">
             <div className="pb-10">
               <h1 className="text-2xl text-black dark:text-white font-bold pb-2">
                 {workflowData.name}
@@ -189,7 +189,7 @@ export default function WorkflowPage({
               </div>
             ))}
             <br />
-            <div className="flex max-w-[37rem] justify-between">
+            <div className="flex md:max-w-[37rem] max-w-[21.5rem] justify-between">
               <div className="text-sm text-black dark:text-white pb-2">
                 Command
               </div>
@@ -210,7 +210,7 @@ export default function WorkflowPage({
                 getContent={() => (commandCopied ? "Copied" : "Copy")}
               />
             </div>
-            <div className="bg-command-light dark:bg-command-dark w-[37rem] whitespace-pre p-4 text-sm mb-5 overflow-x-auto">
+            <div className="bg-command-light dark:bg-command-dark md:w-[37rem] w-[21.5rem] whitespace-pre p-4 text-sm mb-5 overflow-x-auto">
               <code>
                 {/* If the token is a text token (has "text" in the object) then render it normally, else
           retrieve its value from the input or placeholder and render it with highlight */}
