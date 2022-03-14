@@ -24,7 +24,7 @@ export default function NavBar() {
         </div>
       )}
       <div className="hidden md:flex w-screen">
-        <CustomSearchBox onBlurCallback={() => {}} isMobileSearch={false} />
+        <CustomSearchBox />
       </div>
       <div className="flex md:hidden w-screen">
         {mobileSearchBoxOpen && (

@@ -3,13 +3,7 @@ import { Dispatch, SetStateAction } from "react";
 import { SearchIcon } from "../icons/search";
 import { useHotkeys } from "react-hotkeys-hook";
 
-function SearchBox({
-  refine,
-}: {
-  refine: Dispatch<SetStateAction<string>>;
-  onBlurCallback: () => void;
-  isMobileSearch: boolean;
-}) {
+function SearchBox({ refine }: { refine: Dispatch<SetStateAction<string>> }) {
   useHotkeys("ctrl+k", () => {
     if (document != null) {
       let searchBar = document.querySelector(
