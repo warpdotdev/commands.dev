@@ -19,7 +19,7 @@ function SearchBox({
   }, []);
 
   return (
-    <div className="dark:bg-card-dark bg-card-light grow h-9 cursor-pointer rounded-sm items-center flex">
+    <div className="dark:bg-card-dark bg-search-bar-light grow h-9 cursor-pointer rounded-sm items-center flex dark:text-white">
       <input
         id={"algolia_search_mobile"}
         type="search"
