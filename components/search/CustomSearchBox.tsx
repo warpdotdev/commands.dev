@@ -1,26 +1,15 @@
 import { connectSearchBox } from "react-instantsearch-dom";
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { SearchIcon } from "../icons/search";
 import { useHotkeys } from "react-hotkeys-hook";
 
 function SearchBox({
   refine,
-  onBlurCallback,
-  isMobileSearch,
 }: {
   refine: Dispatch<SetStateAction<string>>;
   onBlurCallback: () => void;
   isMobileSearch: boolean;
 }) {
-  useEffect(() => {
-    let searchBar = document.querySelector(
-      "#algolia_search_mobile"
-    ) as HTMLInputElement;
-    if (searchBar != null) {
-      searchBar.focus();
-    }
-  }, []);
-
   useHotkeys("ctrl+k", () => {
     if (document != null) {
       let searchBar = document.querySelector(
@@ -38,10 +27,9 @@ function SearchBox({
         <SearchIcon />
       </div>
       <input
-        id={isMobileSearch ? "algolia_search_mobile" : "algolia_search"}
+        id={"algolia_search"}
         type="search"
-        onBlur={onBlurCallback}
-        placeholder={isMobileSearch ? "Search commands" : "Ctrl + K"}
+        placeholder={"Ctrl + K"}
         onChange={(e) => refine(e.currentTarget.value)}
         className="grow h-9 cursor-pointer rounded-sm text-sm focus:outline-none dark:bg-card-dark bg-search-bar-light placeholder:opacity-50 dark:text-white px-2"
       />

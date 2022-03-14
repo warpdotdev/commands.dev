@@ -1,9 +1,10 @@
 import Link from "next/link";
-import { useState } from "react";
+import React, { useState } from "react";
 import DarkModeToggle from "./DarkModeToggle";
 import { GitHubIcon } from "./icons/github";
 import { LogoIcon } from "./icons/logo";
 import { SearchIcon } from "./icons/search";
+import CustomMobileSearchBox from "./search/CustomMobileSearchBox";
 import CustomSearchBox from "./search/CustomSearchBox";
 
 export default function NavBar() {
@@ -27,11 +28,10 @@ export default function NavBar() {
       </div>
       <div className="flex md:hidden w-screen">
         {mobileSearchBoxOpen && (
-          <CustomSearchBox
-            onBlurCallback={() => {
+          <CustomMobileSearchBox
+            onCloseCallback={() => {
               setMobileSearchBoxOpen(false);
             }}
-            isMobileSearch={true}
           />
         )}
       </div>
