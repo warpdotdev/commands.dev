@@ -14,15 +14,16 @@ function SearchBox({ refine }: { refine: Dispatch<SetStateAction<string>> }) {
       }
     }
   });
+
   return (
-    <div className="dark:bg-card-dark bg-card-light w-screen h-9 cursor-pointer rounded-sm flex items-center">
+    <div className="dark:bg-card-dark bg-card-light grow h-9 cursor-pointer rounded-sm items-center flex">
       <div className="h-9 flex items-center text-icon-light dark:text-icon-dark pl-3 pr-1 dark:bg-card-dark bg-search-bar-light">
         <SearchIcon />
       </div>
       <input
-        id="algolia_search"
+        id={"algolia_search"}
         type="search"
-        placeholder="Ctrl + K"
+        placeholder={"Ctrl + K"}
         onChange={(e) => refine(e.currentTarget.value)}
         className="grow h-9 cursor-pointer rounded-sm text-sm focus:outline-none dark:bg-card-dark bg-search-bar-light placeholder:opacity-50 dark:text-white px-2"
       />
