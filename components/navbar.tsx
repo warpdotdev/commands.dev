@@ -4,41 +4,36 @@ import DarkModeToggle from "./DarkModeToggle";
 import { GitHubIcon } from "./icons/github";
 import { LogoIcon } from "./icons/logo";
 import { SearchIcon } from "./icons/search";
-import CustomMobileSearchBox from "./search/CustomMobileSearchBox";
+import MobileSearchBox from "./search/MobileSearchBox";
 import CustomSearchBox from "./search/CustomSearchBox";
 
 export default function NavBar() {
   let [mobileSearchBoxOpen, setMobileSearchBoxOpen] = useState(false);
   return (
     <nav className="sticky top-0 dark:bg-navbar-dark bg-navbar-light flex items-center justify-between shadow-xs py-4 md:px-[7rem] px-[1rem]">
-      {!mobileSearchBoxOpen && (
-        <div className="flex items-center text-white flex md:px-5">
-          <a href="https://www.warp.dev">
-            <LogoIcon />
-          </a>
-          <Link href="/">
-            <a className="font-semibold text-xl text-black dark:text-white tracking-tighter">
-              Commands
-            </a>
-          </Link>
-        </div>
-      )}
-      <div className="hidden md:flex w-screen">
-        <CustomSearchBox />
-      </div>
-      <div className="flex md:hidden w-screen">
-        {mobileSearchBoxOpen && (
-          <CustomMobileSearchBox
-            onCloseCallback={() => {
-              setMobileSearchBoxOpen(false);
-            }}
-          />
-        )}
-      </div>
-      {!mobileSearchBoxOpen && (
+      {mobileSearchBoxOpen ? (
+        <MobileSearchBox
+          onCloseCallback={() => {
+            setMobileSearchBoxOpen(false);
+          }}
+        />
+      ) : (
         <>
+          <div className="flex items-center text-white flex md:px-5">
+            <a href="https://www.warp.dev">
+              <LogoIcon />
+            </a>
+            <Link href="/">
+              <a className="font-semibold text-xl text-black dark:text-white tracking-tighter">
+                Commands
+              </a>
+            </Link>
+          </div>
+          <div className="hidden md:flex w-screen">
+            <CustomSearchBox />
+          </div>
           <button
-            className="h-9 items-center text-icon-light dark:text-icon-dark pl-3 pr-1 flex md:hidden"
+            className="h-9 items-center text-icon-light dark:text-icon-dark pl-3 pr-1 flex flex-row-reverse md:hidden grow"
             onClick={() => {
               setMobileSearchBoxOpen(true);
             }}
