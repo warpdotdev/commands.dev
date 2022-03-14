@@ -25,10 +25,10 @@ function SearchBox({
         type="search"
         placeholder={"Search commands"}
         onChange={(e) => refine(e.currentTarget.value)}
-        className="grow h-9 cursor-pointer text-sm focus:outline-none dark:bg-card-dark bg-search-bar-light placeholder:opacity-50 text-black dark:text-white px-2"
+        className="grow h-9 cursor-pointer text-sm focus:outline-none bg-inherit placeholder:opacity-50 text-black dark:text-white px-2"
       />
       <button
-        className="h-9 flex items-center text-icon-light dark:text-icon-dark pr-3 pl-1 dark:bg-card-dark bg-search-bar-light"
+        className="h-9 flex items-center text-icon-light dark:text-icon-dark pr-3 pl-1 bg-inherit"
         onClick={onCloseCallback}
       >
         <CancelIcon />
