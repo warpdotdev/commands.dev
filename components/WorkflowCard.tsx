@@ -3,7 +3,7 @@ import WorkflowTags from "./WorkflowTags";
 import { Workflow } from "warp-workflows";
 
 const WorkflowCard = ({ slug, name, description, tags, author }: Workflow) => (
-  <Link href={`/workflows/${slug}`} key={slug}>
+  <Link href={`/workflows/${slug}`} key={slug} passHref={true}>
     <a
       className="p-5 m-2 border border-card-border-light dark:border-card-border-dark w-[24rem] h-[12.5rem]
       rounded-sm bg-card-light dark:bg-card-dark hover:bg-card-hover-light dark:hover:bg-card-hover-dark active:bg-card-active-light
