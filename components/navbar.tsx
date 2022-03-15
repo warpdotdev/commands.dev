@@ -4,6 +4,7 @@ import DarkModeToggle from "./DarkModeToggle";
 import { GitHubIcon } from "./icons/github";
 import { LogoIcon } from "./icons/logo";
 import { SearchIcon } from "./icons/search";
+import { WarpLogoIcon } from "./icons/warp_logo";
 import MobileSearchBox from "./search/MobileSearchBox";
 import CustomSearchBox from "./search/CustomSearchBox";
 
@@ -20,7 +21,7 @@ export default function NavBar() {
       ) : (
         <>
           <div className="flex items-center text-white flex md:px-5">
-            <a href="https://www.warp.dev">
+            <a href="https://www.warp.dev" target="_blank" rel="noreferrer">
               <LogoIcon />
             </a>
             <Link href="/">
@@ -40,11 +41,18 @@ export default function NavBar() {
           >
             <SearchIcon />
           </button>
-          <a className="pl-5 hidden md:flex" href="https://www.warp.dev/">
-            <div className="bg-[url('../img/logo.png')] w-8 h-6"></div>
+          <a
+            className="pl-5 hidden md:flex"
+            href="https://www.warp.dev/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <WarpLogoIcon />
           </a>
           <a
             href="https://github.com/warpdotdev/commands.dev"
+            target="_blank"
+            rel="noreferrer"
             className="text-icon-light dark:text-icon-dark hover:opacity-60 md:px-5 px-2"
           >
             <span className="sr-only">GitHub</span>

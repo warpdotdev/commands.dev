@@ -5,6 +5,7 @@ import { getSortedWorkflowsData } from "../lib/workflows";
 import Layout, { siteTitle } from "../components/layout";
 import { WorkflowCards } from "../components/WorkflowCard";
 import { Workflow } from "warp-workflows";
+import { WarpTextIcon } from "../components/icons/text_logo";
 
 export default function Home({
   allWorkflowsData,
@@ -27,9 +28,11 @@ export default function Home({
               commands for developers.
             </div>
             <div className="text-xs pt-2">Powered by</div>
-            <a className="pt-2" href="https://www.warp.dev/">
-              <div className="bg-[url('../img/text-logo-light.png')] dark:bg-[url('../img/text-logo-dark.png')] w-[5.45rem] h-5" />
-            </a>
+            <div className="pt-2 w-[5.45rem]">
+              <a href="https://www.warp.dev/">
+                <WarpTextIcon />
+              </a>
+            </div>
           </div>
         </div>
         {WorkflowCards(allWorkflowsData)}
