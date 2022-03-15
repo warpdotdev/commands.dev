@@ -27,8 +27,8 @@ export const WarpLogoIcon = () => (
         y2="-0.0118249"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#01A4FF" />
-        <stop offset="0.791667" stop-color="#01FFC2" />
+        <stop stopColor="#01A4FF" />
+        <stop offset="0.791667" stopColor="#01FFC2" />
       </linearGradient>
       <linearGradient
         id="paint1_linear_422_41799"
@@ -38,8 +38,8 @@ export const WarpLogoIcon = () => (
         y2="6.02767"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#01A4FF" />
-        <stop offset="0.791667" stop-color="#01FFC2" />
+        <stop stopColor="#01A4FF" />
+        <stop offset="0.791667" stopColor="#01FFC2" />
       </linearGradient>
     </defs>
   </svg>

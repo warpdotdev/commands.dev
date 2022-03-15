@@ -29,7 +29,7 @@ export default function Home({
             </div>
             <div className="text-xs pt-2">Powered by</div>
             <div className="pt-2 w-[5.45rem]">
-              <a href="https://www.warp.dev/">
+              <a href="https://www.warp.dev/" target="_blank" rel="noreferrer">
                 <WarpTextIcon />
               </a>
             </div>

@@ -45,8 +45,8 @@ export const WarpTextIcon = () => (
           y2="0.131045"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#01A4FF" />
-          <stop offset="0.791667" stop-color="#01FFC2" />
+          <stop stopColor="#01A4FF" />
+          <stop offset="0.791667" stopColor="#01FFC2" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_422_41805"
@@ -56,8 +56,8 @@ export const WarpTextIcon = () => (
           y2="4.69404"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#01A4FF" />
-          <stop offset="0.791667" stop-color="#01FFC2" />
+          <stop stopColor="#01A4FF" />
+          <stop offset="0.791667" stopColor="#01FFC2" />
         </linearGradient>
       </defs>
     </svg>
@@ -106,8 +106,8 @@ export const WarpTextIcon = () => (
           y2="0.131045"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#01A4FF" />
-          <stop offset="0.791667" stop-color="#01FFC2" />
+          <stop stopColor="#01A4FF" />
+          <stop offset="0.791667" stopColor="#01FFC2" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_422_41815"
@@ -117,8 +117,8 @@ export const WarpTextIcon = () => (
           y2="4.69404"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#01A4FF" />
-          <stop offset="0.791667" stop-color="#01FFC2" />
+          <stop stopColor="#01A4FF" />
+          <stop offset="0.791667" stopColor="#01FFC2" />
         </linearGradient>
       </defs>
     </svg>
