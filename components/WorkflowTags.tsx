@@ -4,7 +4,7 @@ export default function WorkflowTags({ tags }: { tags: string[] }) {
       "#algolia_search"
     ) as HTMLInputElement;
     if (searchBar != null) {
-      searchBar.setRangeText(tag, 0, searchBar.value.length - 1);
+      searchBar.setRangeText(tag, 0, searchBar.value.length);
       searchBar.dispatchEvent(new Event("change", { bubbles: true }));
     }
   };
