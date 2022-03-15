@@ -73,7 +73,7 @@ export default function WorkflowPage({
 
   const getArgHighlightStyle = (id: string) =>
     (focusedArg === id
-      ? "text-white dark:text-white font-medium"
+      ? "text-white dark:text-black font-medium"
       : "bg-opacity-30 text-black dark:text-white") +
     " bg-arg-highlight px-1 font-mono";
 

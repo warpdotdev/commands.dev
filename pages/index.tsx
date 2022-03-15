@@ -22,9 +22,9 @@ export default function Home({
             <div className="md:text-3xl text-3xl font-bold">
               Find commands at the speed of thought
             </div>
-            <div className="text-l font-normal mt-4 text-back dark:text-white max-w-[27rem]">
-              Commands.dev is a beautiful, searchable index of popular terminal
-              commands for developers.
+            <div className="text-l font-normal mt-4 text-back dark:text-white max-w-2xl">
+              Commands.dev is a searchable, templated catalog of popular
+              terminal commands curated from across the internet.
             </div>
             <div className="text-xs pt-2">Powered by</div>
             <a className="pt-2" href="https://www.warp.dev/">
