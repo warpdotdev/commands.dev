@@ -24,7 +24,7 @@ const WorkflowCard = ({ slug, name, description, tags, author }: Workflow) => (
           </p>
         )}
       </div>
-      {tags !== undefined && WorkflowTags(tags)}
+      {tags !== undefined && <WorkflowTags tags={tags} />}
     </a>
   </Link>
 );
