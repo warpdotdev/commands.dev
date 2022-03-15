@@ -1,10 +1,11 @@
 import { connectSearchBox } from "react-instantsearch-dom";
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { SearchIcon } from "../icons/search";
 import { useHotkeys } from "react-hotkeys-hook";
 import { useRouter } from "next/router";
 
 function SearchBox({ refine }: { refine: Dispatch<SetStateAction<string>> }) {
+  let [searchBarState, setSearchBarState] = useState("");
   useHotkeys("ctrl+k", () => {
     if (document != null) {
       let searchBar = document.querySelector(
@@ -19,6 +20,7 @@ function SearchBox({ refine }: { refine: Dispatch<SetStateAction<string>> }) {
   const dynamicRoute = useRouter().asPath;
   useEffect(() => {
     refine(""); // When the route changes - reset the search state
+    setSearchBarState("");
   }, [dynamicRoute]);
 
   return (
@@ -29,8 +31,12 @@ function SearchBox({ refine }: { refine: Dispatch<SetStateAction<string>> }) {
       <input
         id={"algolia_search"}
         type="search"
+        value={searchBarState}
         placeholder={"Ctrl + K"}
-        onChange={(e) => refine(e.currentTarget.value)}
+        onChange={(e) => {
+          refine(e.currentTarget.value);
+          setSearchBarState(e.currentTarget.value);
+        }}
         className="grow h-9 cursor-pointer rounded-sm text-sm focus:outline-none dark:bg-card-dark bg-search-bar-light placeholder:opacity-50 dark:text-white px-2"
       />
     </div>

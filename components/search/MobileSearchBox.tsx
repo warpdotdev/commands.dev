@@ -1,5 +1,5 @@
 import { connectSearchBox } from "react-instantsearch-dom";
-import React, { Dispatch, SetStateAction, useEffect } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { CancelIcon } from "../icons/cancel";
 import { useRouter } from "next/router";
 
@@ -10,6 +10,7 @@ function SearchBox({
   refine: Dispatch<SetStateAction<string>>;
   onCloseCallback: () => void;
 }) {
+  let [searchBarState, setSearchBarState] = useState("");
   useEffect(() => {
     let searchBar = document.querySelector(
       "#algolia_search_mobile"
@@ -22,6 +23,7 @@ function SearchBox({
   const dynamicRoute = useRouter().asPath;
   useEffect(() => {
     refine(""); // When the route changes - reset the search state
+    setSearchBarState("");
   }, [dynamicRoute]);
 
   return (
@@ -30,7 +32,10 @@ function SearchBox({
         id={"algolia_search_mobile"}
         type="search"
         placeholder={"Search commands"}
-        onChange={(e) => refine(e.currentTarget.value)}
+        onChange={(e) => {
+          refine(e.currentTarget.value);
+          setSearchBarState(e.currentTarget.value);
+        }}
         className="grow h-9 cursor-pointer text-sm focus:outline-none bg-inherit placeholder:opacity-50 text-black dark:text-white px-2"
       />
       <button
