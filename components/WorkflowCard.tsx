@@ -1,19 +1,13 @@
 import Link from "next/link";
 import WorkflowTags from "./WorkflowTags";
 import { Workflow } from "warp-workflows";
-import { useRouter } from "next/router";
 
-const WorkflowCard = ({ slug, name, description, tags, author }: Workflow) => {
-  const router = useRouter();
-  return (
-    <button
+const WorkflowCard = ({ slug, name, description, tags, author }: Workflow) => (
+  <Link href={`/workflows/${slug}`} key={slug}>
+    <a
       className="p-5 m-2 border border-card-border-light dark:border-card-border-dark w-[24rem] h-[12.5rem]
       rounded-sm bg-card-light dark:bg-card-dark hover:bg-card-hover-light dark:hover:bg-card-hover-dark active:bg-card-active-light
       dark:active:bg-card-active-dark"
-      onClick={() => {
-        router.push(`/workflows/${slug}`);
-      }}
-      key={slug}
     >
       <div className="h-[8rem]">
         <h3 className="text-xl text-black dark:text-white font-bold line-clamp-2 pb-1">
@@ -31,9 +25,9 @@ const WorkflowCard = ({ slug, name, description, tags, author }: Workflow) => {
         )}
       </div>
       {tags !== undefined && WorkflowTags(tags)}
-    </button>
-  );
-};
+    </a>
+  </Link>
+);
 
 export function WorkflowCards(workflows: Workflow[]) {
   return (

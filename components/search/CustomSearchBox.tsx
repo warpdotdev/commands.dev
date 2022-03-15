@@ -1,7 +1,8 @@
 import { connectSearchBox } from "react-instantsearch-dom";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import { SearchIcon } from "../icons/search";
 import { useHotkeys } from "react-hotkeys-hook";
+import { useRouter } from "next/router";
 
 function SearchBox({ refine }: { refine: Dispatch<SetStateAction<string>> }) {
   useHotkeys("ctrl+k", () => {
@@ -14,6 +15,11 @@ function SearchBox({ refine }: { refine: Dispatch<SetStateAction<string>> }) {
       }
     }
   });
+
+  const dynamicRoute = useRouter().asPath;
+  useEffect(() => {
+    refine(""); // When the route changes - reset the search state
+  }, [dynamicRoute]);
 
   return (
     <div className="dark:bg-card-dark bg-card-light grow h-9 cursor-pointer rounded-sm items-center flex">

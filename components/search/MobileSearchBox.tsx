@@ -1,6 +1,7 @@
 import { connectSearchBox } from "react-instantsearch-dom";
 import React, { Dispatch, SetStateAction, useEffect } from "react";
 import { CancelIcon } from "../icons/cancel";
+import { useRouter } from "next/router";
 
 function SearchBox({
   refine,
@@ -17,6 +18,11 @@ function SearchBox({
       searchBar.focus();
     }
   }, []);
+
+  const dynamicRoute = useRouter().asPath;
+  useEffect(() => {
+    refine(""); // When the route changes - reset the search state
+  }, [dynamicRoute]);
 
   return (
     <div className="dark:bg-card-dark bg-search-bar-light grow h-9 cursor-pointer rounded-sm items-center flex text-black dark:text-white">
