@@ -32,6 +32,7 @@ function SearchBox({
         id={"algolia_search_mobile"}
         type="search"
         placeholder={"Search commands"}
+        value={searchBarState}
         onChange={(e) => {
           refine(e.currentTarget.value);
           setSearchBarState(e.currentTarget.value);
