@@ -8,9 +8,6 @@ import WorkflowTags from "../../components/WorkflowTags";
 import { Argument, Workflow } from "warp-workflows";
 import { CopyIcon } from "../../components/icons/copy";
 import ReactTooltip from "react-tooltip";
-import { useRouter } from "next/router";
-import { Dispatch, SetStateAction } from "react";
-import { connectStateResults } from "react-instantsearch-dom";
 
 interface ArgumentValues {
   [name: string]: string;
@@ -35,10 +32,8 @@ type Token = ArgumentToken | TextToken;
 
 export default function WorkflowPage({
   workflowData,
-  refine,
 }: {
   workflowData: Workflow;
-  refine: Dispatch<SetStateAction<string>>;
 }) {
   let workflowArguments = workflowData.arguments ?? ([] as Argument[]);
 
