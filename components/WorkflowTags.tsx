@@ -2,7 +2,6 @@ import { useRouter } from "next/router";
 
 export default function WorkflowTags({ tags }: { tags: string[] }) {
   const router = useRouter();
-
   return (
     <div className="flex mt-1 flex-wrap">
       {tags.map((tag, id) => (
