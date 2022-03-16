@@ -23,4 +23,5 @@ jobs:
       with:
         token: ${{ secrets.GH_RUN_WORKFLOW_PAT }}
         title: Update Warp-Workflows Version
+        assignees: alokedesai, ianhoge, michlimlim
     
