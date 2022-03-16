@@ -158,7 +158,10 @@ export default function WorkflowPage({
                   rel="noreferrer"
                   className="text-xs text-black dark:text-white "
                 >
-                  Created by: {workflowData.author}
+                  Created by:
+                  <span className="bg-pill-light dark:bg-pill-dark p-1 ml-1 rounded-md hover:opacity-60">
+                    {workflowData.author}
+                  </span>
                 </a>
               )}
             </div>
