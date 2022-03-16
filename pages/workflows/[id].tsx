@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { GetStaticProps, GetStaticPaths } from "next";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { getAllWorkflowIds, getWorkflowData } from "../../lib/workflows";
 import Layout from "../../components/layout";
