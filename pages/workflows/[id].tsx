@@ -239,7 +239,9 @@ export default function WorkflowPage({
               </code>
             </div>
             <div className="text-sm text-black dark:text-white pb-2">Tags</div>
-            {workflowData.tags !== undefined && WorkflowTags(workflowData.tags)}
+            {workflowData.tags !== undefined && (
+              <WorkflowTags tags={workflowData.tags} />
+            )}
             <div className="flex py-6 text-link-text-light dark:text-link-text-dark">
               <a
                 href={
