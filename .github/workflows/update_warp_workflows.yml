@@ -1,0 +1,27 @@
+name: Update Warp Workflows
+
+on:
+  schedule:
+    - cron: 0 1 * * *
+  workflow_dispatch:
+    
+
+jobs:
+  package-update:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Install npm-check-update
+      run: npm install -g npm-check-updates
+    
+    - name: Check for update to warp-workflows
+      run: npm-check-updates --filter warp-workflows -u
+
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v3  
+      with:
+        token: ${{ secrets.GH_RUN_WORKFLOW_PAT }}
+        title: Update Warp-Workflows Version
+        assignees: alokedesai, ianhoge, michlimlim
+    
