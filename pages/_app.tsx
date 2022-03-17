@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               document.documentElement.classList.remove('dark');
             }`}
       </Script>
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </>
   );
 }
