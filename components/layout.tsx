@@ -4,10 +4,7 @@ import { InstantSearch } from "react-instantsearch-dom";
 
 import NavBar from "./navbar";
 import Footer from "./footer";
-import CustomSearchBox from "./search/CustomSearchBox";
 import CustomHits from "./search/CustomHits";
-import { useState } from "react";
-import { url } from "inspector";
 
 export const siteTitle = "Commands.dev";
 const searchClient = algoliasearch(
