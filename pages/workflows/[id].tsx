@@ -186,9 +186,6 @@ export default function WorkflowPage({
                   name={argument.name}
                   onFocus={() => setFocusedArg(argument.name)}
                 />
-                <div className="text-sm opacity-50 pt-1 pl-1 dark:text-white">
-                  {"enter a value for " + argument.name}
-                </div>
               </div>
             ))}
             <br />
