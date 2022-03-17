@@ -7,6 +7,7 @@ import Footer from "./footer";
 import CustomSearchBox from "./search/CustomSearchBox";
 import CustomHits from "./search/CustomHits";
 import { useState } from "react";
+import { url } from "inspector";
 
 export const siteTitle = "Commands.dev";
 const searchClient = algoliasearch(
@@ -26,10 +27,14 @@ export default function Layout({
         <link rel="icon" href="/favicon.ico" />
         <meta
           name="description"
-          content="Commands.dev: a beautiful, searchable index of popular terminal commands for developers"
+          content="Commands.dev is a searchable, templated catalog of popular
+          terminal commands curated from across the internet."
         />
         {/* TODO: Ask Shikhiu for Workflows image preview */}
-        <meta property="og:image" content={`../img/commands-preview.svg`} />
+        <meta
+          property="og:image"
+          content={`@Url.Content("../img/commands-preview.svg")`}
+        />
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
