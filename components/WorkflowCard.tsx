@@ -7,8 +7,8 @@ const WorkflowCard = ({ slug, name, description, tags, author }: Workflow) => {
   const router = useRouter();
   const onClickCard = () => {
     const destination = `/workflows/${slug}`;
-    // Stop gap for clicking on the workflow card while on the info screen of that name workflow
-    // Ensures a page reload so the page actually appears correctly
+    // Stop gap for clicking on the workflow card while on the info screen of that same workflow
+    // Ensures a page reload so the page actually renders and appears correctly
     if (window.location.pathname === destination) {
       window.location.reload();
     } else {
