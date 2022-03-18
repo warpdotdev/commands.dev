@@ -18,7 +18,7 @@
     "react-hotkeys-hook": "^3.4.4",
     "react-instantsearch-dom": "^6.21.1",
     "react-tooltip": "^4.2.21",
-    "warp-workflows": "^1.0.4"
+    "warp-workflows": "^1.0.5"
   },
   "devDependencies": {
     "@types/node": "17.0.8",
