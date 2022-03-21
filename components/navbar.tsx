@@ -22,7 +22,19 @@ export default function NavBar() {
       ) : (
         <>
           <div className="flex items-center text-white flex md:px-5">
-            <a href="https://www.warp.dev" target="_blank" rel="noreferrer">
+            <a
+              href="https://www.warp.dev"
+              target="_blank"
+              rel="noreferrer"
+              onClick={(e) => {
+                gtag.event({
+                  action: "click_on_slash_landing_page",
+                  category: "Click on Landing Page",
+                  label: "Click on Landing Page via Command Slash",
+                  value: window.location.pathname,
+                });
+              }}
+            >
               <LogoIcon />
             </a>
             <Link href="/">
