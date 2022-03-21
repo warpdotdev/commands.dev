@@ -4,26 +4,35 @@
 /// A sitemap optimizes our search engine indexing. It tells Google which URLs belong
 /// and when they update so Google can detect new content and crawl our website efficiently.
 /// See this for more information: https://nextjs.org/learn/seo/crawling-and-indexing/xml-sitemaps
-import { getAllWorkflowIds } from "../lib/workflows";
+import { getAllWorkflowIds, getAllWorkflowCategories } from "../lib/workflows";
 
-const EXTERNAL_DATA_URL = "https://www.commands.dev/workflows";
+const EXTERNAL_DATA_URL = "https://www.commands.dev";
 
-function generateSiteMap(workflows) {
+function generateSiteMap(workflows, categories) {
   return `<?xml version="1.0" encoding="UTF-8"?>
    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
      <!--We manually set the one URL we know already-->
      <url>
-       <loc>https://www.commands.dev/</loc>
+       <loc>${`${EXTERNAL_DATA_URL}/`}</loc>
      </url>
      ${workflows
        .map(({ params: { id } }) => {
          return `
        <url>
-           <loc>${`${EXTERNAL_DATA_URL}/${id}`}</loc>
+           <loc>${`${EXTERNAL_DATA_URL}/workflows/${id}`}</loc>
        </url>
      `;
        })
        .join("")}
+       ${categories
+         .map(({ params: { id } }) => {
+           return `
+        <url>
+            <loc>${`${EXTERNAL_DATA_URL}/categories/${id}`}</loc>
+        </url>
+      `;
+         })
+         .join("")}
    </urlset>
  `;
 }
@@ -33,11 +42,12 @@ function SiteMap() {
 }
 
 export async function getServerSideProps({ res }) {
-  // We make an API call to gather the URLs for our site;
+  // We make API calls to gather the URLs for our site
   const workflows = getAllWorkflowIds();
+  const categories = getAllWorkflowCategories();
 
-  // We generate the XML sitemap with the workflows data
-  const sitemap = generateSiteMap(workflows);
+  // We generate the XML sitemap with the workflows and categories data
+  const sitemap = generateSiteMap(workflows, categories);
 
   res.setHeader("Content-Type", "text/xml");
   // we send the XML to the browser
