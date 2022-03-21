@@ -6,7 +6,7 @@ import NavBar from "./navbar";
 import Footer from "./footer";
 import CustomHits from "./search/CustomHits";
 
-export const siteTitle = "Commands.dev";
+export const siteTitle = "Commands.dev - Find commands at the speed of thought";
 export const siteDescription =
   "Commands.dev is a searchable, templated catalog of popular terminal commands curated from across the internet.";
 const searchClient = algoliasearch(

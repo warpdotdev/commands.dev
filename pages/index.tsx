@@ -22,9 +22,9 @@ export default function Home({
       <main className="grow">
         <div className="bg-cover text-black dark:text-white">
           <div className="py-10 px-3 max-w-2xl">
-            <div className="md:text-3xl text-3xl font-bold">
+            <h1 className="md:text-3xl text-3xl font-bold">
               Find commands at the speed of thought
-            </div>
+            </h1>
             <div className="text-l font-normal mt-4 text-back dark:text-white max-w-2xl">
               {siteDescription}
             </div>
