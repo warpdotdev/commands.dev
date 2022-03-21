@@ -8,6 +8,7 @@ import WorkflowTags from "../../components/WorkflowTags";
 import { Argument, Workflow } from "warp-workflows";
 import { CopyIcon } from "../../components/icons/copy";
 import ReactTooltip from "react-tooltip";
+import * as gtag from "../../lib/gtag";
 
 interface ArgumentValues {
   [name: string]: string;
@@ -120,6 +121,13 @@ export default function WorkflowPage({
           : token.text;
     });
 
+    gtag.event({
+      action: "copy_command",
+      category: "Workflow Detail Page",
+      label: "Copy Command",
+      value: workflowData.slug,
+    });
+
     copyTextToClipboard(commandString).then(() => {
       setCommandCopied(true);
       setTimeout(() => {
@@ -130,6 +138,14 @@ export default function WorkflowPage({
 
   const copyCurrentUrl = () => {
     let url = window.location.href;
+
+    gtag.event({
+      action: "copy_url",
+      category: "Workflow Detail Page",
+      label: "Copy URL",
+      value: workflowData.slug,
+    });
+
     copyTextToClipboard(url);
   };
 
@@ -245,6 +261,14 @@ export default function WorkflowPage({
                   "https://github.com/warpdotdev/workflows/blob/main" +
                   workflowData.relative_git_url
                 }
+                onClick={(e) => {
+                  gtag.event({
+                    action: "edit_in_github",
+                    category: "Workflow Detail Page",
+                    label: "Edit in GitHub",
+                    value: workflowData.slug,
+                  });
+                }}
                 rel="noreferrer"
                 target="_blank"
               >

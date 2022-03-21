@@ -7,6 +7,7 @@ import { SearchIcon } from "./icons/search";
 import { WarpLogoIcon } from "./icons/warp_logo";
 import MobileSearchBox from "./search/MobileSearchBox";
 import CustomSearchBox from "./search/CustomSearchBox";
+import * as gtag from "../lib/gtag";
 
 export default function NavBar() {
   let [mobileSearchBoxOpen, setMobileSearchBoxOpen] = useState(false);
@@ -46,6 +47,14 @@ export default function NavBar() {
             href="https://www.warp.dev/"
             target="_blank"
             rel="noreferrer"
+            onClick={(e) => {
+              gtag.event({
+                action: "click_on_navbar_landing_page",
+                category: "Click on Landing Page",
+                label: "Click on Landing Page via NavBar",
+                value: window.location.pathname,
+              });
+            }}
           >
             <WarpLogoIcon />
           </a>
@@ -54,6 +63,14 @@ export default function NavBar() {
             target="_blank"
             rel="noreferrer"
             className="text-icon-light dark:text-icon-dark hover:opacity-60 md:px-5 px-2"
+            onClick={(e) => {
+              gtag.event({
+                action: "click_on_navbar_github",
+                category: "Click on GitHub",
+                label: "Click on GitHub via NavBar",
+                value: window.location.pathname,
+              });
+            }}
           >
             <span className="sr-only">GitHub</span>
             <GitHubIcon />

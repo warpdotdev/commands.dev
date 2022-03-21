@@ -1,11 +1,18 @@
-import Link from "next/link";
 import WorkflowTags from "./WorkflowTags";
 import { Workflow } from "warp-workflows";
 import { useRouter } from "next/router";
+import * as gtag from "../lib/gtag";
 
 const WorkflowCard = ({ slug, name, description, tags, author }: Workflow) => {
   const router = useRouter();
   const onClickCard = () => {
+    gtag.event({
+      action: "click_workflow_card",
+      category: "Workflow Cards",
+      label: "Click Workflow Card",
+      value: slug,
+    });
+
     const destination = `/workflows/${slug}`;
     // Stop gap for clicking on the workflow card while on the info screen of that same workflow
     // Ensures a page reload so the page actually renders and appears correctly
@@ -19,8 +26,8 @@ const WorkflowCard = ({ slug, name, description, tags, author }: Workflow) => {
   return (
     <div
       className="p-5 m-2 border border-card-border-light dark:border-card-border-dark w-[24rem] h-[12.5rem]
-    rounded-sm bg-card-light dark:bg-card-dark hover:bg-card-hover-light dark:hover:bg-card-hover-dark active:bg-card-active-light
-    dark:active:bg-card-active-dark"
+      rounded-sm bg-card-light dark:bg-card-dark hover:bg-card-hover-light dark:hover:bg-card-hover-dark active:bg-card-active-light
+      dark:active:bg-card-active-dark"
       onClick={onClickCard}
     >
       <div className="h-[8rem] text-left">

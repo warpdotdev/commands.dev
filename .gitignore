@@ -38,3 +38,4 @@ yarn-error.log*
 *.tsbuildinfo
 
 /lib/*.js
+!/lib/gtag.js

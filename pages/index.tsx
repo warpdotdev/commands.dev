@@ -6,6 +6,7 @@ import Layout, { siteTitle } from "../components/layout";
 import { WorkflowCards } from "../components/WorkflowCard";
 import { Workflow } from "warp-workflows";
 import { WarpTextIcon } from "../components/icons/text_logo";
+import * as gtag from "../lib/gtag";
 
 export default function Home({
   allWorkflowsData,
@@ -29,7 +30,19 @@ export default function Home({
             </div>
             <div className="text-xs pt-2">Powered by</div>
             <div className="pt-2 w-[5.45rem]">
-              <a href="https://www.warp.dev/" target="_blank" rel="noreferrer">
+              <a
+                href="https://www.warp.dev/"
+                target="_blank"
+                rel="noreferrer"
+                onClick={(e) => {
+                  gtag.event({
+                    action: "click_on_powered_by_landing_page",
+                    category: "Click on Landing Page",
+                    label: "Click on Landing Page via 'Powered By'",
+                    value: "/",
+                  });
+                }}
+              >
                 <WarpTextIcon />
               </a>
             </div>
