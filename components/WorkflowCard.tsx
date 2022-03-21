@@ -28,6 +28,7 @@ const WorkflowCard = ({ slug, name, description, tags, author }: Workflow) => {
       className="p-5 m-2 border border-card-border-light dark:border-card-border-dark w-[24rem] h-[12.5rem]
       rounded-sm bg-card-light dark:bg-card-dark hover:bg-card-hover-light dark:hover:bg-card-hover-dark active:bg-card-active-light
       dark:active:bg-card-active-dark"
+      key={slug}
       onClick={onClickCard}
     >
       <div className="h-[8rem] text-left">
