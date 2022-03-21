@@ -1,4 +1,5 @@
 import Link from "next/link";
+import * as gtag from "../lib/gtag";
 
 const Footer = () => (
   <footer className="w-screen px-4 py-12 space-y-4 bg-card-light dark:bg-card-dark">
@@ -6,6 +7,14 @@ const Footer = () => (
       <a
         href="https://www.twitter.com/warpdotdev"
         className="text-icon-light dark:text-icon-dark hover:opacity-60"
+        onClick={(e) => {
+          gtag.event({
+            action: "click_on_footer_twitter",
+            category: "Click on Twitter",
+            label: "Click on Twitter via Footer",
+            value: window.location.pathname,
+          });
+        }}
       >
         <span className="sr-only">Twitter</span>
         <svg
@@ -20,6 +29,14 @@ const Footer = () => (
       <a
         href="https://github.com/warpdotdev/commands.dev"
         className="text-icon-light dark:text-icon-dark hover:opacity-60"
+        onClick={(e) => {
+          gtag.event({
+            action: "click_on_footer_github",
+            category: "Click on GitHub",
+            label: "Click on GitHub via Footer",
+            value: window.location.pathname,
+          });
+        }}
       >
         <span className="sr-only">GitHub</span>
         <svg
@@ -39,7 +56,17 @@ const Footer = () => (
     <p className="text-center text-black dark:text-white">
       Made with ❤️ by{" "}
       <Link href="https://www.warp.dev">
-        <a className="underline hover:opacity-60">
+        <a
+          className="underline hover:opacity-60"
+          onClick={(e) => {
+            gtag.event({
+              action: "click_on_footer_landing_page",
+              category: "Click on Landing Page",
+              label: "Click on Landing Page via Footer",
+              value: window.location.pathname,
+            });
+          }}
+        >
           the Warp Team and community
         </a>
       </Link>
