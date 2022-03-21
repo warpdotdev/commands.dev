@@ -4,11 +4,11 @@ import { InstantSearch } from "react-instantsearch-dom";
 
 import NavBar from "./navbar";
 import Footer from "./footer";
-import CustomSearchBox from "./search/CustomSearchBox";
 import CustomHits from "./search/CustomHits";
-import { useState } from "react";
 
 export const siteTitle = "Commands.dev";
+export const siteDescription =
+  "Commands.dev is a searchable, templated catalog of popular terminal commands curated from across the internet.";
 const searchClient = algoliasearch(
   process.env.NEXT_PUBLIC_ALGOLIA_APP_ID!,
   process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY!
@@ -24,10 +24,7 @@ export default function Layout({
     <div className="min-h-screen flex flex-col m-w-screen">
       <Head>
         <link rel="icon" href="/favicon.ico" />
-        <meta
-          name="description"
-          content="Commands.dev: a beautiful, searchable index of popular terminal commands for developers"
-        />
+        <meta name="description" content={siteDescription} />
         {/* TODO: Ask Shikhiu for Workflows image preview */}
         <meta
           property="og:image"

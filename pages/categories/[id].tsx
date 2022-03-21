@@ -9,14 +9,23 @@ import Layout from "../../components/layout";
 import { WorkflowCards } from "../../components/WorkflowCard";
 
 export default function WorkflowPage({ category }: { category: string }) {
+  let workflows = getWorkflowsByCategory(category);
+
+  // This shows up as a description when our page is surfaced in Google Search results.
+  // It does not increase our ranking but it does increase our click-through rate.
+  let descriptionInMetaTag = `\'${category}\' popular terminal commands. Example commands include: ${workflows
+    .slice(0, 3)
+    .map((workflow) => workflow.name)
+    .join(", ")}`;
+
+  console.log(descriptionInMetaTag);
   return (
     <Layout>
       <Head>
         <title>{category}</title>
+        <meta name="description" content={descriptionInMetaTag} />
       </Head>
-      <main className="grow pt-3">
-        {WorkflowCards(getWorkflowsByCategory(category))}
-      </main>
+      <main className="grow pt-3">{WorkflowCards(workflows)}</main>
     </Layout>
   );
 }

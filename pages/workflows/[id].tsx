@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { GetStaticProps, GetStaticPaths } from "next";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import { getAllWorkflowIds, getWorkflowData } from "../../lib/workflows";
 import Layout from "../../components/layout";
@@ -10,6 +10,7 @@ import { CopyIcon } from "../../components/icons/copy";
 import ReactTooltip from "react-tooltip";
 import * as gtag from "../../lib/gtag";
 
+const lowerCaseFirstChar = (str: string) => str[0].toLowerCase() + str.slice(1);
 interface ArgumentValues {
   [name: string]: string;
 }
@@ -149,10 +150,20 @@ export default function WorkflowPage({
     copyTextToClipboard(url);
   };
 
+  // This shows up as a description when our page is surfaced in Google Search results.
+  // It does not increase our ranking but it does increase our click-through rate.
+  const descriptionInMetaTag =
+    workflowData.description == undefined
+      ? `To ${lowerCaseFirstChar(workflowData.name)}, use command \`${
+          workflowData.command
+        }\``
+      : `${workflowData.description}. Command is \`${workflowData.command}\``;
+
   return (
     <Layout>
       <Head>
         <title>{workflowData.name}</title>
+        <meta name="description" content={descriptionInMetaTag} />
       </Head>
       <main className="grow h-screen">
         <div className="flex pt-10">
