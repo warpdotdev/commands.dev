@@ -24,7 +24,7 @@ export default function WorkflowPage({ category }: { category: string }) {
         <title>{category}</title>
         <meta name="description" content={descriptionInMetaTag} />
       </Head>
-      <div className="pt-10 pb-5 px-3 max-w-2xl">
+      <div className="text-black dark:text-white pt-10 pb-5 px-3 max-w-2xl">
         <h1 className="md:text-3xl text-3xl font-bold">
           {`Popular \`${category}\` terminal commands`}
         </h1>
