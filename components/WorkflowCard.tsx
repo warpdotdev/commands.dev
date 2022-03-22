@@ -3,35 +3,69 @@ import { Workflow } from "warp-workflows";
 import { useRouter } from "next/router";
 import * as gtag from "../lib/gtag";
 
-const WorkflowCard = ({ slug, name, description, tags, author }: Workflow) => {
+const CARD_STYLE =
+  "p-5 m-2 border border-card-border-light dark:border-card-border-dark\
+   w-[24rem] h-[12.5rem] rounded-sm bg-card-light dark:bg-card-dark \
+   hover:bg-card-hover-light dark:hover:bg-card-hover-dark \
+   active:bg-card-active-light dark:active:bg-card-active-dark";
+
+type WorkflowCardProps = {
+  workflow: Workflow;
+  isSearchResult: boolean;
+};
+
+const WorkflowCard = ({ workflow, isSearchResult }: WorkflowCardProps) => {
+  const { slug, name, description, tags, author } = workflow;
   const router = useRouter();
-  const onClickCard = () => {
+  const destination = `/workflows/${slug}`;
+
+  // Be default we should use the <a> tag for the cards so search crawlers can find the URLs.
+  const LinkCard = ({ children }: { children: React.ReactNode }) => (
+    <a className={CARD_STYLE} href={destination} onClick={trackClick}>
+      {children}
+    </a>
+  );
+
+  // However, if the workflow card shows up in the Search Results,
+  // we should use this stopgap to force a  page reload.
+  const DivCard = ({ children }: { children: React.ReactNode }) => {
+    const redirectAndForcePageReload = () => {
+      // Stop gap for clicking on the workflow card while on the info screen of that same workflow
+      // Ensures a page reload so the page actually renders and appears correctly
+      // The downside of this is that the link will not be detected by the search crawlers.
+      if (window.location.pathname === destination) {
+        window.location.reload();
+      } else {
+        router.push(destination);
+      }
+    };
+
+    return (
+      <div
+        className={CARD_STYLE}
+        onClick={() => {
+          trackClick();
+          redirectAndForcePageReload();
+        }}
+      >
+        {children}
+      </div>
+    );
+  };
+
+  const trackClick = () => {
     gtag.event({
       action: "click_workflow_card",
       category: "Workflow Cards",
       label: "Click Workflow Card",
       value: slug,
     });
-
-    const destination = `/workflows/${slug}`;
-    // Stop gap for clicking on the workflow card while on the info screen of that same workflow
-    // Ensures a page reload so the page actually renders and appears correctly
-    // The downside of this is that the link will not be detected by the search crawlers.
-    if (window.location.pathname === destination) {
-      window.location.reload();
-    } else {
-      router.push(destination);
-    }
   };
 
+  const WrapperComponent = isSearchResult ? DivCard : LinkCard;
+
   return (
-    <div
-      className="p-5 m-2 border border-card-border-light dark:border-card-border-dark w-[24rem] h-[12.5rem]
-      rounded-sm bg-card-light dark:bg-card-dark hover:bg-card-hover-light dark:hover:bg-card-hover-dark active:bg-card-active-light
-      dark:active:bg-card-active-dark"
-      key={slug}
-      onClick={onClickCard}
-    >
+    <WrapperComponent>
       <div className="h-[8rem] text-left">
         <h3 className="text-xl text-black dark:text-white font-bold line-clamp-2 pb-1">
           {name}
@@ -48,14 +82,28 @@ const WorkflowCard = ({ slug, name, description, tags, author }: Workflow) => {
         )}
       </div>
       {tags !== undefined && <WorkflowTags tags={tags} />}
-    </div>
+    </WrapperComponent>
   );
 };
 
-export function WorkflowCards(workflows: Workflow[]) {
+type WorkflowCardsProps = {
+  workflows: Workflow[];
+  isSearchResults: boolean;
+};
+
+export function WorkflowCards({
+  workflows,
+  isSearchResults,
+}: WorkflowCardsProps) {
   return (
     <div className="flex flex-wrap justify-around pb-5">
-      {workflows.map((workflow) => WorkflowCard(workflow))}
+      {workflows.map((workflow) => (
+        <WorkflowCard
+          workflow={workflow}
+          isSearchResult={isSearchResults}
+          key={workflow.slug}
+        />
+      ))}
     </div>
   );
 }

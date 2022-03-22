@@ -48,7 +48,7 @@ export default function Home({
             </div>
           </div>
         </div>
-        {WorkflowCards(allWorkflowsData)}
+        {<WorkflowCards workflows={allWorkflowsData} isSearchResults={false} />}
       </main>
     </Layout>
   );

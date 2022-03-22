@@ -24,7 +24,7 @@ function SearchBox({
   useEffect(() => {
     refine(""); // When the route changes - reset the search state
     setSearchBarState("");
-  }, [dynamicRoute]);
+  }, [dynamicRoute, refine]);
 
   return (
     <div className="dark:bg-card-dark bg-search-bar-light grow h-9 cursor-pointer rounded-sm items-center flex text-black dark:text-white">
