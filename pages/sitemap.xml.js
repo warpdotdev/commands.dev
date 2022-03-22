@@ -38,7 +38,11 @@ function generateSiteMap(workflows, categories) {
 }
 
 function SiteMap() {
-  // getServerSideProps will do the heavy lifting
+  // We don't want to render a component at this URL.
+  // Instead, we want to hijack the getServerSideProps
+  // method (this is called by Next.js as it receives
+  // an inbound request on the server) and override
+  //  the response with the contents of our sitemap
 }
 
 export async function getServerSideProps({ res }) {
