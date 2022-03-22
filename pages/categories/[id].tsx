@@ -29,7 +29,9 @@ export default function WorkflowPage({ category }: { category: string }) {
           {`Popular \`${category}\` terminal commands`}
         </h1>
       </div>
-      <main className="grow pt-3">{WorkflowCards(workflows)}</main>
+      <main className="grow pt-3">
+        {<WorkflowCards workflows={workflows} isSearchResults={false} />}
+      </main>
     </Layout>
   );
 }

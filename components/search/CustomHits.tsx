@@ -24,7 +24,7 @@ function Hits({
           tags: Array.isArray(tags) ? tags : [tags],
         } as Workflow)
     );
-    return WorkflowCards(workflows);
+    return <WorkflowCards workflows={workflows} isSearchResults={true} />;
   } else {
     return (
       <div className="grid place-items-center h-screen">
