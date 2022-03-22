@@ -1,3 +1,4 @@
+import Link from "next/link";
 import WorkflowTags from "./WorkflowTags";
 import { Workflow } from "warp-workflows";
 import { useRouter } from "next/router";
@@ -21,9 +22,11 @@ const WorkflowCard = ({ workflow, isSearchResult }: WorkflowCardProps) => {
 
   // Be default we should use the <a> tag for the cards so search crawlers can find the URLs.
   const LinkCard = ({ children }: { children: React.ReactNode }) => (
-    <a className={CARD_STYLE} href={destination} onClick={trackClick}>
-      {children}
-    </a>
+    <Link href={destination}>
+      <a className={CARD_STYLE} onClick={trackClick}>
+        {children}
+      </a>
+    </Link>
   );
 
   // However, if the workflow card shows up in the Search Results,
