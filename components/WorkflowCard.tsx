@@ -16,6 +16,7 @@ const WorkflowCard = ({ slug, name, description, tags, author }: Workflow) => {
     const destination = `/workflows/${slug}`;
     // Stop gap for clicking on the workflow card while on the info screen of that same workflow
     // Ensures a page reload so the page actually renders and appears correctly
+    // The downside of this is that the link will not be detected by the search crawlers.
     if (window.location.pathname === destination) {
       window.location.reload();
     } else {
@@ -28,6 +29,7 @@ const WorkflowCard = ({ slug, name, description, tags, author }: Workflow) => {
       className="p-5 m-2 border border-card-border-light dark:border-card-border-dark w-[24rem] h-[12.5rem]
       rounded-sm bg-card-light dark:bg-card-dark hover:bg-card-hover-light dark:hover:bg-card-hover-dark active:bg-card-active-light
       dark:active:bg-card-active-dark"
+      key={slug}
       onClick={onClickCard}
     >
       <div className="h-[8rem] text-left">
