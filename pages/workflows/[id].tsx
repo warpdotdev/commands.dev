@@ -1,14 +1,20 @@
 import Head from "next/head";
 import { GetStaticProps, GetStaticPaths } from "next";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import dynamic from "next/dynamic";
 
 import { getAllWorkflowIds, getWorkflowData } from "../../lib/workflows";
 import Layout from "../../components/layout";
 import WorkflowTags from "../../components/WorkflowTags";
 import { Argument, Workflow } from "warp-workflows";
 import { CopyIcon } from "../../components/icons/copy";
-import ReactTooltip from "react-tooltip";
 import * as gtag from "../../lib/gtag";
+
+// We create a dynamic component here to speed up the initial page load.
+// This component only loads after initial page load.
+const ReactTooltip = dynamic(() => import("react-tooltip"), {
+  ssr: false,
+});
 
 interface ArgumentValues {
   [name: string]: string;

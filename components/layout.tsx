@@ -1,12 +1,17 @@
 import Head from "next/head";
+import dynamic from "next/dynamic";
 import algoliasearch from "algoliasearch/lite";
-import { InstantSearch } from "react-instantsearch-dom";
 
+import CustomHits from "./search/CustomHits";
 import NavBar from "./navbar";
 import Footer from "./footer";
-import CustomSearchBox from "./search/CustomSearchBox";
-import CustomHits from "./search/CustomHits";
-import { useState } from "react";
+
+// We create a dynamic component to speed up the initial page load.
+// The search component can load after initial page load.
+const InstantSearch = dynamic(
+  () => import("react-instantsearch-dom").then((mod) => mod.InstantSearch),
+  { ssr: false }
+);
 
 export const siteTitle = "Commands.dev";
 const searchClient = algoliasearch(

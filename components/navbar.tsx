@@ -1,13 +1,21 @@
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import React, { useState } from "react";
 import DarkModeToggle from "./DarkModeToggle";
 import { GitHubIcon } from "./icons/github";
 import { LogoIcon } from "./icons/logo";
 import { SearchIcon } from "./icons/search";
 import { WarpLogoIcon } from "./icons/warp_logo";
-import MobileSearchBox from "./search/MobileSearchBox";
-import CustomSearchBox from "./search/CustomSearchBox";
 import * as gtag from "../lib/gtag";
+
+// We create dynamic components here to speed up the initial page load.
+// The search components can load after initial page load.
+const CustomSearchBox = dynamic(() => import("./search/CustomSearchBox"), {
+  ssr: false,
+});
+const MobileSearchBox = dynamic(() => import("./search/MobileSearchBox"), {
+  ssr: false,
+});
 
 export default function NavBar() {
   let [mobileSearchBoxOpen, setMobileSearchBoxOpen] = useState(false);
