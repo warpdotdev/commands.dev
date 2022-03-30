@@ -80,7 +80,7 @@ const WorkflowCard = ({ workflow, isSearchResult }: WorkflowCardProps) => {
         )}
         {author != undefined && (
           <p className="text-xs text-black dark:text-white">
-            Created by: {author}
+            Authored by: {author}
           </p>
         )}
       </div>
