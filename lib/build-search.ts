@@ -34,6 +34,10 @@ import { getSortedWorkflowsData } from "./workflows";
 
     // Initialize the index with the algolia index name we set up
     const index = client.initIndex("workflow_specs");
+    
+    // Clear all objects before rewriting to remove specs that were deleted
+    // from the Algolia index.
+    index.clearObjects();
 
     // Save the objects
     const algoliaResponse = await index.saveObjects(transformed);
