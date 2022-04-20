@@ -110,14 +110,14 @@ const containsPopularCategory = (tags?: [string]): Boolean => {
 // in the above constant) first and other less "popular" commands afterwards. If both
 // commands have a popular category, then we randomly pick what order they will be in.
 const sortPopular = (workflow1: Workflow, workflow2: Workflow) => {
-  const workflowOneContainsPopularCat = containsPopularCategory(workflow1.tags);
-  const workflowTwoContainsPopularCat = containsPopularCategory(workflow2.tags);
+  const workflow1IsPopular = containsPopularCategory(workflow1.tags);
+  const workflow2IsPopular = containsPopularCategory(workflow2.tags);
 
-  if (workflowOneContainsPopularCat && workflowTwoContainsPopularCat) {
+  if (workflow1IsPopular && workflow2IsPopular) {
     return getRandomInt(-1, 1);
-  } else if (workflowOneContainsPopularCat) {
+  } else if (workflow1IsPopular) {
     return -1;
-  } else if (workflowTwoContainsPopularCat) {
+  } else if (workflow2IsPopular) {
     return 1;
   }
 
