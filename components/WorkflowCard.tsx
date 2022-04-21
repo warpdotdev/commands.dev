@@ -10,6 +10,8 @@ const CARD_STYLE =
    hover:bg-card-hover-light dark:hover:bg-card-hover-dark \
    active:bg-card-active-light dark:active:bg-card-active-dark";
 
+const POPULAR_CATEGORIES = ["shell", "curl", "git"];
+
 type WorkflowCardProps = {
   workflow: Workflow;
   isSearchResult: boolean;
@@ -94,13 +96,41 @@ type WorkflowCardsProps = {
   isSearchResults: boolean;
 };
 
+function getRandomInt(min: number, max: number) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+const containsPopularCategory = (tags?: [string]): Boolean => {
+  return POPULAR_CATEGORIES.some((category) => tags?.includes(category));
+};
+
+// Sorts the commands by putting any command with a popular category (as defined
+// in the above constant) first and other less "popular" commands afterwards. If both
+// commands have a popular category, then we randomly pick what order they will be in.
+const sortPopular = (workflow1: Workflow, workflow2: Workflow) => {
+  const workflow1IsPopular = containsPopularCategory(workflow1.tags);
+  const workflow2IsPopular = containsPopularCategory(workflow2.tags);
+
+  if (workflow1IsPopular && workflow2IsPopular) {
+    return getRandomInt(-1, 1);
+  } else if (workflow1IsPopular) {
+    return -1;
+  } else if (workflow2IsPopular) {
+    return 1;
+  }
+
+  return 0;
+};
+
 export function WorkflowCards({
   workflows,
   isSearchResults,
 }: WorkflowCardsProps) {
   return (
     <div className="flex flex-wrap justify-around pb-5">
-      {workflows.map((workflow) => (
+      {workflows.sort(sortPopular).map((workflow) => (
         <WorkflowCard
           workflow={workflow}
           isSearchResult={isSearchResults}
