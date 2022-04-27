@@ -71,7 +71,7 @@ export default function NavBar() {
             <WarpLogoIcon />
           </a>
           <a
-            href="https://github.com/warpdotdev/commands.dev"
+            href="https://github.com/warpdotdev/workflows"
             target="_blank"
             rel="noreferrer"
             className="text-icon-light dark:text-icon-dark hover:opacity-60 md:px-5 px-2"
