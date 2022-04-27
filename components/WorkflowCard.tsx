@@ -2,6 +2,8 @@ import Link from "next/link";
 import WorkflowTags from "./WorkflowTags";
 import { Workflow } from "warp-workflows";
 import { useRouter } from "next/router";
+import seedrandom from "seedrandom";
+
 import * as gtag from "../lib/gtag";
 
 const CARD_STYLE =
@@ -128,6 +130,7 @@ export function WorkflowCards({
   workflows,
   isSearchResults,
 }: WorkflowCardsProps) {
+  seedrandom("warp!", { global: true });
   return (
     <div className="flex flex-wrap justify-around pb-5">
       {workflows.sort(sortPopular).map((workflow) => (
