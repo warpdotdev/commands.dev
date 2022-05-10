@@ -7,6 +7,9 @@ export default function About() {
   return (
     <Layout>
       <main className="grow">
+        <Head>
+          <title>About</title>
+        </Head>
         <div className="bg-cover text-black dark:text-white">
           <div className="py-10 px-3 max-w-2xl">
             <h1 className="md:text-3xl text-3xl font-bold pb-3">About</h1>
