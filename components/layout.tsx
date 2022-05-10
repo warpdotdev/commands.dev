@@ -23,11 +23,6 @@ export default function Layout({
   return (
     <div className="min-h-screen flex flex-col m-w-screen">
       <Head>
-        <meta
-          name="description"
-          content="Commands.dev is a searchable, templated catalog of popular
-          terminal commands curated from across the internet."
-        />
         <link
           rel="apple-touch-icon"
           sizes="180x180"
@@ -51,10 +46,7 @@ export default function Layout({
 
         <meta name="description" content={siteDescription} />
         {/* TODO: Ask Shikhiu for Workflows image preview */}
-        <meta
-          property="og:image"
-          content={`@Url.Content("../img/commands-preview.svg")`}
-        />
+        <meta property="og:image" content={`/commands-preview.svg`} />
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
