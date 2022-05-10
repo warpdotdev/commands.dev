@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { GetStaticProps, GetStaticPaths } from "next";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import { getAllWorkflowIds, getWorkflowData } from "../../lib/workflows";
 import Layout from "../../components/layout";
@@ -8,7 +8,9 @@ import WorkflowTags from "../../components/WorkflowTags";
 import { Argument, Workflow } from "warp-workflows";
 import { CopyIcon } from "../../components/icons/copy";
 import ReactTooltip from "react-tooltip";
+import * as gtag from "../../lib/gtag";
 
+const lowerCaseFirstChar = (str: string) => str[0].toLowerCase() + str.slice(1);
 interface ArgumentValues {
   [name: string]: string;
 }
@@ -120,6 +122,13 @@ export default function WorkflowPage({
           : token.text;
     });
 
+    gtag.event({
+      action: "copy_command",
+      category: "Workflow Detail Page",
+      label: "Copy Command",
+      value: workflowData.slug,
+    });
+
     copyTextToClipboard(commandString).then(() => {
       setCommandCopied(true);
       setTimeout(() => {
@@ -130,13 +139,31 @@ export default function WorkflowPage({
 
   const copyCurrentUrl = () => {
     let url = window.location.href;
+
+    gtag.event({
+      action: "copy_url",
+      category: "Workflow Detail Page",
+      label: "Copy URL",
+      value: workflowData.slug,
+    });
+
     copyTextToClipboard(url);
   };
+
+  // This shows up as a description when our page is surfaced in Google Search results.
+  // It does not increase our ranking but it does increase our click-through rate.
+  const descriptionInMetaTag =
+    workflowData.description == undefined
+      ? `To ${lowerCaseFirstChar(workflowData.name)}, use command \`${
+          workflowData.command
+        }\``
+      : `${workflowData.description}. Command is \`${workflowData.command}\``;
 
   return (
     <Layout>
       <Head>
         <title>{workflowData.name}</title>
+        <meta name="description" content={descriptionInMetaTag} />
       </Head>
       <main className="grow h-screen">
         <div className="flex pt-10">
@@ -158,7 +185,7 @@ export default function WorkflowPage({
                   rel="noreferrer"
                   className="text-xs text-black dark:text-white "
                 >
-                  Created by:
+                  Authored by:
                   <span className="bg-pill-light dark:bg-pill-dark p-1 ml-1 rounded-md hover:opacity-60">
                     {workflowData.author}
                   </span>
@@ -245,6 +272,14 @@ export default function WorkflowPage({
                   "https://github.com/warpdotdev/workflows/blob/main" +
                   workflowData.relative_git_url
                 }
+                onClick={(e) => {
+                  gtag.event({
+                    action: "edit_in_github",
+                    category: "Workflow Detail Page",
+                    label: "Edit in GitHub",
+                    value: workflowData.slug,
+                  });
+                }}
                 rel="noreferrer"
                 target="_blank"
               >

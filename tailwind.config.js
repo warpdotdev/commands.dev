@@ -37,6 +37,7 @@ module.exports = {
         "link-text-light": "rgba(1, 115, 220, 1)",
         "link-text-dark": "rgba(1, 164, 220, 1)",
         "null-search-text": "rgba(90, 90, 90, 1)",
+        "navbar-banner": "rgba(1, 164, 220, 1)",
       },
     },
   },
