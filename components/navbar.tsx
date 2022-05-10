@@ -13,6 +13,7 @@ export default function NavBar() {
   let [mobileSearchBoxOpen, setMobileSearchBoxOpen] = useState(false);
   return (
     <nav className="sticky top-0 dark:bg-navbar-dark bg-navbar-light flex items-center justify-between shadow-xs py-4 md:px-[7rem] px-[1rem]">
+      <div className="flex-col">
       {mobileSearchBoxOpen ? (
         <MobileSearchBox
           onCloseCallback={() => {
