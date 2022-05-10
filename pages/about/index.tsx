@@ -1,7 +1,6 @@
 import Head from "next/head";
-import { GetStaticProps } from "next";
 
-import Layout, { siteTitle, siteDescription } from "../../components/layout";
+import Layout from "../../components/layout";
 
 export default function About() {
   return (
