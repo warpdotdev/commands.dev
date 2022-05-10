@@ -38,7 +38,7 @@ export default function NavBar() {
                   href="https://www.warp.dev"
                   target="_blank"
                   rel="noreferrer"
-                  onClick={(e) => {
+                  onClick={() => {
                     gtag.event({
                       action: "click_on_slash_landing_page",
                       category: "Click on Landing Page",
@@ -66,27 +66,18 @@ export default function NavBar() {
               >
                 <SearchIcon />
               </button>
+              <Link href="/about">
+                <a className="hover:opacity-60 md:px-7 px-2">
+                  <span className="text-l font-normal mt-4 text-back dark:text-white">
+                    About
+                  </span>
+                </a>
+              </Link>
               <a
-                className="pl-5 hidden md:flex"
-                href="https://www.warp.dev/"
+                href="https://github.com/warpdotdev/workflows#contributing"
                 target="_blank"
                 rel="noreferrer"
-                onClick={(e) => {
-                  gtag.event({
-                    action: "click_on_navbar_landing_page",
-                    category: "Click on Landing Page",
-                    label: "Click on Landing Page via NavBar",
-                    value: window.location.pathname,
-                  });
-                }}
-              >
-                <WarpLogoIcon />
-              </a>
-              <a
-                href="https://github.com/warpdotdev/workflows"
-                target="_blank"
-                rel="noreferrer"
-                className="text-icon-light dark:text-icon-dark hover:opacity-60 md:px-5 px-2"
+                className="hover:opacity-60 md:pr-7 pr-2"
                 onClick={(e) => {
                   gtag.event({
                     action: "click_on_navbar_github",
@@ -96,8 +87,9 @@ export default function NavBar() {
                   });
                 }}
               >
-                <span className="sr-only">GitHub</span>
-                <GitHubIcon />
+                <span className="text-l font-normal mt-4 text-back dark:text-white">
+                  Contribute
+                </span>
               </a>
               <DarkModeToggle />
             </>
