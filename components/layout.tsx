@@ -46,10 +46,7 @@ export default function Layout({
 
         <meta name="description" content={siteDescription} />
         {/* TODO: Ask Shikhiu for Workflows image preview */}
-        <meta
-          property="og:image"
-          content={`@VirtualPathUtility.ToAbsolute("~/public/commands-preview.png")`}
-        />
+        <meta property="og:image" content={`/commands-preview.png`} />
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
