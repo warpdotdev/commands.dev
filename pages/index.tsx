@@ -7,6 +7,7 @@ import { WorkflowCards } from "../components/WorkflowCard";
 import { Workflow } from "warp-workflows";
 import { WarpTextIcon } from "../components/icons/text_logo";
 import * as gtag from "../lib/gtag";
+import seedrandom from "seedrandom";
 
 export default function Home({
   allWorkflowsData,
@@ -54,8 +55,39 @@ export default function Home({
   );
 }
 
+const POPULAR_CATEGORIES = ["shell", "curl", "git"];
+
+function getRandomInt(min: number, max: number) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+const containsPopularCategory = (tags?: [string]): Boolean => {
+  return POPULAR_CATEGORIES.some((category) => tags?.includes(category));
+};
+
+// Sorts the commands by putting any command with a popular category (as defined
+// in the above constant) first and other less "popular" commands afterwards. If both
+// commands have a popular category, then we randomly pick what order they will be in.
+const sortPopular = (workflow1: Workflow, workflow2: Workflow) => {
+  const workflow1IsPopular = containsPopularCategory(workflow1.tags);
+  const workflow2IsPopular = containsPopularCategory(workflow2.tags);
+
+  if (workflow1IsPopular && workflow2IsPopular) {
+    return getRandomInt(-1, 1);
+  } else if (workflow1IsPopular) {
+    return -1;
+  } else if (workflow2IsPopular) {
+    return 1;
+  }
+
+  return 0;
+};
+
 export const getStaticProps: GetStaticProps = async () => {
-  const allWorkflowsData = getSortedWorkflowsData();
+  seedrandom("warp!", { global: true });
+  const allWorkflowsData = getSortedWorkflowsData().sort(sortPopular);
   return {
     props: {
       allWorkflowsData,
