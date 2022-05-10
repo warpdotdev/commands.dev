@@ -11,7 +11,7 @@ export default function About() {
           <title>About</title>
         </Head>
         <div className="bg-cover text-black dark:text-white">
-          <div className="py-10 px-3 max-w-2xl">
+          <div className="py-10 md:pl-[9.5rem] px-3 max-w-2xl">
             <h1 className="md:text-3xl text-3xl font-bold pb-3">About</h1>
             <h2 className="md:text-xl text-xl font-bold">
               What is Commands.dev?
