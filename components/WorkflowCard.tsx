@@ -71,9 +71,9 @@ const WorkflowCard = ({ workflow, isSearchResult }: WorkflowCardProps) => {
   return (
     <WrapperComponent>
       <div className="h-[8rem] text-left">
-        <h3 className="text-xl text-black dark:text-white font-bold line-clamp-2 pb-1">
+        <h2 className="text-xl text-black dark:text-white font-bold line-clamp-2 pb-1">
           {name}
-        </h3>
+        </h2>
         {description != undefined && (
           <p className="text-black dark:text-white text-sm line-clamp-2 pb-1">
             {description}

@@ -31,6 +31,7 @@ function SearchBox({
       <input
         id={"algolia_search"}
         type="search"
+        aria-label="Search for commands"
         placeholder={"Search commands"}
         value={searchBarState}
         onChange={(e) => {

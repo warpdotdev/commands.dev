@@ -31,6 +31,7 @@ function SearchBox({ refine }: { refine: Dispatch<SetStateAction<string>> }) {
       <input
         id={"algolia_search"}
         type="search"
+        aria-label="Search for commands"
         value={searchBarState}
         placeholder={"Ctrl + K"}
         onChange={(e) => {
