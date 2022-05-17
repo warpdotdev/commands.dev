@@ -28,6 +28,7 @@ function SearchBox({
 
   return (
     <div className="dark:bg-card-dark bg-search-bar-light grow h-9 cursor-pointer rounded-sm items-center flex text-black dark:text-white">
+      <label htmlFor="algolia_search">Search For Commands</label>
       <input
         id={"algolia_search"}
         type="search"
