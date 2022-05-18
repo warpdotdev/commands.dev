@@ -1,10 +1,8 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import DarkModeToggle from "./DarkModeToggle";
-import { GitHubIcon } from "./icons/github";
 import { LogoIcon } from "./icons/logo";
 import { SearchIcon } from "./icons/search";
-import { WarpLogoIcon } from "./icons/warp_logo";
 import MobileSearchBox from "./search/MobileSearchBox";
 import CustomSearchBox from "./search/CustomSearchBox";
 import * as gtag from "../lib/gtag";
@@ -12,7 +10,7 @@ import * as gtag from "../lib/gtag";
 export default function NavBar() {
   let [mobileSearchBoxOpen, setMobileSearchBoxOpen] = useState(false);
   return (
-    <nav className="sticky top-0 dark:bg-navbar-dark bg-navbar-light shadow-xs pb-4">
+    <div className="sticky top-0 dark:bg-navbar-dark bg-navbar-light shadow-xs pb-4">
       <div className="flex-col">
         <a
           href="https://www.warp.dev/blog/using-workflows-and-commands-dev-to-remember-commands-we-often-forget"
@@ -66,36 +64,38 @@ export default function NavBar() {
               >
                 <SearchIcon />
               </button>
-              <Link href="/about">
-                <a className="hover:opacity-60 md:px-7 px-2">
+              <nav>
+                <Link href="/about">
+                  <a className="hover:opacity-60 md:px-7 px-2">
+                    <span className="text-l font-normal mt-4 text-back dark:text-white">
+                      About
+                    </span>
+                  </a>
+                </Link>
+                <a
+                  href="https://github.com/warpdotdev/workflows#contributing"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:opacity-60 md:pr-7 pr-2"
+                  onClick={(_) => {
+                    gtag.event({
+                      action: "click_on_navbar_github",
+                      category: "Click on GitHub",
+                      label: "Click on GitHub via NavBar",
+                      value: window.location.pathname,
+                    });
+                  }}
+                >
                   <span className="text-l font-normal mt-4 text-back dark:text-white">
-                    About
+                    Contribute
                   </span>
                 </a>
-              </Link>
-              <a
-                href="https://github.com/warpdotdev/workflows#contributing"
-                target="_blank"
-                rel="noreferrer"
-                className="hover:opacity-60 md:pr-7 pr-2"
-                onClick={(e) => {
-                  gtag.event({
-                    action: "click_on_navbar_github",
-                    category: "Click on GitHub",
-                    label: "Click on GitHub via NavBar",
-                    value: window.location.pathname,
-                  });
-                }}
-              >
-                <span className="text-l font-normal mt-4 text-back dark:text-white">
-                  Contribute
-                </span>
-              </a>
+              </nav>
               <DarkModeToggle />
             </>
           )}
         </div>
       </div>
-    </nav>
+    </div>
   );
 }

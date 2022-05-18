@@ -185,7 +185,7 @@ export default function WorkflowPage({
                   rel="noreferrer"
                   className="text-xs text-black dark:text-white "
                 >
-                  Authored by:
+                  Authored by:{" "}
                   <span className="bg-pill-light dark:bg-pill-dark p-1 ml-1 rounded-md hover:opacity-60">
                     {workflowData.author}
                   </span>
@@ -210,6 +210,7 @@ export default function WorkflowPage({
                   onChange={handleInputChange}
                   type="text"
                   placeholder={argument.default_value ?? argument.name}
+                  aria-description={argument.default_value ?? argument.name}
                   name={argument.name}
                   onFocus={() => setFocusedArg(argument.name)}
                 />
@@ -223,6 +224,7 @@ export default function WorkflowPage({
               <button
                 className="text-icon-light dark:text-icon-dark hover:opacity-60"
                 data-tip
+                aria-label="Copy Command"
                 data-for="copyTip"
                 onClick={onCopyPress}
               >
@@ -300,6 +302,7 @@ export default function WorkflowPage({
                 effect="solid"
                 event="mouseup"
                 eventOff="mouseout"
+                aria-live="Copied"
                 delayHide={500}
                 getContent={() => "Copied"}
               />
