@@ -4,7 +4,7 @@ export default function DownloadWarpCard() {
   return (
     <div className="flex p-3 border border-gray-400 w-96 h-20 rounded">
         <div className="self-center">
-            <a href="https://warp.dev" target="_blank">
+            <a href="https://warp.dev" target="_blank" rel="noreferrer">
                 <WarpTextIcon/>
             </a>
         </div>
@@ -16,7 +16,7 @@ export default function DownloadWarpCard() {
                 Brought to you by Warp, a free terminal reimagined to work like a modern app.
             </body>
             <div className="dark:text-white text-xs underline">
-                <a href="https://app.warp.dev/get_warp" target="_blank">Download Now</a>
+                <a href="https://app.warp.dev/get_warp" target="_blank" rel="noreferrer">Download Now</a>
             </div>
         </div>
     </div>
