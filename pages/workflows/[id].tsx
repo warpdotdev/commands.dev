@@ -9,6 +9,7 @@ import { Argument, Workflow } from "warp-workflows";
 import { CopyIcon } from "../../components/icons/copy";
 import ReactTooltip from "react-tooltip";
 import * as gtag from "../../lib/gtag";
+import DownloadWarpCard from "../../components/DownloadWarpCard";
 
 const lowerCaseFirstChar = (str: string) => str[0].toLowerCase() + str.slice(1);
 interface ArgumentValues {
@@ -169,28 +170,33 @@ export default function WorkflowPage({
         <div className="flex pt-10">
           <div className="w-1/6 hidden md:flex" />
           <div className="flex-col md:flex-col flex-grow md:px-6 px-3">
-            <div className="pb-10">
-              <h1 className="text-2xl text-black dark:text-white font-bold pb-2">
-                {workflowData.name}
-              </h1>
-              {workflowData.description != undefined && (
-                <p className="text-black dark:text-white pb-2">
-                  {workflowData.description}
-                </p>
-              )}
-              {workflowData.author != undefined && (
-                <a
-                  href={workflowData.author_url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-xs text-black dark:text-white "
-                >
-                  Authored by:{" "}
-                  <span className="bg-pill-light dark:bg-pill-dark p-1 ml-1 rounded-md hover:opacity-60">
-                    {workflowData.author}
-                  </span>
-                </a>
-              )}
+            <div className="flex justify-between">
+              <div className="pb-10">
+                <h1 className="text-2xl text-black dark:text-white font-bold pb-2">
+                  {workflowData.name}
+                </h1>
+                {workflowData.description != undefined && (
+                  <p className="text-black dark:text-white pb-2 w-3/4">
+                    {workflowData.description}
+                  </p>
+                )}
+                {workflowData.author != undefined && (
+                  <a
+                    href={workflowData.author_url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-xs text-black dark:text-white "
+                  >
+                    Authored by:{" "}
+                    <span className="bg-pill-light dark:bg-pill-dark p-1 ml-1 rounded-md hover:opacity-60">
+                      {workflowData.author}
+                    </span>
+                  </a>
+                )}
+              </div>
+              <div>
+                <DownloadWarpCard />
+              </div>
             </div>
             {workflowArguments.map((argument) => (
               <div key={argument.name} className="flex-col pb-9">

@@ -1,4 +1,5 @@
 import Head from "next/head";
+import DownloadWarpCard from "../../components/DownloadWarpCard";
 
 import Layout from "../../components/layout";
 
@@ -9,7 +10,7 @@ export default function About() {
         <Head>
           <title>About</title>
         </Head>
-        <div className="bg-cover text-black dark:text-white">
+        <div className="bg-cover text-black dark:text-white flex justify-between">
           <div className="py-10 md:pl-[9.5rem] px-3 max-w-2xl">
             <h1 className="md:text-3xl text-3xl font-bold pb-3">About</h1>
             <h2 className="md:text-xl text-xl font-bold">
@@ -91,6 +92,9 @@ export default function About() {
               directly, so they don’t need to context switch out of their
               terminal session into an Internet browser.
             </div>
+          </div>
+          <div className="py-10">
+            <DownloadWarpCard />
           </div>
         </div>
       </main>
