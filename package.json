@@ -19,7 +19,7 @@
     "react-instantsearch-dom": "^6.21.1",
     "react-tooltip": "^4.2.21",
     "seedrandom": "^3.0.5",
-    "warp-workflows": "^1.0.8"
+    "warp-workflows": "^1.0.9"
   },
   "devDependencies": {
     "@types/node": "17.0.8",
