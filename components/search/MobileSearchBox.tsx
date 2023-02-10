@@ -32,7 +32,6 @@ function SearchBox({
       <input
         id={"algolia_search"}
         type="search"
-        aria-label="Search for commands"
         placeholder={"Search commands"}
         value={searchBarState}
         onChange={(e) => {
@@ -44,6 +43,7 @@ function SearchBox({
       <button
         className="h-9 flex items-center text-icon-light dark:text-icon-dark pr-3 pl-1 bg-inherit"
         onClick={onCloseCallback}
+        aria-label="Close Search"
       >
         <CancelIcon />
       </button>
