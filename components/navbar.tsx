@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import DarkModeToggle from "./DarkModeToggle";
 import { LogoIcon } from "./icons/logo";
 import { SearchIcon } from "./icons/search";
@@ -9,8 +9,15 @@ import * as gtag from "../lib/gtag";
 
 export default function NavBar() {
   let [mobileSearchBoxOpen, setMobileSearchBoxOpen] = useState(false);
+  const mobileSearchButton = useRef<HTMLButtonElement>(null);
+  useEffect( () => {
+    if ( !! mobileSearchBoxOpen ) {
+      return;
+    }
+    mobileSearchButton?.current?.focus();
+  }, [ mobileSearchBoxOpen ] )
   return (
-    <div className="sticky top-0 dark:bg-navbar-dark bg-navbar-light shadow-xs pb-4">
+    <div className="sticky top-0 dark:bg-navbar-dark bg-navbar-light shadow-xs pb-4" role="banner">
       <div className="flex-col">
         <a
           href="https://www.warp.dev/blog/using-workflows-and-commands-dev-to-remember-commands-we-often-forget"
@@ -44,11 +51,12 @@ export default function NavBar() {
                       value: window.location.pathname,
                     });
                   }}
+                  aria-label="Warp Home"
                 >
                   <LogoIcon />
                 </a>
                 <Link href="/">
-                  <a className="font-semibold text-xl text-black dark:text-white tracking-tighter">
+                  <a className="font-semibold text-xl text-black dark:text-white tracking-tighter" aria-label="Commands Home">
                     Commands
                   </a>
                 </Link>
@@ -61,6 +69,8 @@ export default function NavBar() {
                 onClick={() => {
                   setMobileSearchBoxOpen(true);
                 }}
+                aria-label="Search"
+                ref={mobileSearchButton}
               >
                 <SearchIcon />
               </button>

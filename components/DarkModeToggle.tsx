@@ -34,7 +34,7 @@ const DarkModeToggle = () => {
           id="dark-mode-toggle"
           className="sr-only"
           checked={!isDarkMode}
-          aria-label={"Dark Mode Toggle"}
+          aria-label={"Dark Mode"}
           onChange={toggleTheme}
         />
         <div className="toggle-bg bg-toggle-light dark:bg-toggle-dark h-6 w-11 rounded-full"></div>

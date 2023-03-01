@@ -1,5 +1,6 @@
 export const LogoIcon = () => (
   <svg
+  aria-hidden="true"
     width="19"
     height="36"
     viewBox="0 0 19 36"
