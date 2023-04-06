@@ -21,12 +21,12 @@ const DarkModeToggle = () => {
   };
 
   return (
-    <label className="cursor-pointer relative">
+    <label className="cursor-pointer relative" htmlFor="dark-mode-toggle">
       <div className="flex items-center">
-        <span className="absolute top-1 right-1 flex items-center h-4 pr-1">
+        <span className="absolute top-1 right-1 flex items-center h-4 pr-1" aria-hidden="true">
           <MoonIcon />
         </span>
-        <span className="absolute top-1 left-1 flex items-center h-4 pl-1">
+        <span className="absolute top-1 left-1 flex items-center h-4 pl-1" aria-hidden="true">
           <SunIcon />
         </span>
         <input
@@ -34,10 +34,10 @@ const DarkModeToggle = () => {
           id="dark-mode-toggle"
           className="sr-only"
           checked={!isDarkMode}
-          aria-label={"Dark Mode"}
           onChange={toggleTheme}
         />
-        <div className="toggle-bg bg-toggle-light dark:bg-toggle-dark h-6 w-11 rounded-full"></div>
+        <div className="toggle-bg bg-toggle-light dark:bg-toggle-dark h-6 w-11 rounded-full" aria-hidden="true"></div>
+        <span className="sr-only">Dark Mode</span>
       </div>
     </label>
   );
