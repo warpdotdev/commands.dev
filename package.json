@@ -12,7 +12,7 @@
     "@tailwindcss/line-clamp": "^0.3.1",
     "algoliasearch": "^4.12.0",
     "dotenv": "^14.3.2",
-    "next": "12.0.7",
+    "next": "14.2.10",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-hotkeys-hook": "^3.4.4",
