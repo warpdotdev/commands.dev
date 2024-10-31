@@ -1,10 +1,14 @@
-import { connectSearchBox } from "react-instantsearch-dom";
+import { useSearchBox } from 'react-instantsearch';
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { SearchIcon } from "../icons/search";
 import { useHotkeys } from "react-hotkeys-hook";
 import { useRouter } from "next/router";
 
-function SearchBox({ refine }: { refine: Dispatch<SetStateAction<string>> }) {
+interface SearchBoxProps {
+  refine: Dispatch<SetStateAction<string>>;
+}
+
+function SearchBox({ refine }: SearchBoxProps) {
   let [searchBarState, setSearchBarState] = useState("");
   useHotkeys("ctrl+k", () => {
     if (document != null) {
@@ -42,6 +46,16 @@ function SearchBox({ refine }: { refine: Dispatch<SetStateAction<string>> }) {
       />
     </div>
   );
+}
+
+function connectSearchBox(Component: any) {
+  const SearchBox = (props: any) => {
+    const data = useSearchBox(props);
+
+    return <Component {...props} {...data} />;
+  };
+
+  return SearchBox;
 }
 
 export default connectSearchBox(SearchBox);
