@@ -7,7 +7,7 @@ import Layout from "../../components/layout";
 import WorkflowTags from "../../components/WorkflowTags";
 import { Argument, Workflow } from "warp-workflows";
 import { CopyIcon } from "../../components/icons/copy";
-import ReactTooltip from "react-tooltip";
+import { Tooltip } from "react-tooltip";
 import * as gtag from "../../lib/gtag";
 import DownloadWarpCard from "../../components/DownloadWarpCard";
 
@@ -155,9 +155,8 @@ export default function WorkflowPage({
   // It does not increase our ranking but it does increase our click-through rate.
   const descriptionInMetaTag =
     workflowData.description == undefined
-      ? `To ${lowerCaseFirstChar(workflowData.name)}, use command \`${
-          workflowData.command
-        }\``
+      ? `To ${lowerCaseFirstChar(workflowData.name)}, use command \`${workflowData.command
+      }\``
       : `${workflowData.description}. Command is \`${workflowData.command}\``;
 
   return (
@@ -229,20 +228,18 @@ export default function WorkflowPage({
               </div>
               <button
                 className="text-icon-light dark:text-icon-dark hover:opacity-60"
-                data-tip
+                data-tooltip-content={commandCopied ? "Copied" : "Copy"}
                 aria-label="Copy Command"
-                data-for="copyTip"
+                data-tooltip-id="copyTip"
                 onClick={onCopyPress}
               >
                 {/* TODO: Get the check mark icon from CQ when it's ready  */}
                 <CopyIcon />
               </button>
-              <ReactTooltip
+              <Tooltip
                 className="bg-card-light dark:bg-card-dark text-black dark:text-white"
                 id="copyTip"
                 place="top"
-                effect="solid"
-                getContent={() => (commandCopied ? "Copied" : "Copy")}
               />
             </div>
             <div className="bg-command-light dark:bg-command-dark md:w-[37rem] w-[21.5rem] whitespace-pre p-4 text-sm mb-5 overflow-x-auto">
@@ -295,22 +292,20 @@ export default function WorkflowPage({
               </a>
               <button
                 className="text-link-text"
-                data-tip
-                data-for="copyUrlTip"
+                data-tooltip-content="Copied"
+                data-tooltip-id="copyUrlTip"
                 onClick={copyCurrentUrl}
               >
                 Copy URL
               </button>
-              <ReactTooltip
+              <Tooltip
                 className="bg-card-light dark:bg-card-dark text-black dark:text-white"
                 id="copyUrlTip"
                 place="top"
-                effect="solid"
-                event="mouseup"
-                eventOff="mouseout"
+                openEvents={{ mousedown: true }}
+                closeEvents={{ mouseout: true }}
                 aria-live="Copied"
                 delayHide={500}
-                getContent={() => "Copied"}
               />
             </div>
           </div>
