@@ -1,7 +1,6 @@
 import Head from "next/head";
-import algoliasearch from "algoliasearch/lite";
-import { InstantSearch } from "react-instantsearch-dom";
-
+import { liteClient } from "algoliasearch/lite";
+import { InstantSearch } from 'react-instantsearch';
 import NavBar from "./navbar";
 import Footer from "./footer";
 import CustomHits from "./search/CustomHits";
@@ -9,7 +8,7 @@ import CustomHits from "./search/CustomHits";
 export const siteTitle = "Commands.dev - Find commands at the speed of thought";
 export const siteDescription =
   "Commands.dev is a searchable, templated catalog of popular terminal commands curated from across the internet.";
-const searchClient = algoliasearch(
+const searchClient = liteClient(
   process.env.NEXT_PUBLIC_ALGOLIA_APP_ID!,
   process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY!
 );
@@ -50,7 +49,7 @@ export default function Layout({
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-      <InstantSearch searchClient={searchClient} indexName="workflow_specs">
+      <InstantSearch searchClient={searchClient} future={{ preserveSharedStateOnUnmount: true }} indexName="workflow_specs">
         <NavBar />
         {/* Show children if query is empty */}
         <main className="grow md:mx-[7rem] mx-[1rem]">

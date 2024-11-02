@@ -23,10 +23,8 @@ const WorkflowCard = ({ workflow, isSearchResult }: WorkflowCardProps) => {
 
   // Be default we should use the <a> tag for the cards so search crawlers can find the URLs.
   const LinkCard = ({ children }: { children: React.ReactNode }) => (
-    <Link href={destination}>
-      <a className={CARD_STYLE} onClick={trackClick}>
-        {children}
-      </a>
+    <Link href={destination} className={CARD_STYLE} onClick={trackClick}>
+      {children}
     </Link>
   );
 

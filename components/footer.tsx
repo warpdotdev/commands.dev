@@ -55,20 +55,18 @@ const Footer = () => (
     </div>
     <p className="text-center text-black dark:text-white">
       Made with ❤️ by{" "}
-      <Link href="https://www.warp.dev">
-        <a
-          className="underline hover:opacity-60"
-          onClick={(e) => {
-            gtag.event({
-              action: "click_on_footer_landing_page",
-              category: "Click on Landing Page",
-              label: "Click on Landing Page via Footer",
-              value: window.location.pathname,
-            });
-          }}
-        >
-          the Warp Team and community
-        </a>
+      <Link
+        href="https://www.warp.dev"
+        className="underline hover:opacity-60"
+        onClick={(e) => {
+          gtag.event({
+            action: "click_on_footer_landing_page",
+            category: "Click on Landing Page",
+            label: "Click on Landing Page via Footer",
+            value: window.location.pathname,
+          });
+        }}>
+        the Warp Team and community
       </Link>
     </p>
   </footer>

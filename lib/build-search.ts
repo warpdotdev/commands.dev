@@ -2,7 +2,7 @@
 // It is run whenever the next js project is built. (It is called with the `postbuild` command in package.json.)
 // Reference: https://www.contentful.com/blog/2021/07/02/add-algolia-instantsearch-to-nextjs-app/
 import * as dotenv from "dotenv";
-import algoliasearch from "algoliasearch";
+import { algoliasearch } from "algoliasearch";
 import { getSortedWorkflowsData } from "./workflows";
 
 (async function () {
@@ -32,23 +32,20 @@ import { getSortedWorkflowsData } from "./workflows";
       process.env.ALGOLIA_SEARCH_ADMIN_KEY!
     );
 
-    // Initialize the index with the algolia index name we set up
-    const index = client.initIndex("workflow_specs");
-    
+    const indexName = "workflow_specs";
+
     // Clear all objects before rewriting to remove specs that were deleted
     // from the Algolia index.
-    index.clearObjects();
+    client.clearObjects({ indexName });
 
     // Save the objects
-    const algoliaResponse = await index.saveObjects(transformed);
+    const algoliaResponse = await client.saveObjects({ indexName, objects: transformed });
 
-    console.log(
-      `🎉 Sucessfully added ${
-        algoliaResponse.objectIDs.length
-      } records to Algolia search. Object IDs:\n${algoliaResponse.objectIDs.join(
-        "\n"
-      )}`
-    );
+    const objectIdsAdded = algoliaResponse.reduce<string[]>((acc, response) => {
+      return acc.concat(response.objectIDs);
+    }, []);
+
+    console.log(`🎉 Sucessfully added ${objectIdsAdded.length} records to Algolia search. Object IDs:\n${objectIdsAdded.join("\n")}`);
   } catch (error) {
     console.log(error);
   }

@@ -10,12 +10,12 @@ import * as gtag from "../lib/gtag";
 export default function NavBar() {
   let [mobileSearchBoxOpen, setMobileSearchBoxOpen] = useState(false);
   const mobileSearchButton = useRef<HTMLButtonElement>(null);
-  useEffect( () => {
-    if ( !! mobileSearchBoxOpen ) {
+  useEffect(() => {
+    if (!!mobileSearchBoxOpen) {
       return;
     }
     mobileSearchButton?.current?.focus();
-  }, [ mobileSearchBoxOpen ] )
+  }, [mobileSearchBoxOpen])
   return (
     <div className="sticky top-0 dark:bg-navbar-dark bg-navbar-light shadow-xs pb-4" role="banner">
       <div className="flex-col">
@@ -55,10 +55,11 @@ export default function NavBar() {
                 >
                   <LogoIcon />
                 </a>
-                <Link href="/">
-                  <a className="font-semibold text-xl text-black dark:text-white tracking-tighter" aria-label="Commands Home">
-                    Commands
-                  </a>
+                <Link
+                  href="/"
+                  className="font-semibold text-xl text-black dark:text-white tracking-tighter"
+                  aria-label="Commands Home">
+                  Commands
                 </Link>
               </div>
               <div className="hidden md:flex w-screen">
@@ -75,12 +76,10 @@ export default function NavBar() {
                 <SearchIcon />
               </button>
               <nav>
-                <Link href="/about">
-                  <a className="hover:opacity-60 md:px-7 px-2">
-                    <span className="text-l font-normal mt-4 text-back dark:text-white">
-                      About
-                    </span>
-                  </a>
+                <Link href="/about" className="hover:opacity-60 md:px-7 px-2">
+                  <span className="text-l font-normal mt-4 text-back dark:text-white">
+                    About
+                  </span>
                 </Link>
                 <a
                   href="https://github.com/warpdotdev/workflows#contributing"

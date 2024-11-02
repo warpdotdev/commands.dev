@@ -1,28 +1,21 @@
-import { connectStateResults } from "react-instantsearch-dom";
-import { SearchState, SearchResults } from "react-instantsearch-core";
+import { useInstantSearch } from 'react-instantsearch';
 import { WorkflowCards } from "../WorkflowCard";
 import { Workflow } from "warp-workflows";
 
-function Hits({
-  searchState,
-  searchResults,
-  children,
-}: {
-  searchState: SearchState;
-  searchResults: SearchResults;
-  children: React.ReactNode;
-}) {
-  if (!searchState.query || searchState.query.length == 0) {
+function Hits({ children }: { children: React.ReactNode }) {
+  const { results } = useInstantSearch();
+
+  if (!results.query || results.query.length == 0) {
     return <>{children}</>;
-  } else if (searchResults?.hits.length > 0) {
-    const workflows: Workflow[] = searchResults!.hits.map(
+  } else if (results?.hits.length > 0) {
+    const workflows: Workflow[] = results!.hits.map(
       ({ slug, name, description, tags }) =>
-        ({
-          slug,
-          name,
-          description,
-          tags: Array.isArray(tags) ? tags : [tags],
-        } as Workflow)
+      ({
+        slug,
+        name,
+        description,
+        tags: Array.isArray(tags) ? tags : [tags],
+      } as Workflow)
     );
     return <WorkflowCards workflows={workflows} isSearchResults={true} />;
   } else {
@@ -39,4 +32,4 @@ function Hits({
   }
 }
 
-export default connectStateResults(Hits);
+export default Hits;

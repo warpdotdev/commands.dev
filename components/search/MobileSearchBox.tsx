@@ -1,15 +1,17 @@
-import { connectSearchBox } from "react-instantsearch-dom";
+import { useSearchBox } from 'react-instantsearch';
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { CancelIcon } from "../icons/cancel";
 import { useRouter } from "next/router";
 
+interface MobileSearchBoxProps {
+  refine: Dispatch<SetStateAction<string>>;
+  onCloseCallback: () => void;
+}
+
 function SearchBox({
   refine,
   onCloseCallback,
-}: {
-  refine: Dispatch<SetStateAction<string>>;
-  onCloseCallback: () => void;
-}) {
+}: MobileSearchBoxProps) {
   let [searchBarState, setSearchBarState] = useState("");
   useEffect(() => {
     let searchBar = document.querySelector(
@@ -49,6 +51,16 @@ function SearchBox({
       </button>
     </div>
   );
+}
+
+function connectSearchBox(Component: any) {
+  const SearchBox = (props: any) => {
+    const data = useSearchBox(props);
+
+    return <Component {...props} {...data} />;
+  };
+
+  return SearchBox;
 }
 
 export default connectSearchBox(SearchBox);
