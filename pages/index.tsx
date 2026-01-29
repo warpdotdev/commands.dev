@@ -5,8 +5,6 @@ import { getSortedWorkflowsData } from "../lib/workflows";
 import Layout, { siteTitle, siteDescription } from "../components/layout";
 import { WorkflowCards } from "../components/WorkflowCard";
 import { Workflow } from "warp-workflows";
-import { WarpTextIcon } from "../components/icons/text_logo";
-import * as gtag from "../lib/gtag";
 import seedrandom from "seedrandom";
 import DownloadWarpCard from "../components/DownloadWarpCard";
 
@@ -51,7 +49,7 @@ function getRandomInt(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-const containsPopularCategory = (tags?: [string]): Boolean => {
+const containsPopularCategory = (tags?: [string]): boolean => {
   return POPULAR_CATEGORIES.some((category) => tags?.includes(category));
 };
 

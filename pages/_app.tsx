@@ -21,7 +21,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       {/* According to documentation - this should be defined inline to avoid FOUC (flash of unstyled content) 
       ref: https://www.freecodecamp.org/news/how-to-build-a-dark-mode-switcher-with-tailwind-css-and-flowbite/*/}
-      <Script id="dark-mode-load">
+      <Script id="dark-mode-load" strategy="beforeInteractive">
         {`if (
               localStorage.getItem('color-theme') === 'dark' ||
               (!('color-theme' in localStorage) &&

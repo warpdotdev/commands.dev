@@ -38,7 +38,7 @@ export default function WorkflowPage({
 }: {
   workflowData: Workflow;
 }) {
-  let workflowArguments = workflowData.arguments ?? ([] as Argument[]);
+  const workflowArguments = workflowData.arguments ?? ([] as Argument[]);
 
   // Initializes a key-value map of <Argument Id>: Empty String
   const initialValues: ArgumentValues = workflowArguments.reduce(
@@ -67,7 +67,7 @@ export default function WorkflowPage({
     }
 
     // If there's not something typed - retrieve the placeholder
-    for (let argument of workflowArguments) {
+    for (const argument of workflowArguments) {
       if (argument.name === id) {
         return argument.default_value ?? argument.name;
       }
@@ -88,9 +88,9 @@ export default function WorkflowPage({
       return [];
     }
     let commandTokens: Token[] = [];
-    for (let argument of workflowArguments) {
+    for (const argument of workflowArguments) {
       // This regex ensures that the split happens only on the first occurence of the word
-      let regex = new RegExp(`\\{{${argument.name}}}(.*)`, "s");
+      const regex = new RegExp(`\\{{${argument.name}}}(.*)`, "s");
       const [beforeArg, afterArg] = command.split(regex);
       // If this arg is not a match - continue to the next arg
       if (beforeArg === command) {
@@ -114,7 +114,7 @@ export default function WorkflowPage({
   };
 
   const onCopyPress = () => {
-    let commandTokens = getTokenizedCommand(workflowData.command);
+    const commandTokens = getTokenizedCommand(workflowData.command);
     let commandString = "";
     commandTokens.forEach((token) => {
       commandString +=
@@ -139,7 +139,7 @@ export default function WorkflowPage({
   };
 
   const copyCurrentUrl = () => {
-    let url = window.location.href;
+    const url = window.location.href;
 
     gtag.event({
       action: "copy_url",
@@ -277,7 +277,7 @@ export default function WorkflowPage({
                   "https://github.com/warpdotdev/workflows/blob/main" +
                   workflowData.relative_git_url
                 }
-                onClick={(e) => {
+                onClick={() => {
                   gtag.event({
                     action: "edit_in_github",
                     category: "Workflow Detail Page",

@@ -9,11 +9,11 @@ import Layout from "../../components/layout";
 import { WorkflowCards } from "../../components/WorkflowCard";
 
 export default function WorkflowPage({ category }: { category: string }) {
-  let workflows = getWorkflowsByCategory(category);
+  const workflows = getWorkflowsByCategory(category);
 
   // This shows up as a description when our page is surfaced in Google Search results.
   // It does not increase our ranking but it does increase our click-through rate.
-  let descriptionInMetaTag = `Popular \`${category}\`terminal commands. Example commands include: ${workflows
+  const descriptionInMetaTag = `Popular \`${category}\`terminal commands. Example commands include: ${workflows
     .slice(0, 3)
     .map((workflow) => workflow.name)
     .join(", ")}`;

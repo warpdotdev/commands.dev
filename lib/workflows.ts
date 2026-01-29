@@ -21,10 +21,10 @@ export function getWorkflowData(id: string): Workflow | undefined {
 }
 
 export function getAllWorkflowCategories() {
-  let categories = new Set<string>();
+  const categories = new Set<string>();
   getSortedWorkflowsData().forEach((workflow) => {
     if (workflow.tags != undefined) {
-      workflow.tags.forEach((tag) => categories.add(tag));
+      workflow.tags.forEach((tag) => categories.add(tag.toLowerCase()));
     }
   });
 
@@ -38,7 +38,10 @@ export function getAllWorkflowCategories() {
 }
 
 export function getWorkflowsByCategory(category: string): Workflow[] {
+  const lowerCategory = category.toLowerCase();
   return Array.from(WORKFLOWS.values()).filter(
-    (workflow) => workflow.tags != undefined && workflow.tags.includes(category)
+    (workflow) =>
+      workflow.tags != undefined &&
+      workflow.tags.some((tag) => tag.toLowerCase() === lowerCategory)
   );
 }

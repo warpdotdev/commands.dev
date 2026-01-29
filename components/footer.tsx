@@ -7,7 +7,7 @@ const Footer = () => (
       <a
         href="https://www.twitter.com/warpdotdev"
         className="text-icon-light dark:text-icon-dark hover:opacity-60"
-        onClick={(e) => {
+        onClick={() => {
           gtag.event({
             action: "click_on_footer_twitter",
             category: "Click on Twitter",
@@ -29,7 +29,7 @@ const Footer = () => (
       <a
         href="https://github.com/warpdotdev/commands.dev"
         className="text-icon-light dark:text-icon-dark hover:opacity-60"
-        onClick={(e) => {
+        onClick={() => {
           gtag.event({
             action: "click_on_footer_github",
             category: "Click on GitHub",
@@ -58,7 +58,7 @@ const Footer = () => (
       <Link
         href="https://www.warp.dev"
         className="underline hover:opacity-60"
-        onClick={(e) => {
+        onClick={() => {
           gtag.event({
             action: "click_on_footer_landing_page",
             category: "Click on Landing Page",
