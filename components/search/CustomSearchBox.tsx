@@ -1,18 +1,18 @@
 import { useSearchBox } from 'react-instantsearch';
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SearchIcon } from "../icons/search";
 import { useHotkeys } from "react-hotkeys-hook";
 import { useRouter } from "next/router";
 
 interface SearchBoxProps {
-  refine: Dispatch<SetStateAction<string>>;
+  refine: (value: string) => void;
 }
 
 function SearchBox({ refine }: SearchBoxProps) {
-  let [searchBarState, setSearchBarState] = useState("");
+  const [searchBarState, setSearchBarState] = useState("");
   useHotkeys("ctrl+k", () => {
     if (document != null) {
-      let searchBar = document.querySelector(
+      const searchBar = document.querySelector(
         "#algolia_search"
       ) as HTMLInputElement;
       if (searchBar != null) {
@@ -48,14 +48,14 @@ function SearchBox({ refine }: SearchBoxProps) {
   );
 }
 
-function connectSearchBox(Component: any) {
-  const SearchBox = (props: any) => {
-    const data = useSearchBox(props);
+function connectSearchBox(Component: React.ComponentType<SearchBoxProps>) {
+  const ConnectedSearchBox = () => {
+    const data = useSearchBox();
 
-    return <Component {...props} {...data} />;
+    return <Component refine={data.refine} />;
   };
 
-  return SearchBox;
+  return ConnectedSearchBox;
 }
 
 export default connectSearchBox(SearchBox);

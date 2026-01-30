@@ -8,7 +8,7 @@ import CustomSearchBox from "./search/CustomSearchBox";
 import * as gtag from "../lib/gtag";
 
 export default function NavBar() {
-  let [mobileSearchBoxOpen, setMobileSearchBoxOpen] = useState(false);
+  const [mobileSearchBoxOpen, setMobileSearchBoxOpen] = useState(false);
   const mobileSearchButton = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     if (!!mobileSearchBoxOpen) {
@@ -86,7 +86,7 @@ export default function NavBar() {
                   target="_blank"
                   rel="noreferrer"
                   className="hover:opacity-60 md:pr-7 pr-2"
-                  onClick={(_) => {
+                  onClick={() => {
                     gtag.event({
                       action: "click_on_navbar_github",
                       category: "Click on GitHub",

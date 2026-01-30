@@ -1,10 +1,10 @@
 import { useSearchBox } from 'react-instantsearch';
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CancelIcon } from "../icons/cancel";
 import { useRouter } from "next/router";
 
 interface MobileSearchBoxProps {
-  refine: Dispatch<SetStateAction<string>>;
+  refine: (value: string) => void;
   onCloseCallback: () => void;
 }
 
@@ -12,9 +12,9 @@ function SearchBox({
   refine,
   onCloseCallback,
 }: MobileSearchBoxProps) {
-  let [searchBarState, setSearchBarState] = useState("");
+  const [searchBarState, setSearchBarState] = useState("");
   useEffect(() => {
-    let searchBar = document.querySelector(
+    const searchBar = document.querySelector(
       "#algolia_search"
     ) as HTMLInputElement;
     if (searchBar != null) {
@@ -53,14 +53,18 @@ function SearchBox({
   );
 }
 
-function connectSearchBox(Component: any) {
-  const SearchBox = (props: any) => {
-    const data = useSearchBox(props);
+interface ConnectedMobileSearchBoxProps {
+  onCloseCallback: () => void;
+}
 
-    return <Component {...props} {...data} />;
+function connectSearchBox(Component: React.ComponentType<MobileSearchBoxProps>) {
+  const ConnectedSearchBox = (props: ConnectedMobileSearchBoxProps) => {
+    const data = useSearchBox();
+
+    return <Component refine={data.refine} onCloseCallback={props.onCloseCallback} />;
   };
 
-  return SearchBox;
+  return ConnectedSearchBox;
 }
 
 export default connectSearchBox(SearchBox);
