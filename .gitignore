@@ -39,3 +39,4 @@ yarn-error.log*
 
 /lib/*.js
 !/lib/gtag.js
+.env*.local
