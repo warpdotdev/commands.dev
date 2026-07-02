@@ -10,6 +10,7 @@ interface SearchBoxProps {
 
 function SearchBox({ refine }: SearchBoxProps) {
   const [searchBarState, setSearchBarState] = useState("");
+  const router = useRouter();
   useHotkeys("ctrl+k", () => {
     if (document != null) {
       const searchBar = document.querySelector(
@@ -21,8 +22,21 @@ function SearchBox({ refine }: SearchBoxProps) {
     }
   });
 
-  const dynamicRoute = useRouter().asPath;
+  // Populate search from ?query= URL parameter on initial load
+  const [initialQueryApplied, setInitialQueryApplied] = useState(false);
   useEffect(() => {
+    if (initialQueryApplied || !router.isReady) return;
+    const urlQuery = router.query.query;
+    if (typeof urlQuery === "string" && urlQuery.length > 0) {
+      setSearchBarState(urlQuery);
+      refine(urlQuery);
+    }
+    setInitialQueryApplied(true);
+  }, [router.isReady, router.query.query, initialQueryApplied, refine]);
+
+  const dynamicRoute = router.asPath;
+  useEffect(() => {
+    if (!initialQueryApplied) return;
     refine(""); // When the route changes - reset the search state
     setSearchBarState("");
   }, [dynamicRoute, refine]);
@@ -39,8 +53,16 @@ function SearchBox({ refine }: SearchBoxProps) {
         value={searchBarState}
         placeholder={"Ctrl + K"}
         onChange={(e) => {
-          refine(e.currentTarget.value);
-          setSearchBarState(e.currentTarget.value);
+          const value = e.currentTarget.value;
+          refine(value);
+          setSearchBarState(value);
+          const url = new URL(window.location.href);
+          if (value) {
+            url.searchParams.set("query", value);
+          } else {
+            url.searchParams.delete("query");
+          }
+          window.history.replaceState({}, "", url.toString());
         }}
         className="grow h-9 cursor-pointer rounded-sm text-sm focus:outline-none dark:bg-card-dark bg-search-bar-light placeholder:opacity-50 dark:text-white px-2"
       />
