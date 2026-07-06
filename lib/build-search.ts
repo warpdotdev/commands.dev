@@ -45,7 +45,7 @@ import { getSortedWorkflowsData } from "./workflows";
       return acc.concat(response.objectIDs);
     }, []);
 
-    console.log(`🎉 Sucessfully added ${objectIdsAdded.length} records to Algolia search. Object IDs:\n${objectIdsAdded.join("\n")}`);
+    console.log(`🎉 Successfully added ${objectIdsAdded.length} records to Algolia search. Object IDs:\n${objectIdsAdded.join("\n")}`);
   } catch (error) {
     console.log(error);
   }
