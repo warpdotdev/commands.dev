@@ -39,6 +39,7 @@
   },
   "overrides": {
     "@types/react": "19.2.10",
-    "postcss": "8.5.10"
+    "postcss": "8.5.10",
+    "sharp": ">=0.35.0"
   }
 }
