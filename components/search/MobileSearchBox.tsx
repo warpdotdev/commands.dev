@@ -13,6 +13,7 @@ function SearchBox({
   onCloseCallback,
 }: MobileSearchBoxProps) {
   const [searchBarState, setSearchBarState] = useState("");
+  const router = useRouter();
   useEffect(() => {
     const searchBar = document.querySelector(
       "#algolia_search"
@@ -22,8 +23,21 @@ function SearchBox({
     }
   }, []);
 
-  const dynamicRoute = useRouter().asPath;
+  // Populate search from ?query= URL parameter on initial load
+  const [initialQueryApplied, setInitialQueryApplied] = useState(false);
   useEffect(() => {
+    if (initialQueryApplied || !router.isReady) return;
+    const urlQuery = router.query.query;
+    if (typeof urlQuery === "string" && urlQuery.length > 0) {
+      setSearchBarState(urlQuery);
+      refine(urlQuery);
+    }
+    setInitialQueryApplied(true);
+  }, [router.isReady, router.query.query, initialQueryApplied, refine]);
+
+  const dynamicRoute = router.asPath;
+  useEffect(() => {
+    if (!initialQueryApplied) return;
     refine(""); // When the route changes - reset the search state
     setSearchBarState("");
   }, [dynamicRoute, refine]);
@@ -37,8 +51,16 @@ function SearchBox({
         placeholder={"Search commands"}
         value={searchBarState}
         onChange={(e) => {
-          refine(e.currentTarget.value);
-          setSearchBarState(e.currentTarget.value);
+          const value = e.currentTarget.value;
+          refine(value);
+          setSearchBarState(value);
+          const url = new URL(window.location.href);
+          if (value) {
+            url.searchParams.set("query", value);
+          } else {
+            url.searchParams.delete("query");
+          }
+          window.history.replaceState({}, "", url.toString());
         }}
         className="grow h-9 cursor-pointer text-sm focus:outline-none bg-inherit placeholder:opacity-50 text-black dark:text-white px-2"
       />
